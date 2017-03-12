@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="f0h-CU-eDy">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Books-->
+        <scene sceneID="fI8-jc-3fp">
+            <objects>
+                <tableViewController title="Books" id="ZYy-wf-0Vl" customClass="BooksTableTableViewController" customModule="FluffyBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="38" sectionHeaderHeight="28" sectionFooterHeight="28" id="cpH-II-khN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BookIdentifier" textLabel="cW1-pj-5LS" style="IBUITableViewCellStyleDefault" id="Wzp-GO-0R2">
+                                <rect key="frame" x="0.0" y="28" width="375" height="38"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wzp-GO-0R2" id="FJX-YD-uys">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="37.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Book1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cW1-pj-5LS">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="37.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="hBK-1h-dWE" kind="show" id="6UD-Em-iK4"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="ZYy-wf-0Vl" id="wbK-Ny-oPd"/>
+                            <outlet property="delegate" destination="ZYy-wf-0Vl" id="4PX-Hk-WgZ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Books" id="Lfw-RD-bvd"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dic-we-Rgf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1615" y="1675"/>
+        </scene>
+        <!--Book Reader View Controller-->
+        <scene sceneID="XAG-L4-qYZ">
+            <objects>
+                <viewController id="hBK-1h-dWE" customClass="BookReaderViewController" customModule="FluffyBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9LO-Tf-F4S"/>
+                        <viewControllerLayoutGuide type="bottom" id="c8L-ft-0Z1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lOl-Kq-M33">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wg1-Pw-qlZ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="509"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="g9a-28-FaR">
+                                <rect key="frame" x="-2" y="580" width="379" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="bookTextView" destination="Wg1-Pw-qlZ" id="leM-rO-l3F"/>
+                        <outlet property="progressSlider" destination="g9a-28-FaR" id="YdX-sh-WIf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6bM-AS-2Yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1615.2" y="2408.5457271364321"/>
+        </scene>
+        <!--Word Translation View Controller-->
+        <scene sceneID="jTF-YV-O24">
+            <objects>
+                <viewController id="xYO-AP-Jm7" customClass="WordTranslationViewController" customModule="FluffyBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fnr-eP-UkG"/>
+                        <viewControllerLayoutGuide type="bottom" id="wDt-L1-ByC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A74-9T-Zt8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Word" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBK-i2-MiY">
+                                <rect key="frame" x="16" y="97" width="125" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Translation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dx5-cv-CHm">
+                                <rect key="frame" x="16" y="178" width="92" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[Transcription]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdd-BZ-BEj">
+                                <rect key="frame" x="238" y="117" width="113" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="TranscriptionLabel" destination="Zdd-BZ-BEj" id="FBS-17-0wh"/>
+                        <outlet property="transcriptionLabel" destination="Zdd-BZ-BEj" id="fST-E5-rn7"/>
+                        <outlet property="translationLabel" destination="Dx5-cv-CHm" id="9Du-sd-AIi"/>
+                        <outlet property="wordLabel" destination="NBK-i2-MiY" id="AGm-f8-Emq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HdK-zR-HtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-130.40000000000001" y="2408.5457271364321"/>
+        </scene>
+        <!--Books-->
+        <scene sceneID="Ws7-Ya-5bg">
+            <objects>
+                <navigationController title="Books" id="JSp-CT-asS" userLabel="Books" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Books" id="H02-cP-cIK"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="63b-Xp-E4O">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ZYy-wf-0Vl" kind="relationship" relationship="rootViewController" id="rx4-TW-nJq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K07-s7-jI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1615" y="903"/>
+        </scene>
+        <!--Dictonary-->
+        <scene sceneID="dmz-NZ-EnK">
+            <objects>
+                <tableViewController id="to1-O3-WPw" userLabel="Dictonary" customClass="DictionaryTableViewController" customModule="FluffyBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="r39-GW-bxH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WordIdentifier" textLabel="4YW-kj-4Qq" style="IBUITableViewCellStyleDefault" id="He1-VU-MUg">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="He1-VU-MUg" id="ao0-Ky-pfo">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Word1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4YW-kj-4Qq">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="xYO-AP-Jm7" kind="show" id="oQt-zd-Ups"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="to1-O3-WPw" id="Qju-uT-zdd"/>
+                            <outlet property="delegate" destination="to1-O3-WPw" id="iU6-UE-RyC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Dictionary" id="GXM-jy-lXE"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OnA-54-cRu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-130" y="1675"/>
+        </scene>
+        <!--Dictionary-->
+        <scene sceneID="3IP-8t-lZH">
+            <objects>
+                <navigationController title="Dictionary" id="WtC-8f-iSy" userLabel="Dictionary" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Dictionary" id="06D-vH-sP7"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="11T-re-9OW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="to1-O3-WPw" kind="relationship" relationship="rootViewController" id="c8k-Zw-Sxg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="waC-QC-BfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-130" y="903"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="Lil-ce-Vk6">
+            <objects>
+                <viewController id="BSS-vB-QLe" userLabel="Settings" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ING-nO-WRc"/>
+                        <viewControllerLayoutGuide type="bottom" id="pgj-E4-xzw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Okz-w4-uQe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UeH-vi-8px">
+                                <rect key="frame" x="164" y="330" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" id="twh-ge-ISx"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wwc-50-Y8Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1377" y="903"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="dkP-t6-xGW">
+            <objects>
+                <tabBarController id="f0h-CU-eDy" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="ElN-zQ-g4T">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="JSp-CT-asS" kind="relationship" relationship="viewControllers" id="ojH-BD-H3p"/>
+                        <segue destination="WtC-8f-iSy" kind="relationship" relationship="viewControllers" id="L6q-F3-me8"/>
+                        <segue destination="BSS-vB-QLe" kind="relationship" relationship="viewControllers" id="l4j-f2-fva"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RNg-Jt-djW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-130" y="-81"/>
+        </scene>
+    </scenes>
+</document>
