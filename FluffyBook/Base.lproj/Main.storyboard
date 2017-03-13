@@ -63,11 +63,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wg1-Pw-qlZ">
-                                <rect key="frame" x="0.0" y="64" width="375" height="509"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wg1-Pw-qlZ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="381"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -138,8 +137,8 @@
         <scene sceneID="Ws7-Ya-5bg">
             <objects>
                 <navigationController title="Books" id="JSp-CT-asS" userLabel="Books" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Books" id="H02-cP-cIK"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="63b-Xp-E4O">
+                    <tabBarItem key="tabBarItem" title="Books" image="text" selectedImage="text" id="H02-cP-cIK"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="63b-Xp-E4O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -197,8 +196,8 @@
         <scene sceneID="3IP-8t-lZH">
             <objects>
                 <navigationController title="Dictionary" id="WtC-8f-iSy" userLabel="Dictionary" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Dictionary" id="06D-vH-sP7"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="11T-re-9OW">
+                    <tabBarItem key="tabBarItem" title="Words" image="like" selectedImage="like" id="06D-vH-sP7"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="11T-re-9OW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -230,7 +229,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="twh-ge-ISx"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" selectedImage="settings" id="twh-ge-ISx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wwc-50-Y8Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -256,4 +255,9 @@
             <point key="canvasLocation" x="-130" y="-81"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="like" width="25" height="25"/>
+        <image name="settings" width="25" height="25"/>
+        <image name="text" width="25" height="25"/>
+    </resources>
 </document>
