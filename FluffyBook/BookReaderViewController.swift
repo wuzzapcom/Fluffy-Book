@@ -23,12 +23,10 @@ class BookReaderViewController: UIViewController {
         
         progressSlider?.value = (bookModel?.getCurrentProgressPercent())!
         
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 
 }

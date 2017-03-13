@@ -18,6 +18,7 @@ class DictionaryTableViewController: UITableViewController {
         //Just one instanse of BookReaderModel, initialization in AppDelegate
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
         
+        
     }
 
 
