@@ -12,27 +12,42 @@ import Foundation
 class BooksTableViewModel{
     
     
-    func getBookName(number : Int) -> String {
+    func getBookName(indexPath : IndexPath) -> String {
         
         return "Harry Potter"
         
     }
     
-    func getAuthor(number : Int) -> String {
+    func getAuthor(indexPath : IndexPath) -> String {
         
         return "J.K. Rowling"
         
     }
     
-    func getTags(number : Int) -> String {
+    func getTags(indexPath : IndexPath) -> String {
         
         return "#forKids"
         
     }
     
-    func getImageName(number : Int) -> String {
+    func getImageName(indexPath : IndexPath) -> String {
         
         return "HarryPotterLogo"
+        
+    }
+    
+    
+    func setSelectedCell(indexPath : IndexPath) {}
+    
+    func getNumberOfSections() -> Int {
+        
+        return 1
+        
+    }
+    
+    func getNumberOfRows(section : Int) -> Int {
+        
+        return 1
         
     }
     

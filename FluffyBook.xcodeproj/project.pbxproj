@@ -20,6 +20,8 @@
 		9E96194A1E7432B9003A5DA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9619491E7432B9003A5DA1 /* ViewController.swift */; };
 		9E96194D1E7432B9003A5DA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E96194B1E7432B9003A5DA1 /* Main.storyboard */; };
 		9E9619521E7432B9003A5DA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9619501E7432B9003A5DA1 /* LaunchScreen.storyboard */; };
+		9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9BD5761E798E6200ACB6FD /* DictionaryTableViewModel.swift */; };
+		9E9BD5791E798F1600ACB6FD /* DictionaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9BD5781E798F1600ACB6FD /* DictionaryTableViewCell.swift */; };
 		9EADD05B1E7734E400FA6189 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EADD05A1E7734E400FA6189 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +41,8 @@
 		9E96194C1E7432B9003A5DA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E9619511E7432B9003A5DA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E9619531E7432B9003A5DA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E9BD5761E798E6200ACB6FD /* DictionaryTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryTableViewModel.swift; sourceTree = "<group>"; };
+		9E9BD5781E798F1600ACB6FD /* DictionaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryTableViewCell.swift; sourceTree = "<group>"; };
 		9EADD05A1E7734E400FA6189 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +92,7 @@
 				9E677BD81E7453A600113D6B /* BookModel.swift */,
 				9E677BDA1E7453B500113D6B /* WordTranslationModel.swift */,
 				9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */,
+				9E9BD5761E798E6200ACB6FD /* DictionaryTableViewModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -96,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				9E7C1F941E795CD9009A0A01 /* BooksTableViewCell.swift */,
+				9E9BD5781E798F1600ACB6FD /* DictionaryTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -208,9 +214,11 @@
 				9E96194A1E7432B9003A5DA1 /* ViewController.swift in Sources */,
 				9E677BD11E744B9100113D6B /* BookReaderViewController.swift in Sources */,
 				9E7C1F981E795FF0009A0A01 /* BooksTableViewModel.swift in Sources */,
+				9E9BD5791E798F1600ACB6FD /* DictionaryTableViewCell.swift in Sources */,
 				9E677BDB1E7453B500113D6B /* WordTranslationModel.swift in Sources */,
 				9E677BD51E744F3200113D6B /* BookReaderModel.swift in Sources */,
 				9E677BD31E744BBE00113D6B /* WordTranslationViewController.swift in Sources */,
+				9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */,
 				9E677BCD1E7441D600113D6B /* BooksTableTableViewController.swift in Sources */,
 				9E9619481E7432B9003A5DA1 /* AppDelegate.swift in Sources */,
 				9E677BD91E7453A600113D6B /* BookModel.swift in Sources */,

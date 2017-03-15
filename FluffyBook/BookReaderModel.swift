@@ -30,5 +30,11 @@ class BookReaderModel {
         
     }
     
+    func getDictionaryTableViewModel() -> DictionaryTableViewModel{
+        
+        return DictionaryTableViewModel()
+        
+    }
+    
     
 }

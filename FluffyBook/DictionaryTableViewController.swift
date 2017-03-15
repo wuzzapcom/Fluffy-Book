@@ -10,13 +10,16 @@ import UIKit
 
 class DictionaryTableViewController: UITableViewController {
     
-    public var bookReaderModel : BookReaderModel?
+    var bookReaderModel : BookReaderModel?
+    var dictionaryTableViewModel : DictionaryTableViewModel?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //Just one instanse of BookReaderModel, initialization in AppDelegate
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
+        dictionaryTableViewModel = bookReaderModel?.getDictionaryTableViewModel()
         
         
     }
@@ -24,13 +27,13 @@ class DictionaryTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 1
+        return dictionaryTableViewModel!.getNumberOfSections()
         
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return dictionaryTableViewModel!.getNumberOfRows(section: section)
         
     }
 
@@ -38,12 +41,21 @@ class DictionaryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "WordIdentifier", for: indexPath)
+            as? DictionaryTableViewCell
 
-        cell.textLabel!.text = "Word1"
+        cell?.wordLabel?.text = dictionaryTableViewModel?.getWord(indexPath : indexPath)
+        cell?.translationLabel?.text = dictionaryTableViewModel?.getTranslation(indexPath : indexPath)
         
-        return cell
+        return cell!
         
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        dictionaryTableViewModel?.setSelectedCell(indexPath: indexPath)
+        
+    }
+    
 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

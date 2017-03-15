@@ -27,13 +27,13 @@ class BooksTableTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 1
+        return booksTableViewModel!.getNumberOfSections()
         
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return booksTableViewModel!.getNumberOfRows(section: section)
         
     }
 
@@ -42,13 +42,18 @@ class BooksTableTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCellIdentifier", for: indexPath) as? (BooksTableViewCell)
         
-        cell?.bookNameLabel!.text = booksTableViewModel?.getBookName(number: indexPath.row)
-        cell?.bookAuthorLabel!.text = booksTableViewModel?.getAuthor(number: indexPath.row)
-        cell?.tagsLabel!.text = booksTableViewModel?.getTags(number: indexPath.row)
-        cell?.bookPictureImageView?.image = UIImage(imageLiteralResourceName: (booksTableViewModel?.getImageName(number: indexPath.row))!)
+        cell?.bookNameLabel!.text = booksTableViewModel?.getBookName(indexPath : indexPath)
+        cell?.bookAuthorLabel!.text = booksTableViewModel?.getAuthor(indexPath : indexPath)
+        cell?.tagsLabel!.text = booksTableViewModel?.getTags(indexPath : indexPath)
+        cell?.bookPictureImageView?.image = UIImage(imageLiteralResourceName: (booksTableViewModel?.getImageName(indexPath : indexPath))!)
 
         return cell!
         
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        booksTableViewModel?.setSelectedCell(indexPath: indexPath)
     }
 
 
