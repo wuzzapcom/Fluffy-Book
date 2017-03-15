@@ -14,6 +14,8 @@
 		9E677BD51E744F3200113D6B /* BookReaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E677BD41E744F3200113D6B /* BookReaderModel.swift */; };
 		9E677BD91E7453A600113D6B /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E677BD81E7453A600113D6B /* BookModel.swift */; };
 		9E677BDB1E7453B500113D6B /* WordTranslationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E677BDA1E7453B500113D6B /* WordTranslationModel.swift */; };
+		9E7C1F951E795CD9009A0A01 /* BooksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C1F941E795CD9009A0A01 /* BooksTableViewCell.swift */; };
+		9E7C1F981E795FF0009A0A01 /* BooksTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */; };
 		9E9619481E7432B9003A5DA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9619471E7432B9003A5DA1 /* AppDelegate.swift */; };
 		9E96194A1E7432B9003A5DA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9619491E7432B9003A5DA1 /* ViewController.swift */; };
 		9E96194D1E7432B9003A5DA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E96194B1E7432B9003A5DA1 /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 		9E677BD41E744F3200113D6B /* BookReaderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookReaderModel.swift; sourceTree = "<group>"; };
 		9E677BD81E7453A600113D6B /* BookModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		9E677BDA1E7453B500113D6B /* WordTranslationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordTranslationModel.swift; sourceTree = "<group>"; };
+		9E7C1F941E795CD9009A0A01 /* BooksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksTableViewCell.swift; sourceTree = "<group>"; };
+		9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksTableViewModel.swift; sourceTree = "<group>"; };
 		9E9619441E7432B9003A5DA1 /* FluffyBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluffyBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9619471E7432B9003A5DA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9619491E7432B9003A5DA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 		9E677BD61E744F4E00113D6B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E7C1F961E795CE0009A0A01 /* TableViewCells */,
 				9E3793521E7566E900882E58 /* TableViews */,
 				9E3793531E7566F800882E58 /* ViewControllers */,
 			);
@@ -82,8 +87,17 @@
 				9E677BD41E744F3200113D6B /* BookReaderModel.swift */,
 				9E677BD81E7453A600113D6B /* BookModel.swift */,
 				9E677BDA1E7453B500113D6B /* WordTranslationModel.swift */,
+				9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		9E7C1F961E795CE0009A0A01 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				9E7C1F941E795CD9009A0A01 /* BooksTableViewCell.swift */,
+			);
+			name = TableViewCells;
 			sourceTree = "<group>";
 		};
 		9E96193B1E7432B8003A5DA1 = {
@@ -190,8 +204,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E7C1F951E795CD9009A0A01 /* BooksTableViewCell.swift in Sources */,
 				9E96194A1E7432B9003A5DA1 /* ViewController.swift in Sources */,
 				9E677BD11E744B9100113D6B /* BookReaderViewController.swift in Sources */,
+				9E7C1F981E795FF0009A0A01 /* BooksTableViewModel.swift in Sources */,
 				9E677BDB1E7453B500113D6B /* WordTranslationModel.swift in Sources */,
 				9E677BD51E744F3200113D6B /* BookReaderModel.swift in Sources */,
 				9E677BD31E744BBE00113D6B /* WordTranslationViewController.swift in Sources */,

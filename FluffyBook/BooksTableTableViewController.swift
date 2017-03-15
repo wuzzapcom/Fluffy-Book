@@ -10,13 +10,16 @@ import UIKit
 
 class BooksTableTableViewController: UITableViewController {
     
-    public var bookReaderModel : BookReaderModel?
+    var bookReaderModel : BookReaderModel?
+    var booksTableViewModel : BooksTableViewModel?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Just one instanse of BookReaderModel, initialization in AppDelegate
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
+        booksTableViewModel = bookReaderModel?.getBooksTableViewModel()
         
         
     }
@@ -37,11 +40,14 @@ class BooksTableTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BookIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCellIdentifier", for: indexPath) as? (BooksTableViewCell)
+        
+        cell?.bookNameLabel!.text = booksTableViewModel?.getBookName(number: indexPath.row)
+        cell?.bookAuthorLabel!.text = booksTableViewModel?.getAuthor(number: indexPath.row)
+        cell?.tagsLabel!.text = booksTableViewModel?.getTags(number: indexPath.row)
+        cell?.bookPictureImageView?.image = UIImage(imageLiteralResourceName: (booksTableViewModel?.getImageName(number: indexPath.row))!)
 
-        cell.textLabel!.text = "Book1"
-
-        return cell
+        return cell!
         
     }
 

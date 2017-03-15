@@ -24,4 +24,11 @@ class BookReaderModel {
     }
     
     
+    func getBooksTableViewModel() -> BooksTableViewModel {
+        
+        return BooksTableViewModel()
+        
+    }
+    
+    
 }
