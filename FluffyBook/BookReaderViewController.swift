@@ -11,13 +11,22 @@ import UIKit
 class BookReaderViewController: UIViewController {
     
     var bookModel : BookModel?
+    
+    var isStatusBarHidden: Bool = false
+    
+    override var prefersStatusBarHidden: Bool{
+        return isStatusBarHidden
+    }
 
 
     @IBOutlet weak var bookTextView: UITextView!
     @IBOutlet weak var progressSlider: UISlider!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        self.automaticallyAdjustsScrollViewInsets = false
         
         bookTextView?.text = bookModel?.getTextFromCurrentPage()
         
@@ -25,17 +34,64 @@ class BookReaderViewController: UIViewController {
         
         hideTabBarAndUpdateViews()
         
-
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapHideInterface(_:)))
+        
+        bookTextView.addGestureRecognizer(tap)
         
     }
     
+    func handleTapHideInterface(_ sender : UITapGestureRecognizer){
+        
+        if !self.navigationController!.isNavigationBarHidden {
+        
+            hideNavigationBar()
+            
+        } else {
+            
+            showNavigationBar()
+            
+        }
+        
+    }
+    
+    func showNavigationBar() {
+        
+        isStatusBarHidden = false
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        let heightOffset = self.navigationController?.navigationBar.frame.height
+        
+        changeBookTextViewSize(offset: -heightOffset!)
+        
+        bookTextView.frame = bookTextView.frame.offsetBy(dx: 0, dy: heightOffset!)
+        
+    }
+    
+    
+    func hideNavigationBar() {
+        
+        isStatusBarHidden = true
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        let heightOffset = self.navigationController?.navigationBar.frame.height
+
+        changeBookTextViewSize(offset: heightOffset!)
+
+        bookTextView.frame = bookTextView.frame.offsetBy(dx: 0, dy: -heightOffset!)
+        
+    }
+    
+    
+    
     func hideTabBarAndUpdateViews(){
         
-        setTabBarVisible(visible: false, animated: false)
+        setTabBarVisible(visible: false, animated: true)
         
         moveSliderToBottom()
         
-        changeBookTextViewSize()
+        changeBookTextViewSize(offset: countOffsetYForTabBar())
         
     }
     
@@ -46,7 +102,7 @@ class BookReaderViewController: UIViewController {
         
         let frame = self.tabBarController?.tabBar.frame
         
-        let height = countOffsetY()
+        let height = countOffsetYForTabBar()
         let offsetY = (visible ? -height : height)
         
         let duration : TimeInterval = (animated ? 0.3 : 0.0)
@@ -70,21 +126,27 @@ class BookReaderViewController: UIViewController {
     
     func moveSliderToBottom(){
         
-        let height = countOffsetY()
+        let height = countOffsetYForTabBar()
         
         progressSlider.frame = progressSlider.frame.offsetBy(dx: 0, dy: height)
         
     }
     
-    func countOffsetY() -> CGFloat {
+    func countOffsetYForTabBar() -> CGFloat {
         
         return (self.tabBarController?.tabBar.frame.size.height)!
         
     }
     
-    func changeBookTextViewSize(){
+    func changeBookTextViewSize(offset : CGFloat){
         
-        bookTextView.frame.size.height += countOffsetY()
+        bookTextView.frame.size.height += offset
+    
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        setTabBarVisible(visible: true, animated: true)
         
     }
     
