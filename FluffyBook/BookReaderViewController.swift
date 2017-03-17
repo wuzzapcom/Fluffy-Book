@@ -23,10 +23,70 @@ class BookReaderViewController: UIViewController {
         
         progressSlider?.value = (bookModel?.getCurrentProgressPercent())!
         
-    }
+        hideTabBarAndUpdateViews()
+        
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        
     }
+    
+    func hideTabBarAndUpdateViews(){
+        
+        setTabBarVisible(visible: false, animated: false)
+        
+        moveSliderToBottom()
+        
+        changeBookTextViewSize()
+        
+    }
+    
+    
+    func setTabBarVisible(visible : Bool, animated : Bool) {
+        
+        if (tabBarIsVisible() == visible) {return}
+        
+        let frame = self.tabBarController?.tabBar.frame
+        
+        let height = countOffsetY()
+        let offsetY = (visible ? -height : height)
+        
+        let duration : TimeInterval = (animated ? 0.3 : 0.0)
+        
+        if frame != nil {
+            
+            UIView.animate(withDuration: duration) {
+                self.tabBarController?.tabBar.frame = frame!.offsetBy(dx: 0, dy: offsetY)
+                return
+            }
+            
+        }
+        
+    }
+    
+    func tabBarIsVisible() -> Bool {
+        
+        return (self.tabBarController?.tabBar.frame.origin.y)! < self.view.frame.maxY
+        
+    }
+    
+    func moveSliderToBottom(){
+        
+        let height = countOffsetY()
+        
+        progressSlider.frame = progressSlider.frame.offsetBy(dx: 0, dy: height)
+        
+    }
+    
+    func countOffsetY() -> CGFloat {
+        
+        return (self.tabBarController?.tabBar.frame.size.height)!
+        
+    }
+    
+    func changeBookTextViewSize(){
+        
+        bookTextView.frame.size.height += countOffsetY()
+        
+    }
+    
 
 }
