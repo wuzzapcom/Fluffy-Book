@@ -10,6 +10,15 @@ import UIKit
 
 class BookReaderViewController: UIViewController {
     
+    /*
+     
+        Hack with 3D Touch : with it app calls viewDidLoad() two times and viewDidDissappear() 3 times(What the fuck?).
+        So there is comparing to nil in hideTabBarAndUpdateViews() and setTabBarVisible().
+        And there is calling hideTabBarAndUpdateViews() in previewingContext(_:, commit:).
+        Terrible.
+ 
+     */
+    
     var bookModel : BookModel?
     
     var isStatusBarHidden: Bool = false
@@ -25,17 +34,21 @@ class BookReaderViewController: UIViewController {
         
         super.viewDidLoad()
         
+        print("viewDidLoad")
+        
         self.automaticallyAdjustsScrollViewInsets = false
         
         bookTextView?.text = bookModel?.getTextFromCurrentPage()
         
         progressSlider?.value = (bookModel?.getCurrentProgressPercent())!
         
-        //hideTabBarAndUpdateViews()
+        hideTabBarAndUpdateViews()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapHideInterface(_:)))
         
         bookTextView.addGestureRecognizer(tap)
+        
+        progressSlider.setThumbImage(UIImage(named: "a.png"), for: UIControlState.normal)
         
     }
     
@@ -85,7 +98,10 @@ class BookReaderViewController: UIViewController {
     
     
     func hideTabBarAndUpdateViews(){
-
+        
+        if self.tabBarController == nil {
+            return
+        }
         
         setTabBarVisible(visible: false, animated: true)
         
@@ -148,7 +164,9 @@ class BookReaderViewController: UIViewController {
     
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        print("viewDidDisappear")
         
         setTabBarVisible(visible: true, animated: true)
         

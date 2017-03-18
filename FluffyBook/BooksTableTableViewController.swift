@@ -96,8 +96,6 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         vc.hideTabBarAndUpdateViews()
         
-        
-        
     }
     
     func setModelToDestinationViewController(vc : BookReaderViewController){
