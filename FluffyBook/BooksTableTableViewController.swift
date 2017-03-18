@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BooksTableTableViewController: UITableViewController {
+class BooksTableTableViewController: UITableViewController, UIViewControllerPreviewingDelegate {
     
     var bookReaderModel : BookReaderModel?
     var booksTableViewModel : BooksTableViewModel?
@@ -21,6 +21,16 @@ class BooksTableTableViewController: UITableViewController {
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
         booksTableViewModel = bookReaderModel?.getBooksTableViewModel()
         
+        registerViewForPreview()
+        
+        
+    }
+    
+    func registerViewForPreview(){
+        
+        if UIApplication.shared.keyWindow?.traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            registerForPreviewing(with: self, sourceView: self.view)
+        }
         
     }
 
@@ -55,13 +65,55 @@ class BooksTableTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         booksTableViewModel?.setSelectedCell(indexPath: indexPath)
     }
+    
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        let indexPath = self.tableView?.indexPathForRow(at: location)
+        
+        let cell = self.tableView?.cellForRow(at: indexPath!)
+        
+        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "BookReaderViewController") as? BookReaderViewController
+        
+        setModelToDestinationViewController(vc: detailViewController!)
+        
+        detailViewController?.preferredContentSize = CGSize(width: 0.0, height: 300)
+        
+        previewingContext.sourceRect = (cell?.frame)!
+        
+        return detailViewController
+        
+        
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        
+        self.navigationController?.pushViewController(viewControllerToCommit, animated: false)
+        
+        let vc = viewControllerToCommit as! BookReaderViewController
+        
+        showDetailViewController(viewControllerToCommit, sender: self)
+        
+        vc.hideTabBarAndUpdateViews()
+        
+        
+        
+    }
+    
+    func setModelToDestinationViewController(vc : BookReaderViewController){
+        
+        vc.bookModel = bookReaderModel?.getBookModelObject()
+        
+    }
+    
+    
 
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let seg = segue.destination as? BookReaderViewController {
             
-            seg.bookModel = bookReaderModel?.getBookModelObject()
+            setModelToDestinationViewController(vc: seg)
             
         }
 

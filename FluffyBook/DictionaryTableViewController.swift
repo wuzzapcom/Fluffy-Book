@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DictionaryTableViewController: UITableViewController {
+class DictionaryTableViewController: UITableViewController, UIViewControllerPreviewingDelegate {
     
     var bookReaderModel : BookReaderModel?
     var dictionaryTableViewModel : DictionaryTableViewModel?
@@ -21,6 +21,15 @@ class DictionaryTableViewController: UITableViewController {
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
         dictionaryTableViewModel = bookReaderModel?.getDictionaryTableViewModel()
         
+        registerViewForPreview()
+        
+    }
+    
+    func registerViewForPreview(){
+        
+        if UIApplication.shared.keyWindow?.traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            registerForPreviewing(with: self, sourceView: self.view)
+        }
         
     }
 
@@ -56,13 +65,51 @@ class DictionaryTableViewController: UITableViewController {
         
     }
     
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
 
+        let indexPath = self.tableView?.indexPathForRow(at: location)
+        
+        let cell = self.tableView?.cellForRow(at: indexPath!)
+        
+        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "WordTranslationViewController") as? WordTranslationViewController
+        
+        setModelToDestinationViewController(vc: detailViewController!)
+        
+        detailViewController?.preferredContentSize = CGSize(width: 0.0, height: 300)
+        
+        previewingContext.sourceRect = (cell?.frame)!
+        
+//        self.navigationController?.pushViewController(detailViewController!, animated: false)
+        
+        return detailViewController
+        
+        //let navigationController = UINavigationController(rootViewController: detailViewController!)
+        
+        //return navigationController
+        //return detailViewController
+        
+        
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        
+        self.navigationController?.pushViewController(viewControllerToCommit, animated: false)
+        
+        showDetailViewController(viewControllerToCommit, sender: self)
+        
+    }
+    
+    func setModelToDestinationViewController( vc : WordTranslationViewController ){
+        
+        vc.wordTranslationModel = bookReaderModel?.getWordTranslationModel()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let seg = segue.destination as? WordTranslationViewController {
             
-            seg.wordTranslationModel = bookReaderModel?.getWordTranslationModel()
+            setModelToDestinationViewController(vc: seg)
             
         }
         

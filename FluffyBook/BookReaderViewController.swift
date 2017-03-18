@@ -18,7 +18,6 @@ class BookReaderViewController: UIViewController {
         return isStatusBarHidden
     }
 
-
     @IBOutlet weak var bookTextView: UITextView!
     @IBOutlet weak var progressSlider: UISlider!
     
@@ -32,7 +31,7 @@ class BookReaderViewController: UIViewController {
         
         progressSlider?.value = (bookModel?.getCurrentProgressPercent())!
         
-        hideTabBarAndUpdateViews()
+        //hideTabBarAndUpdateViews()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapHideInterface(_:)))
         
@@ -86,6 +85,7 @@ class BookReaderViewController: UIViewController {
     
     
     func hideTabBarAndUpdateViews(){
+
         
         setTabBarVisible(visible: false, animated: true)
         
@@ -97,6 +97,10 @@ class BookReaderViewController: UIViewController {
     
     
     func setTabBarVisible(visible : Bool, animated : Bool) {
+        
+        if self.tabBarController == nil {
+            return
+        }
         
         if (tabBarIsVisible() == visible) {return}
         
