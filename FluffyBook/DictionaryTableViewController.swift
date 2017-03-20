@@ -80,15 +80,8 @@ class DictionaryTableViewController: UITableViewController, UIViewControllerPrev
         
         previewingContext.sourceRect = (cell?.frame)!
         
-//        self.navigationController?.pushViewController(detailViewController!, animated: false)
         
         return detailViewController
-        
-        //let navigationController = UINavigationController(rootViewController: detailViewController!)
-        
-        //return navigationController
-        //return detailViewController
-        
         
     }
     

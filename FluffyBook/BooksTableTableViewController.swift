@@ -90,11 +90,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         self.navigationController?.pushViewController(viewControllerToCommit, animated: false)
         
-        let vc = viewControllerToCommit as! BookReaderViewController
-        
         showDetailViewController(viewControllerToCommit, sender: self)
-        
-        vc.hideTabBarAndUpdateViews()
         
     }
     
@@ -104,10 +100,13 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
-    
-
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let backButton = UIBarButtonItem()
+        
+        backButton.title = ""
+ 
+        self.navigationItem.backBarButtonItem = backButton
         
         if let seg = segue.destination as? BookReaderViewController {
             

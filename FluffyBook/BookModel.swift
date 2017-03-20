@@ -23,4 +23,10 @@ class BookModel{
         
     }
     
+    func getBookTitle() -> String {
+        
+        return "Harry Potter and Philosopher`s Stone"
+        
+    }
+    
 }

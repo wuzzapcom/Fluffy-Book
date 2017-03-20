@@ -10,15 +10,6 @@ import UIKit
 
 class BookReaderViewController: UIViewController {
     
-    /*
-     
-        Hack with 3D Touch : with it app calls viewDidLoad() two times and viewDidDissappear() 3 times(What the fuck?).
-        So there is comparing to nil in hideTabBarAndUpdateViews() and setTabBarVisible().
-        And there is calling hideTabBarAndUpdateViews() in previewingContext(_:, commit:).
-        Terrible.
- 
-     */
-    
     var bookModel : BookModel?
     
     var isStatusBarHidden: Bool = false
@@ -34,21 +25,72 @@ class BookReaderViewController: UIViewController {
         
         super.viewDidLoad()
         
-        print("viewDidLoad")
-        
         self.automaticallyAdjustsScrollViewInsets = false
+
+        fillViewByModel()
+
+        addTapHandler()
         
-        bookTextView?.text = bookModel?.getTextFromCurrentPage()
+        customizeProgressSlider()
         
-        progressSlider?.value = (bookModel?.getCurrentProgressPercent())!
+        addButtonsToNavigationController()
         
-        hideTabBarAndUpdateViews()
+        customizeNavigationBar()
+
+    }
+    
+    func fillViewByModel() {
+        
+        bookTextView?.text = bookModel!.getTextFromCurrentPage()
+        
+        progressSlider?.value = bookModel!.getCurrentProgressPercent()
+        
+        self.title = bookModel!.getBookTitle()
+        
+    }
+    
+    func addTapHandler() {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapHideInterface(_:)))
         
         bookTextView.addGestureRecognizer(tap)
         
-        progressSlider.setThumbImage(UIImage(named: "a.png"), for: UIControlState.normal)
+    }
+    
+    func customizeProgressSlider() {
+        
+        progressSlider.setThumbImage(#imageLiteral(resourceName: "Bookmark"), for: UIControlState.normal)
+        
+    }
+    
+    func addButtonsToNavigationController(){
+    
+        let markButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: nil)
+        
+//        markButton.title = "Marks"
+        
+        let contentsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: UIBarButtonItemStyle.plain, target: self, action: nil)
+        
+        self.navigationItem.rightBarButtonItems = [markButton, contentsButton]
+    
+    }
+    
+    func customizeNavigationBar(){
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = UIColor.clear
+        
+    }
+    
+    func setNavigationBarToDefaults(){
+        
+        self.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = nil
+        
         
     }
     
@@ -94,69 +136,7 @@ class BookReaderViewController: UIViewController {
         bookTextView.frame = bookTextView.frame.offsetBy(dx: 0, dy: -heightOffset!)
         
     }
-    
-    
-    
-    func hideTabBarAndUpdateViews(){
-        
-        if self.tabBarController == nil {
-            return
-        }
-        
-        setTabBarVisible(visible: false, animated: true)
-        
-        moveSliderToBottom()
-        
-        changeBookTextViewSize(offset: countOffsetYForTabBar())
-        
-    }
-    
-    
-    func setTabBarVisible(visible : Bool, animated : Bool) {
-        
-        if self.tabBarController == nil {
-            return
-        }
-        
-        if (tabBarIsVisible() == visible) {return}
-        
-        let frame = self.tabBarController?.tabBar.frame
-        
-        let height = countOffsetYForTabBar()
-        let offsetY = (visible ? -height : height)
-        
-        let duration : TimeInterval = (animated ? 0.3 : 0.0)
-        
-        if frame != nil {
-            
-            UIView.animate(withDuration: duration) {
-                self.tabBarController?.tabBar.frame = frame!.offsetBy(dx: 0, dy: offsetY)
-                return
-            }
-            
-        }
-        
-    }
-    
-    func tabBarIsVisible() -> Bool {
-        
-        return (self.tabBarController?.tabBar.frame.origin.y)! < self.view.frame.maxY
-        
-    }
-    
-    func moveSliderToBottom(){
-        
-        let height = countOffsetYForTabBar()
-        
-        progressSlider.frame = progressSlider.frame.offsetBy(dx: 0, dy: height)
-        
-    }
-    
-    func countOffsetYForTabBar() -> CGFloat {
-        
-        return (self.tabBarController?.tabBar.frame.size.height)!
-        
-    }
+
     
     func changeBookTextViewSize(offset : CGFloat){
         
@@ -164,13 +144,12 @@ class BookReaderViewController: UIViewController {
     
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         
-        print("viewDidDisappear")
-        
-        setTabBarVisible(visible: true, animated: true)
+        setNavigationBarToDefaults()
         
     }
+
     
 
 }
