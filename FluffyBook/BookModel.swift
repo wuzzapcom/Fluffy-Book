@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 class BookModel{
     
     func getCurrentProgressPercent() -> Float {

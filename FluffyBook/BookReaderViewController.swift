@@ -8,40 +8,42 @@
 
 import UIKit
 
-class BookReaderViewController: UIViewController {
+class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var bookModel : BookModel?
     
     var isStatusBarHidden: Bool = false
     
+    var isDetectedGesture: Bool = false
+    
     override var prefersStatusBarHidden: Bool{
         return isStatusBarHidden
     }
-
-    @IBOutlet weak var bookTextView: UITextView!
+    
+    
+//    @IBOutlet weak var bookTextView: UITextView!
     @IBOutlet weak var progressSlider: UISlider!
+    @IBOutlet weak var bookWebView: UIWebView!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        self.automaticallyAdjustsScrollViewInsets = false
 
         fillViewByModel()
-
-        addTapHandler()
         
         customizeProgressSlider()
         
         addButtonsToNavigationController()
         
         customizeNavigationBar()
+        
+        bookWebView.paginationBreakingMode = UIWebPaginationBreakingMode.page
+        bookWebView.paginationMode = UIWebPaginationMode.leftToRight
 
     }
     
     func fillViewByModel() {
-        
-        bookTextView?.text = bookModel!.getTextFromCurrentPage()
+        bookWebView.loadHTMLString(bookModel!.getTextFromCurrentPage(), baseURL: nil)
         
         progressSlider?.value = bookModel!.getCurrentProgressPercent()
         
@@ -49,12 +51,8 @@ class BookReaderViewController: UIViewController {
         
     }
     
-    func addTapHandler() {
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapHideInterface(_:)))
-        
-        bookTextView.addGestureRecognizer(tap)
-        
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     func customizeProgressSlider() {
@@ -66,8 +64,6 @@ class BookReaderViewController: UIViewController {
     func addButtonsToNavigationController(){
     
         let markButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: nil)
-        
-//        markButton.title = "Marks"
         
         let contentsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: UIBarButtonItemStyle.plain, target: self, action: nil)
         
@@ -94,18 +90,40 @@ class BookReaderViewController: UIViewController {
         
     }
     
-    func handleTapHideInterface(_ sender : UITapGestureRecognizer){
-        
-        if !self.navigationController!.isNavigationBarHidden {
-        
-            hideNavigationBar()
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+        if touches.first!.force / touches.first!.maximumPossibleForce > 0.5 {
             
-        } else {
+            print("FORCE TOUCH")
             
-            showNavigationBar()
+            isDetectedGesture = true
             
         }
         
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if event?.type == UIEventType.touches{
+            
+            if touches.first?.tapCount == 1 && !isDetectedGesture {
+                
+                
+                if !self.navigationController!.isNavigationBarHidden {
+                    
+                    hideNavigationBar()
+                    
+                } else {
+                    
+                    showNavigationBar()
+                    
+                }
+                
+            }
+        }
+        
+        isDetectedGesture = false
     }
     
     func showNavigationBar() {
@@ -118,7 +136,7 @@ class BookReaderViewController: UIViewController {
         
         changeBookTextViewSize(offset: -heightOffset!)
         
-        bookTextView.frame = bookTextView.frame.offsetBy(dx: 0, dy: heightOffset!)
+        bookWebView.frame = bookWebView.frame.offsetBy(dx: 0, dy: heightOffset!)
         
     }
     
@@ -133,14 +151,14 @@ class BookReaderViewController: UIViewController {
 
         changeBookTextViewSize(offset: heightOffset!)
 
-        bookTextView.frame = bookTextView.frame.offsetBy(dx: 0, dy: -heightOffset!)
+        bookWebView.frame = bookWebView.frame.offsetBy(dx: 0, dy: -heightOffset!)
         
     }
 
     
     func changeBookTextViewSize(offset : CGFloat){
         
-        bookTextView.frame.size.height += offset
+        bookWebView.frame.size.height += offset
     
     }
     
