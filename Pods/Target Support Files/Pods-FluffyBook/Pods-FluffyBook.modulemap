@@ -1,0 +1,6 @@
+framework module Pods_FluffyBook {
+  umbrella header "Pods-FluffyBook-umbrella.h"
+
+  export *
+  module * { export * }
+}

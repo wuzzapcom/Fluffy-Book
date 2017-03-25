@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25D9CDBBA4B7C63330125A08 /* Pods_FluffyBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F46A1AAF81391C243871AA /* Pods_FluffyBook.framework */; };
 		9E56D1811E80584300A99F2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E56D1801E80584300A99F2C /* Assets.xcassets */; };
 		9E677BCD1E7441D600113D6B /* BooksTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E677BCC1E7441D600113D6B /* BooksTableTableViewController.swift */; };
 		9E677BCF1E74420C00113D6B /* DictionaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E677BCE1E74420C00113D6B /* DictionaryTableViewController.swift */; };
@@ -27,6 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		165110D3D817AD71CA03411E /* Pods-FluffyBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluffyBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FluffyBook/Pods-FluffyBook.debug.xcconfig"; sourceTree = "<group>"; };
+		1812FC5298EB3B2B00703043 /* Pods-FluffyBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluffyBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-FluffyBook/Pods-FluffyBook.release.xcconfig"; sourceTree = "<group>"; };
+		24F46A1AAF81391C243871AA /* Pods_FluffyBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FluffyBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E56D1801E80584300A99F2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E677BCC1E7441D600113D6B /* BooksTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksTableTableViewController.swift; sourceTree = "<group>"; };
 		9E677BCE1E74420C00113D6B /* DictionaryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryTableViewController.swift; sourceTree = "<group>"; };
@@ -53,12 +57,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25D9CDBBA4B7C63330125A08 /* Pods_FluffyBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EBFA0840BF9B9DE50FBC324 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				24F46A1AAF81391C243871AA /* Pods_FluffyBook.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E2B65DB28BE9CE4A9D70418 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				165110D3D817AD71CA03411E /* Pods-FluffyBook.debug.xcconfig */,
+				1812FC5298EB3B2B00703043 /* Pods-FluffyBook.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9E3793521E7566E900882E58 /* TableViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +136,8 @@
 			children = (
 				9E9619461E7432B9003A5DA1 /* FluffyBook */,
 				9E9619451E7432B9003A5DA1 /* Products */,
+				6E2B65DB28BE9CE4A9D70418 /* Pods */,
+				1EBFA0840BF9B9DE50FBC324 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,9 +171,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E9619561E7432B9003A5DA1 /* Build configuration list for PBXNativeTarget "FluffyBook" */;
 			buildPhases = (
+				715C4A36886BC725D651485A /* [CP] Check Pods Manifest.lock */,
 				9E9619401E7432B8003A5DA1 /* Sources */,
 				9E9619411E7432B8003A5DA1 /* Frameworks */,
 				9E9619421E7432B8003A5DA1 /* Resources */,
+				1241ECC3C38FF634109FC754 /* [CP] Embed Pods Frameworks */,
+				99ACF9059E5F395CED9AE3F7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,6 +234,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1241ECC3C38FF634109FC754 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FluffyBook/Pods-FluffyBook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		715C4A36886BC725D651485A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		99ACF9059E5F395CED9AE3F7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FluffyBook/Pods-FluffyBook-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9E9619401E7432B8003A5DA1 /* Sources */ = {
@@ -347,6 +422,7 @@
 		};
 		9E9619571E7432B9003A5DA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 165110D3D817AD71CA03411E /* Pods-FluffyBook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2T6B33B74J;
@@ -360,6 +436,7 @@
 		};
 		9E9619581E7432B9003A5DA1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1812FC5298EB3B2B00703043 /* Pods-FluffyBook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2T6B33B74J;
