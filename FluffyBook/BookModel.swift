@@ -10,6 +10,18 @@ import Foundation
 
 class BookModel{
     
+    var currentPercent : Float?
+    var urlToMetafiles : URL
+    var bookTitle : String
+    
+    init(url : URL, title : String) {
+        
+        urlToMetafiles = url
+        bookTitle = title
+        
+    }
+    
+    
     func getCurrentProgressPercent() -> Float {
         
         return 50.0

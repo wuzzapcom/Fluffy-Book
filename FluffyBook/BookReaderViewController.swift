@@ -134,9 +134,11 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
         
         let heightOffset = self.navigationController?.navigationBar.frame.height
         
-        changeBookTextViewSize(offset: -heightOffset!)
+        changeBookWebViewSize(offset: -heightOffset!)
         
         bookWebView.frame = bookWebView.frame.offsetBy(dx: 0, dy: heightOffset!)
+        
+        showSlider()
         
     }
     
@@ -149,14 +151,37 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
         
         let heightOffset = self.navigationController?.navigationBar.frame.height
 
-        changeBookTextViewSize(offset: heightOffset!)
+        changeBookWebViewSize(offset: heightOffset!)
 
         bookWebView.frame = bookWebView.frame.offsetBy(dx: 0, dy: -heightOffset!)
         
+        hideSlider()
+        
+    }
+    
+    func hideSlider(){
+        
+        let heightOffset = progressSlider.frame.height
+        
+        changeBookWebViewSize(offset: heightOffset)
+        
+        progressSlider.isHidden = true
+    
+    }
+    
+    func showSlider(){
+        
+        let heightOffset = progressSlider.frame.height
+        
+        changeBookWebViewSize(offset: -heightOffset)
+        
+        progressSlider.isHidden = false
+
+    
     }
 
     
-    func changeBookTextViewSize(offset : CGFloat){
+    func changeBookWebViewSize(offset : CGFloat){
         
         bookWebView.frame.size.height += offset
     

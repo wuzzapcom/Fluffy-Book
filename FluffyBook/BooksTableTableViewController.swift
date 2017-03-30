@@ -25,6 +25,18 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         addEditButton()
         
+//        //test
+//        let bookPreview = BookPreviewModel()//(imageName: "PIC", title: "TITLE", author: "AUTHOR", tags: "TAGS", identifier: 0)
+//        bookPreview.bookImageName = "HarryPotterLogo"
+//        bookPreview.bookTitle = "Harry Potter and Philosopher's Stone"
+//        bookPreview.bookAuthor = "J.K. Rowling"
+//        bookPreview.bookTags = "#forkids"
+//        bookPreview.bookIdentifier = 1
+        
+        
+//        booksTableViewModel?.addBookPreviewToDatabase(bookPreview: bookPreview)
+        print(booksTableViewModel!.getBookPreviewsFromDatabase())
+        
         
     }
     
@@ -79,7 +91,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCellIdentifier", for: indexPath) as? (BooksTableViewCell)
         
-        cell?.bookNameLabel!.text = booksTableViewModel?.getBookName(indexPath : indexPath)
+        cell?.bookNameLabel!.text = booksTableViewModel?.getBookTitle(indexPath : indexPath)
         cell?.bookAuthorLabel!.text = booksTableViewModel?.getAuthor(indexPath : indexPath)
         cell?.tagsLabel!.text = booksTableViewModel?.getTags(indexPath : indexPath)
         cell?.bookPictureImageView?.image = UIImage(imageLiteralResourceName: (booksTableViewModel?.getImageName(indexPath : indexPath))!)
@@ -136,7 +148,9 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     
     func setModelToDestinationViewController(vc : BookReaderViewController){
         
-        vc.bookModel = bookReaderModel?.getBookModelObject()
+//        vc.bookModel = bookReaderModel?.getBookModelObject()
+        let indexPath = IndexPath()
+        vc.bookModel = booksTableViewModel?.getSelectedBookModel(forIndex: indexPath)
         
     }
     

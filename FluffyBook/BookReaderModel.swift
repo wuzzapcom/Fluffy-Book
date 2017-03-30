@@ -10,11 +10,11 @@ import Foundation
 
 class BookReaderModel {
     
-    func getBookModelObject() -> BookModel {
-        
-        return BookModel()
-        
-    }
+//    func getBookModelObject() -> BookModel {
+//        
+//        return BookModel()
+//        
+//    }
     
     func getWordTranslationModel() -> WordTranslationModel {
         

@@ -5,4 +5,5 @@ use_frameworks!
 target 'FluffyBook' do
 use_frameworks!
 pod 'FolioReaderKit'
+pod 'RealmSwift'
 end

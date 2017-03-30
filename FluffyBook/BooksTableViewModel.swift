@@ -14,28 +14,39 @@ class BooksTableViewModel{
     var booksSections = 1
     var booksRows = 1
     
+    var books : [BookPreviewModel]
+    var database : DatabaseModel
     
-    func getBookName(indexPath : IndexPath) -> String {
+    init() {
         
-        return "Harry Potter"
+        database = DatabaseModel()
+        
+        books = database.loadBookPreviews()
+        
+    }
+    
+    
+    func getBookTitle(indexPath : IndexPath) -> String {
+        
+        return books[0].bookTitle!
         
     }
     
     func getAuthor(indexPath : IndexPath) -> String {
         
-        return "J.K. Rowling"
+        return books[0].bookAuthor!
         
     }
     
     func getTags(indexPath : IndexPath) -> String {
         
-        return "#forKids"
+        return books[0].bookTags!
         
     }
     
     func getImageName(indexPath : IndexPath) -> String {
         
-        return "HarryPotterLogo"
+        return books[0].bookImageName!
         
     }
     
@@ -50,17 +61,32 @@ class BooksTableViewModel{
     
     func getNumberOfRows(section : Int) -> Int {
         
-        return booksRows
+        return books.count
         
     }
     
     func deleteElement(atRow indexPath : IndexPath) {
         
-        booksRows -= 1
+        books.remove(at: 0)
         
     }
     
+    func getSelectedBookModel(forIndex indexPath : IndexPath) -> BookModel {
+        
+        return BookModel(url: URL(fileURLWithPath: ""), title: "")
+        
+    }
     
+    func addBookPreviewToDatabase(bookPreview : BookPreviewModel){
+        
+        database.addBookPreview(bookPreview: bookPreview)
+        
+    }
     
+    func getBookPreviewsFromDatabase() -> [BookPreviewModel]{
+        
+        return database.loadBookPreviews()
+        
+    }
     
 }
