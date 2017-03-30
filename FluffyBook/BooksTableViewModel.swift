@@ -11,6 +11,9 @@ import Foundation
 
 class BooksTableViewModel{
     
+    var booksSections = 1
+    var booksRows = 1
+    
     
     func getBookName(indexPath : IndexPath) -> String {
         
@@ -41,13 +44,19 @@ class BooksTableViewModel{
     
     func getNumberOfSections() -> Int {
         
-        return 1
+        return booksSections
         
     }
     
     func getNumberOfRows(section : Int) -> Int {
         
-        return 1
+        return booksRows
+        
+    }
+    
+    func deleteElement(atRow indexPath : IndexPath) {
+        
+        booksRows -= 1
         
     }
     

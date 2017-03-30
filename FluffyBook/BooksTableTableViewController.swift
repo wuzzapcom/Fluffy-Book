@@ -23,6 +23,34 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         registerViewForPreview()
         
+        addEditButton()
+        
+        
+    }
+    
+    func addEditButton() {
+        
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTableAndChangeButton))
+        
+        self.navigationItem.rightBarButtonItem = editButton
+        
+    }
+    
+    func editTableAndChangeButton(){
+        
+        setEditing(true, animated: true)
+        
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEditingAndChangeButton))
+        
+        self.navigationItem.rightBarButtonItem = cancelButton
+        
+    }
+    
+    func cancelEditingAndChangeButton() {
+        
+        setEditing(false, animated: true)
+        
+        addEditButton()
         
     }
     
@@ -47,7 +75,6 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCellIdentifier", for: indexPath) as? (BooksTableViewCell)
@@ -63,7 +90,20 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         booksTableViewModel?.setSelectedCell(indexPath: indexPath)
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            booksTableViewModel?.deleteElement(atRow: indexPath)
+            self.tableView.reloadData()
+            
+        }
+        
     }
     
     
