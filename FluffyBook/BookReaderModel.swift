@@ -10,11 +10,20 @@ import Foundation
 
 class BookReaderModel {
     
-//    func getBookModelObject() -> BookModel {
-//        
-//        return BookModel()
-//        
-//    }
+    var database : DatabaseModel
+    
+    init() {
+        
+        database = try! DatabaseModel()
+        
+    }
+    
+    
+    func getDatabase() -> DatabaseModel {
+        
+        return database
+        
+    }
     
     func getWordTranslationModel() -> WordTranslationModel {
         
@@ -25,7 +34,7 @@ class BookReaderModel {
     
     func getBooksTableViewModel() -> BooksTableViewModel {
         
-        return BooksTableViewModel()
+        return BooksTableViewModel(database: database)
         
     }
     

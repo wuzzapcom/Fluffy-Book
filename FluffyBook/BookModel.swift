@@ -7,24 +7,24 @@
 //
 
 import Foundation
+import RealmSwift
 
-class BookModel{
+class BookModel : Object{
     
-    var currentPercent : Float?
-    var urlToMetafiles : URL
-    var bookTitle : String
+    dynamic var currentPercent : Float = 0
+    dynamic var urlToMetafiles : String?
+    dynamic var bookTitle : String?
     
-    init(url : URL, title : String) {
-        
-        urlToMetafiles = url
-        bookTitle = title
-        
-    }
-    
+//    init(url : URL, title : String) {
+//        
+//        urlToMetafiles = url
+//        bookTitle = title
+//        
+//    }
     
     func getCurrentProgressPercent() -> Float {
         
-        return 50.0
+        return currentPercent
         
     }
     
@@ -36,7 +36,7 @@ class BookModel{
     
     func getBookTitle() -> String {
         
-        return "Harry Potter and Philosopher`s Stone"
+        return "Harry Potter and Philosopher's Stone"
         
     }
     

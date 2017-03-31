@@ -10,16 +10,32 @@ import Foundation
 import RealmSwift
 
 class DatabaseModel{
-
-//    func addBookToDatabase(book : BookDatabase){}
     
-//    func addWordToDatabase(word : WordDatabase){}
+    //Singleton class.
+    //Or something like this, i guess.
+    // IMPORTANT 
     
     var db : Realm
     
-    init() {
+    private static var instanses : Int = 0
+    
+    init() throws {
+        
+        if DatabaseModel.instanses == 0 {
+            DatabaseModel.instanses = 1
+        }
+        else {
+            
+            throw DatabaseInstansesException.RuntimeError("More than one instanse of this class")
+            
+        }
         
         db = try! Realm()
+        
+        try! db.write {
+            db.deleteAll()
+        }
+        
         
     }
     
@@ -40,9 +56,6 @@ class DatabaseModel{
     
     func addBookPreview(bookPreview : BookPreviewModel){
         
-//        let bookDB = BookPreviewDatabase()
-//        bookDB.bookPreview = bookPreview
-        
         try! db.write {
             
            db.add(bookPreview)
@@ -51,13 +64,40 @@ class DatabaseModel{
         
     }
     
+    func getBookModel(withTitle ident : String) throws -> BookModel{
+        
+        let results = db.objects(BookModel.self).filter("bookTitle == \"\(ident)\"")
+        
+        if results.count != 1 {
+            
+            throw DatabaseInstansesException.RuntimeError("There is no books with this title or there are few of them.")
+            
+        }
+        
+        return results.first!
+        
+    }
+    
+    func addBookModel(bookModel : BookModel) {
+        
+        try! db.write {
+            
+            db.add(bookModel)
+            
+        }
+        
+    }
+    
 }
 
-//
-//class BookPreviewDatabase : Object{
-//
-//    var bookPreview : BookPreviewModel?
-//
-//}
 
-class WordDatabase{}
+enum DatabaseInstansesException : Error{
+    
+    case RuntimeError(String)
+    
+}
+
+
+
+
+

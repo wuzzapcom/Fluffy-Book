@@ -25,17 +25,35 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         addEditButton()
         
-//        //test
-//        let bookPreview = BookPreviewModel()//(imageName: "PIC", title: "TITLE", author: "AUTHOR", tags: "TAGS", identifier: 0)
-//        bookPreview.bookImageName = "HarryPotterLogo"
-//        bookPreview.bookTitle = "Harry Potter and Philosopher's Stone"
-//        bookPreview.bookAuthor = "J.K. Rowling"
-//        bookPreview.bookTags = "#forkids"
-//        bookPreview.bookIdentifier = 1
+        loadDefaultBookToBD()
         
+    }
+    
+    func loadDefaultBookToBD(){
         
-//        booksTableViewModel?.addBookPreviewToDatabase(bookPreview: bookPreview)
-        print(booksTableViewModel!.getBookPreviewsFromDatabase())
+        var books = booksTableViewModel!.getBookPreviewsFromDatabase()
+        
+        if books.count == 0 {
+        
+            let bookPreview = BookPreviewModel()
+            bookPreview.bookImageName = "HarryPotterLogo"
+            bookPreview.bookTitle = "Harry Potter and Philosopher's Stone"
+            bookPreview.bookAuthor = "J.K. Rowling"
+            bookPreview.bookTags = "#forkids"
+            
+            let bookModel = BookModel()
+            bookModel.currentPercent = 33.0
+            bookModel.bookTitle = "Harry Potter and Philosopher's Stone"
+            
+        
+            booksTableViewModel?.addBookPreviewToDatabase(bookPreview: bookPreview)
+            booksTableViewModel?.addBookModelToDatabase(bookModel: bookModel)
+            
+            books = booksTableViewModel!.getBookPreviewsFromDatabase()
+        }
+        print(books)
+        
+        self.tableView!.reloadData()
         
         
     }

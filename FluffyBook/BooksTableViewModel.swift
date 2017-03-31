@@ -17,9 +17,9 @@ class BooksTableViewModel{
     var books : [BookPreviewModel]
     var database : DatabaseModel
     
-    init() {
+    init(database db : DatabaseModel) {
         
-        database = DatabaseModel()
+        database = db
         
         books = database.loadBookPreviews()
         
@@ -73,7 +73,17 @@ class BooksTableViewModel{
     
     func getSelectedBookModel(forIndex indexPath : IndexPath) -> BookModel {
         
-        return BookModel(url: URL(fileURLWithPath: ""), title: "")
+        return try! database.getBookModel(withTitle: "Harry Potter and Philosopher's Stone")
+        
+//        database
+        
+//        return BookModel(/*url: URL(fileURLWithPath: ""), title: ""*/)
+        
+    }
+    
+    func addBookModelToDatabase(bookModel : BookModel) {
+        
+        database.addBookModel(bookModel: bookModel)
         
     }
     
@@ -85,7 +95,8 @@ class BooksTableViewModel{
     
     func getBookPreviewsFromDatabase() -> [BookPreviewModel]{
         
-        return database.loadBookPreviews()
+        books = database.loadBookPreviews()
+        return books
         
     }
     
