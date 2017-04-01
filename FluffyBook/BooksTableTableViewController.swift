@@ -129,13 +129,6 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        booksTableViewModel?.setSelectedCell(indexPath: indexPath)
-        
-    }
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
@@ -156,7 +149,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         let detailViewController = storyboard?.instantiateViewController(withIdentifier: "BookReaderViewController") as? BookReaderViewController
         
-        setModelToDestinationViewController(vc: detailViewController!)
+        setModelToDestinationViewController(vc: detailViewController!, indexPath: indexPath)
         
         detailViewController?.preferredContentSize = CGSize(width: 0.0, height: 300)
         
@@ -175,11 +168,20 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
-    func setModelToDestinationViewController(vc : BookReaderViewController){
+    func setModelToDestinationViewController(vc : BookReaderViewController, indexPath ip : IndexPath?){
         
 //        vc.bookModel = bookReaderModel?.getBookModelObject()
-        let indexPath = IndexPath()
-        vc.bookModel = booksTableViewModel?.getSelectedBookModel(forIndex: indexPath)
+        
+        if ip == nil{
+        
+            vc.bookModel = booksTableViewModel?.getSelectedBookModel(indexPath : self.tableView.indexPathForSelectedRow!)
+        
+        }
+        else {
+            
+            vc.bookModel = booksTableViewModel?.getSelectedBookModel(indexPath : ip!)
+            
+        }
         
     }
     
@@ -193,7 +195,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         if let seg = segue.destination as? BookReaderViewController {
             
-            setModelToDestinationViewController(vc: seg)
+            setModelToDestinationViewController(vc: seg, indexPath : nil)
             
         }
 

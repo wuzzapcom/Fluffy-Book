@@ -50,9 +50,6 @@ class BooksTableViewModel{
         
     }
     
-    
-    func setSelectedCell(indexPath : IndexPath) {}
-    
     func getNumberOfSections() -> Int {
         
         return booksSections
@@ -71,9 +68,11 @@ class BooksTableViewModel{
         
     }
     
-    func getSelectedBookModel(forIndex indexPath : IndexPath) -> BookModel {
+    func getSelectedBookModel(indexPath : IndexPath) -> BookModel {
         
-        return try! database.getBookModel(withTitle: "Harry Potter and Philosopher's Stone")
+        return try! database.getBookModel(withTitle: books[indexPath.row].bookTitle!)
+        
+//        return try! database.getBookModel(withTitle: "Harry Potter and Philosopher's Stone")
         
 //        database
         
