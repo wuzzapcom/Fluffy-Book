@@ -115,6 +115,18 @@ class DatabaseModel{
         
     }
     
+    func deleteModelObject(modelObject model : Object) {
+        
+        try! db.write {
+            
+            db.delete(model)
+            
+        }
+        
+        
+        
+    }
+    
 }
 
 enum DatabaseInstansesException : Error{

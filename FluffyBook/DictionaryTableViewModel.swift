@@ -41,7 +41,9 @@ class DictionaryTableViewModel{
     
     func deleteElement(atRow indexPath : IndexPath) {
         
-        words.remove(at: indexPath.row)
+//        words.remove(at: indexPath.row)
+        
+        database.deleteModelObject(modelObject: words[indexPath.row])
         
         words = database.loadWordsPreviews()
         

@@ -50,7 +50,7 @@ class BooksTableViewModel{
     
     func deleteElement(atRow indexPath : IndexPath) {
         
-        books.remove(at: indexPath.row)
+        database.deleteModelObject(modelObject: books[indexPath.row])
         
         books = database.loadBookPreviews()
         
