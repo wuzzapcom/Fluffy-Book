@@ -28,25 +28,25 @@ class BooksTableViewModel{
     
     func getBookTitle(indexPath : IndexPath) -> String {
         
-        return books[0].bookTitle!
+        return books[indexPath.row].bookTitle!
         
     }
     
     func getAuthor(indexPath : IndexPath) -> String {
         
-        return books[0].bookAuthor!
+        return books[indexPath.row].bookAuthor!
         
     }
     
     func getTags(indexPath : IndexPath) -> String {
         
-        return books[0].bookTags!
+        return books[indexPath.row].bookTags!
         
     }
     
     func getImageName(indexPath : IndexPath) -> String {
         
-        return books[0].bookImageName!
+        return books[indexPath.row].bookImageName!
         
     }
     
@@ -67,7 +67,7 @@ class BooksTableViewModel{
     
     func deleteElement(atRow indexPath : IndexPath) {
         
-        books.remove(at: 0)
+        books.remove(at: indexPath.row)
         
     }
     
@@ -90,6 +90,12 @@ class BooksTableViewModel{
     func addBookPreviewToDatabase(bookPreview : BookPreviewModel){
         
         database.addBookPreview(bookPreview: bookPreview)
+        
+    }
+    
+    func addWordPreviewToDatabase(wordPreview : WordPreviewModel){
+        
+        database.addWordPreviewModel(wordPreview: wordPreview)
         
     }
     

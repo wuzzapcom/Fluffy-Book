@@ -25,13 +25,6 @@ class BookReaderModel {
         
     }
     
-    func getWordTranslationModel() -> WordTranslationModel {
-        
-        return WordTranslationModel()
-        
-    }
-    
-    
     func getBooksTableViewModel() -> BooksTableViewModel {
         
         return BooksTableViewModel(database: database)
@@ -40,7 +33,7 @@ class BookReaderModel {
     
     func getDictionaryTableViewModel() -> DictionaryTableViewModel{
         
-        return DictionaryTableViewModel()
+        return DictionaryTableViewModel(databaseModel : database)
         
     }
     

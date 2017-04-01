@@ -21,6 +21,8 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
         booksTableViewModel = bookReaderModel?.getBooksTableViewModel()
         
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        
         registerViewForPreview()
         
         addEditButton()
@@ -50,6 +52,15 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
             booksTableViewModel?.addBookModelToDatabase(bookModel: bookModel)
             
             books = booksTableViewModel!.getBookPreviewsFromDatabase()
+            
+            let word1 = WordPreviewModel()
+            word1.word = "Home"
+            word1.translation = "Дом"
+            booksTableViewModel?.addWordPreviewToDatabase(wordPreview: word1)
+            let word2 = WordPreviewModel()
+            word2.word = "Gay"
+            word2.translation = "Человек нетрадиционной сексуальной ориентации"
+            booksTableViewModel?.addWordPreviewToDatabase(wordPreview: word2)
         }
         print(books)
         

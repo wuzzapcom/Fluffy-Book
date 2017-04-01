@@ -21,17 +21,27 @@ class DictionaryTableViewModel{
      
      */
     
+    var database : DatabaseModel
+    var words : [WordPreviewModel]
     
+    init(databaseModel db : DatabaseModel) {
+        
+        database = db
+        words = database.loadWordsPreviews()
+        
+    }
     
     func getWord(indexPath : IndexPath) -> String {
         
-        return "Home"
+//        return "Home"
+        return words[indexPath.row].word!
         
     }
     
     func getTranslation(indexPath : IndexPath) -> String {
         
-        return "Дом"
+//        return "Дом"
+        return words[indexPath.row].translation!
         
     }
     
@@ -48,6 +58,12 @@ class DictionaryTableViewModel{
         
     }
     
+    func deleteElement(atRow indexPath : IndexPath) {
+        
+        words.remove(at: indexPath.row)
+        
+    }
+    
     func getNumberOfSections() -> Int {
         
         return 1
@@ -56,11 +72,8 @@ class DictionaryTableViewModel{
     
     func getNumberOfRows(section : Int) -> Int {
         
-        return 1
+        return words.count
         
     }
-    
-    
-    
     
 }

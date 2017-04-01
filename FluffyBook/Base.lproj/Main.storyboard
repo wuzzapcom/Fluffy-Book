@@ -29,7 +29,7 @@
                                             <rect key="frame" x="8" y="8" width="97" height="128"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Book" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGe-Wt-3OQ">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Book" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="AGe-Wt-3OQ">
                                             <rect key="frame" x="124" y="8" width="243" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
@@ -108,53 +108,6 @@
             </objects>
             <point key="canvasLocation" x="-1615.2" y="2408.5457271364321"/>
         </scene>
-        <!--Word Translation View Controller-->
-        <scene sceneID="jTF-YV-O24">
-            <objects>
-                <viewController storyboardIdentifier="WordTranslationViewController" id="xYO-AP-Jm7" customClass="WordTranslationViewController" customModule="FluffyBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fnr-eP-UkG"/>
-                        <viewControllerLayoutGuide type="bottom" id="wDt-L1-ByC"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="A74-9T-Zt8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Word" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBK-i2-MiY">
-                                <rect key="frame" x="16" y="97" width="125" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Translation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dx5-cv-CHm">
-                                <rect key="frame" x="16" y="178" width="92" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[Transcription]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdd-BZ-BEj">
-                                <rect key="frame" x="238" y="117" width="113" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="TranscriptionLabel" destination="Zdd-BZ-BEj" id="FBS-17-0wh"/>
-                        <outlet property="transcriptionLabel" destination="Zdd-BZ-BEj" id="fST-E5-rn7"/>
-                        <outlet property="translationLabel" destination="Dx5-cv-CHm" id="9Du-sd-AIi"/>
-                        <outlet property="wordLabel" destination="NBK-i2-MiY" id="AGm-f8-Emq"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HdK-zR-HtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-130.40000000000001" y="2408.5457271364321"/>
-        </scene>
         <!--Books-->
         <scene sceneID="Ws7-Ya-5bg">
             <objects>
@@ -195,7 +148,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Translation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D9f-1q-awW">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Translation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="D9f-1q-awW">
                                             <rect key="frame" x="8" y="57" width="359" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -207,7 +160,6 @@
                                 <connections>
                                     <outlet property="translationLabel" destination="D9f-1q-awW" id="0Xm-3u-Tuj"/>
                                     <outlet property="wordLabel" destination="SH3-eL-ZiF" id="D5v-Fk-euY"/>
-                                    <segue destination="xYO-AP-Jm7" kind="show" id="oQt-zd-Ups"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

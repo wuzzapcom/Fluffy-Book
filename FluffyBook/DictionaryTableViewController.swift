@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DictionaryTableViewController: UITableViewController, UIViewControllerPreviewingDelegate {
+class DictionaryTableViewController: UITableViewController {
     
     var bookReaderModel : BookReaderModel?
     var dictionaryTableViewModel : DictionaryTableViewModel?
@@ -21,18 +21,39 @@ class DictionaryTableViewController: UITableViewController, UIViewControllerPrev
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
         dictionaryTableViewModel = bookReaderModel?.getDictionaryTableViewModel()
         
-        registerViewForPreview()
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        
+        addEditButton()
         
     }
     
-    func registerViewForPreview(){
+    func addEditButton() {
+    
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTableAndChangeButton))
         
-        if UIApplication.shared.keyWindow?.traitCollection.forceTouchCapability == UIForceTouchCapability.available {
-            registerForPreviewing(with: self, sourceView: self.view)
-        }
+        self.navigationItem.rightBarButtonItem = editButton
         
     }
-
+    
+    func editTableAndChangeButton(){
+        
+        setEditing(true, animated: true)
+        
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEditingAndChangeButton))
+        
+        self.navigationItem.rightBarButtonItem = cancelButton
+        
+    }
+    
+    func cancelEditingAndChangeButton() {
+        
+        setEditing(false, animated: true)
+        
+        addEditButton()
+        
+    }
+    
+    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -59,52 +80,20 @@ class DictionaryTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            dictionaryTableViewModel?.deleteElement(atRow: indexPath)
+            self.tableView.reloadData()
+            
+        }
+        
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         dictionaryTableViewModel?.setSelectedCell(indexPath: indexPath)
-        
-    }
-    
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-
-        let indexPath = self.tableView?.indexPathForRow(at: location)
-        
-        let cell = self.tableView?.cellForRow(at: indexPath!)
-        
-        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "WordTranslationViewController") as? WordTranslationViewController
-        
-        setModelToDestinationViewController(vc: detailViewController!)
-        
-        detailViewController?.preferredContentSize = CGSize(width: 0.0, height: 300)
-        
-        previewingContext.sourceRect = (cell?.frame)!
-        
-        
-        return detailViewController
-        
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        
-        self.navigationController?.pushViewController(viewControllerToCommit, animated: false)
-        
-        showDetailViewController(viewControllerToCommit, sender: self)
-        
-    }
-    
-    func setModelToDestinationViewController( vc : WordTranslationViewController ){
-        
-        vc.wordTranslationModel = bookReaderModel?.getWordTranslationModel()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let seg = segue.destination as? WordTranslationViewController {
-            
-            setModelToDestinationViewController(vc: seg)
-            
-        }
         
     }
  

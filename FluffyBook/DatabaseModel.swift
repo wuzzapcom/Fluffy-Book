@@ -64,6 +64,16 @@ class DatabaseModel{
         
     }
     
+    func addBookModel(bookModel : BookModel) {
+        
+        try! db.write {
+            
+            db.add(bookModel)
+            
+        }
+        
+    }
+    
     func getBookModel(withTitle ident : String) throws -> BookModel{
         
         let results = db.objects(BookModel.self).filter("bookTitle == \"\(ident)\"")
@@ -78,15 +88,31 @@ class DatabaseModel{
         
     }
     
-    func addBookModel(bookModel : BookModel) {
+    func addWordPreviewModel(wordPreview : WordPreviewModel) {
         
         try! db.write {
             
-            db.add(bookModel)
+            db.add(wordPreview)
             
         }
         
     }
+    
+    func loadWordsPreviews() -> [WordPreviewModel] {
+        
+        let words = db.objects(WordPreviewModel.self)
+        var result : [WordPreviewModel] = []
+        
+        for word in words {
+            
+            result.append(word)
+            
+        }
+        
+        return result
+        
+    }
+    
     
 }
 
