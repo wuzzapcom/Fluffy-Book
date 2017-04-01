@@ -114,11 +114,47 @@
 			isa = PBXGroup;
 			children = (
 				9E677BD41E744F3200113D6B /* BookReaderModel.swift */,
-				9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */,
-				9E80003C1E8D9E70006B9EE7 /* Books */,
-				9E80003D1E8D9E7F006B9EE7 /* Words */,
+				9E75F4881E8FE2BB0061E022 /* ViewModel */,
+				9E75F4871E8FE2930061E022 /* LogicModel */,
+				9E75F4851E8FE2460061E022 /* TableViewModel */,
+				9E75F4861E8FE2680061E022 /* PreviewModel */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		9E75F4851E8FE2460061E022 /* TableViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */,
+				9E9BD5761E798E6200ACB6FD /* DictionaryTableViewModel.swift */,
+			);
+			name = TableViewModel;
+			sourceTree = "<group>";
+		};
+		9E75F4861E8FE2680061E022 /* PreviewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E80003E1E8D9F45006B9EE7 /* BookPreviewModel.swift */,
+				9E31428D1E8F8FF3000FD292 /* WordPreviewModel.swift */,
+			);
+			name = PreviewModel;
+			sourceTree = "<group>";
+		};
+		9E75F4871E8FE2930061E022 /* LogicModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */,
+				E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */,
+			);
+			name = LogicModel;
+			sourceTree = "<group>";
+		};
+		9E75F4881E8FE2BB0061E022 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E677BD81E7453A600113D6B /* BookModel.swift */,
+			);
+			name = ViewModel;
 			sourceTree = "<group>";
 		};
 		9E7C1F961E795CE0009A0A01 /* TableViewCells */ = {
@@ -128,26 +164,6 @@
 				9E9BD5781E798F1600ACB6FD /* DictionaryTableViewCell.swift */,
 			);
 			name = TableViewCells;
-			sourceTree = "<group>";
-		};
-		9E80003C1E8D9E70006B9EE7 /* Books */ = {
-			isa = PBXGroup;
-			children = (
-				9E677BD81E7453A600113D6B /* BookModel.swift */,
-				9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */,
-				E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */,
-				9E80003E1E8D9F45006B9EE7 /* BookPreviewModel.swift */,
-			);
-			name = Books;
-			sourceTree = "<group>";
-		};
-		9E80003D1E8D9E7F006B9EE7 /* Words */ = {
-			isa = PBXGroup;
-			children = (
-				9E9BD5761E798E6200ACB6FD /* DictionaryTableViewModel.swift */,
-				9E31428D1E8F8FF3000FD292 /* WordPreviewModel.swift */,
-			);
-			name = Words;
 			sourceTree = "<group>";
 		};
 		9E96193B1E7432B8003A5DA1 = {

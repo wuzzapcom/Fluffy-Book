@@ -16,14 +16,4 @@ class BookPreviewModel : Object{
     dynamic var bookAuthor : String?
     dynamic var bookTags : String?
     
-//    required init(imageName image : String, title : String, author : String, tags : String, identifier : Int) {
-//        bookImageName = image
-//        bookTitle = title
-//        bookAuthor = author
-//        bookTags = tags
-//        bookIdentifier = identifier
-//    }
-    
-
-    
 }

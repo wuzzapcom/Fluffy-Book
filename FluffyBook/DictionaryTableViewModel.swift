@@ -13,11 +13,7 @@ class DictionaryTableViewModel{
     
     /*
      
-     This class should return to controller data for DictionaryTableViewCell.
-     Idea of realization is array with this signature : WordTranslationData[sector][row], where 1 sector may
-     contain up to 20 rows, and WordTranslationData contains all needed information, which loading from web or DB.
- 
-     Same logic in BooksTableViewModel.
+     Class gets data from database and it is able put data to it.
      
      */
     
@@ -31,36 +27,37 @@ class DictionaryTableViewModel{
         
     }
     
-    func getWord(indexPath : IndexPath) -> String {
+    //Adding data to database
+    
+    func addWordPreviewToDatabase(wordPreview : WordPreviewModel){
         
-//        return "Home"
+        database.addWordPreviewModel(wordPreview: wordPreview)
+        
+        words = database.loadWordsPreviews()
+        
+    }
+    
+    //Remove elements
+    
+    func deleteElement(atRow indexPath : IndexPath) {
+        
+        words.remove(at: indexPath.row)
+        
+        words = database.loadWordsPreviews()
+        
+    }
+    
+    //Getting data
+    
+    func getWord(indexPath : IndexPath) -> String {
+
         return words[indexPath.row].word!
         
     }
     
     func getTranslation(indexPath : IndexPath) -> String {
-        
-//        return "Дом"
+
         return words[indexPath.row].translation!
-        
-    }
-    
-    func setSelectedCell(indexPath : IndexPath) {
-        
-        /* 
-         
-         Save selected path and create WordTranslationModel object in BookReaderModel with this info for segue.
-         Or, may be, create WordTranslationModel from this object?
-         This make sense with confidence that this object will create only from this context.
- 
-        */
-        
-        
-    }
-    
-    func deleteElement(atRow indexPath : IndexPath) {
-        
-        words.remove(at: indexPath.row)
         
     }
     

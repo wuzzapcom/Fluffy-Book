@@ -39,26 +39,22 @@ class DatabaseModel{
         
     }
     
-    func loadBookPreviews() -> [BookPreviewModel]{
-    
-        let books = db.objects(BookPreviewModel.self)
-        var result : [BookPreviewModel] = []
+    //Adding data to database
+    func addWordPreviewModel(wordPreview : WordPreviewModel) {
         
-        for book in books{
+        try! db.write {
             
-            result.append(book)
+            db.add(wordPreview)
             
         }
         
-        return result
-    
     }
     
     func addBookPreview(bookPreview : BookPreviewModel){
         
         try! db.write {
             
-           db.add(bookPreview)
+            db.add(bookPreview)
             
         }
         
@@ -74,28 +70,20 @@ class DatabaseModel{
         
     }
     
-    func getBookModel(withTitle ident : String) throws -> BookModel{
-        
-        let results = db.objects(BookModel.self).filter("bookTitle == \"\(ident)\"")
-        
-        if results.count != 1 {
-            
-            throw DatabaseInstansesException.RuntimeError("There is no books with this title or there are few of them.")
-            
-        }
-        
-        return results.first!
-        
-    }
+    //Getting data from database
+    func loadBookPreviews() -> [BookPreviewModel]{
     
-    func addWordPreviewModel(wordPreview : WordPreviewModel) {
+        let books = db.objects(BookPreviewModel.self)
+        var result : [BookPreviewModel] = []
         
-        try! db.write {
+        for book in books{
             
-            db.add(wordPreview)
+            result.append(book)
             
         }
         
+        return result
+    
     }
     
     func loadWordsPreviews() -> [WordPreviewModel] {
@@ -113,9 +101,21 @@ class DatabaseModel{
         
     }
     
+    func getBookModel(withTitle ident : String) throws -> BookModel{
+        
+        let results = db.objects(BookModel.self).filter("bookTitle == \"\(ident)\"")
+        
+        if results.count != 1 {
+            
+            throw DatabaseInstansesException.RuntimeError("There is no books with this title or there are few of them.")
+            
+        }
+        
+        return results.first!
+        
+    }
     
 }
-
 
 enum DatabaseInstansesException : Error{
     

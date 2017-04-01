@@ -10,26 +10,23 @@ import UIKit
 
 class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    
     var bookModel : BookModel?
-    
     var isStatusBarHidden: Bool = false
-    
     var isDetectedGesture: Bool = false
-    
     override var prefersStatusBarHidden: Bool{
         return isStatusBarHidden
     }
     
     
-//    @IBOutlet weak var bookTextView: UITextView!
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var bookWebView: UIWebView!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
-        fillViewByModel()
+        
+        fillViewByModel()  //Modifying view controller
         
         customizeProgressSlider()
         
@@ -37,11 +34,12 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
         
         customizeNavigationBar()
         
-        bookWebView.paginationBreakingMode = UIWebPaginationBreakingMode.page
+        bookWebView.paginationBreakingMode = UIWebPaginationBreakingMode.page //webView stuff
         bookWebView.paginationMode = UIWebPaginationMode.leftToRight
 
     }
     
+    //viewDidLoad methods
     func fillViewByModel() {
         bookWebView.loadHTMLString(bookModel!.getTextFromCurrentPage(), baseURL: nil)
         
@@ -51,10 +49,6 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
     func customizeProgressSlider() {
         
         progressSlider.setThumbImage(#imageLiteral(resourceName: "Bookmark"), for: UIControlState.normal)
@@ -62,45 +56,26 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func addButtonsToNavigationController(){
-    
+        
         let markButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: nil)
         
         let contentsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: UIBarButtonItemStyle.plain, target: self, action: nil)
         
         self.navigationItem.rightBarButtonItems = [markButton, contentsButton]
-    
+        
     }
     
     func customizeNavigationBar(){
         
-//        self.navigationController?.navigationBar.tintColor = UIColor.black
-        
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-//        self.navigationController?.view.backgroundColor = UIColor.clear
         
     }
     
-    func setNavigationBarToDefaults(){
-        
-        self.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = nil
-        
-        
-    }
-    
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
-        if touches.first!.force / touches.first!.maximumPossibleForce > 0.5 {
-            
-            print("FORCE TOUCH")
-            
-            isDetectedGesture = true
-            
-        }
-        
+    //handle 3D Touch
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -125,7 +100,29 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
         
         isDetectedGesture = false
     }
+
+    func setNavigationBarToDefaults(){
+        
+        self.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = nil
+        
+        
+    }
     
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+        if touches.first!.force / touches.first!.maximumPossibleForce > 0.5 {
+            
+            print("FORCE TOUCH")
+            
+            isDetectedGesture = true
+            
+        }
+        
+    }
+    
+    //Changing view bounds on tap
     func showNavigationBar() {
         
         isStatusBarHidden = false
@@ -192,7 +189,5 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
         setNavigationBarToDefaults()
         
     }
-
-    
 
 }

@@ -25,10 +25,13 @@ class DictionaryTableViewController: UITableViewController {
         
         addEditButton()
         
+        loadDefaultWordsToDB()
+        
     }
     
+    //viewDidLoad methods
     func addEditButton() {
-    
+        
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTableAndChangeButton))
         
         self.navigationItem.rightBarButtonItem = editButton
@@ -53,8 +56,20 @@ class DictionaryTableViewController: UITableViewController {
         
     }
     
+    func loadDefaultWordsToDB() {
+        
+        let word1 = WordPreviewModel()
+        word1.word = "Home"
+        word1.translation = "Дом"
+        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word1)
+        let word2 = WordPreviewModel()
+        word2.word = "iPhone"
+        word2.translation = "Айфон"
+        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word2)
+        
+    }
     
-
+    //tableView methods
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return dictionaryTableViewModel!.getNumberOfSections()
@@ -85,17 +100,11 @@ class DictionaryTableViewController: UITableViewController {
         if editingStyle == .delete {
             
             dictionaryTableViewModel?.deleteElement(atRow: indexPath)
+            
             self.tableView.reloadData()
             
         }
         
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        dictionaryTableViewModel?.setSelectedCell(indexPath: indexPath)
-        
-    }
- 
-
 }

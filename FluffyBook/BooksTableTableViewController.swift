@@ -31,41 +31,12 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
-    func loadDefaultBookToBD(){
+    //viewDidLoad methods
+    func registerViewForPreview(){
         
-        var books = booksTableViewModel!.getBookPreviewsFromDatabase()
-        
-        if books.count == 0 {
-        
-            let bookPreview = BookPreviewModel()
-            bookPreview.bookImageName = "HarryPotterLogo"
-            bookPreview.bookTitle = "Harry Potter and Philosopher's Stone"
-            bookPreview.bookAuthor = "J.K. Rowling"
-            bookPreview.bookTags = "#forkids"
-            
-            let bookModel = BookModel()
-            bookModel.currentPercent = 33.0
-            bookModel.bookTitle = "Harry Potter and Philosopher's Stone"
-            
-        
-            booksTableViewModel?.addBookPreviewToDatabase(bookPreview: bookPreview)
-            booksTableViewModel?.addBookModelToDatabase(bookModel: bookModel)
-            
-            books = booksTableViewModel!.getBookPreviewsFromDatabase()
-            
-            let word1 = WordPreviewModel()
-            word1.word = "Home"
-            word1.translation = "Дом"
-            booksTableViewModel?.addWordPreviewToDatabase(wordPreview: word1)
-            let word2 = WordPreviewModel()
-            word2.word = "Gay"
-            word2.translation = "Человек нетрадиционной сексуальной ориентации"
-            booksTableViewModel?.addWordPreviewToDatabase(wordPreview: word2)
+        if UIApplication.shared.keyWindow?.traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            registerForPreviewing(with: self, sourceView: self.view)
         }
-        print(books)
-        
-        self.tableView!.reloadData()
-        
         
     }
     
@@ -95,15 +66,27 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
-    func registerViewForPreview(){
+    func loadDefaultBookToBD(){
+        //because i clean db
         
-        if UIApplication.shared.keyWindow?.traitCollection.forceTouchCapability == UIForceTouchCapability.available {
-            registerForPreviewing(with: self, sourceView: self.view)
-        }
+        let bookPreview = BookPreviewModel()
+        bookPreview.bookImageName = "HarryPotterLogo"
+        bookPreview.bookTitle = "Harry Potter and Philosopher's Stone"
+        bookPreview.bookAuthor = "J.K. Rowling"
+        bookPreview.bookTags = "#forkids"
+        
+        let bookModel = BookModel()
+        bookModel.currentPercent = 33.0
+        bookModel.bookTitle = "Harry Potter and Philosopher's Stone"
+        
+        booksTableViewModel?.addBookPreviewToDatabase(bookPreview: bookPreview)
+        booksTableViewModel?.addBookModelToDatabase(bookModel: bookModel)
+        
+        self.tableView!.reloadData()
         
     }
 
-
+    //tableView methods
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return booksTableViewModel!.getNumberOfSections()
@@ -134,13 +117,14 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         if editingStyle == .delete {
             
             booksTableViewModel?.deleteElement(atRow: indexPath)
+            
             self.tableView.reloadData()
             
         }
         
     }
     
-    
+    //Peek and Pop methods
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
         let indexPath = self.tableView?.indexPathForRow(at: location)
@@ -157,7 +141,6 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         return detailViewController
         
-        
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
@@ -168,9 +151,9 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
+    //Segue
+    
     func setModelToDestinationViewController(vc : BookReaderViewController, indexPath ip : IndexPath?){
-        
-//        vc.bookModel = bookReaderModel?.getBookModelObject()
         
         if ip == nil{
         
