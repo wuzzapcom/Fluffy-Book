@@ -32,6 +32,37 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         addSearchController()
         
+        
+        let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBook")
+        
+        let data = sharedDefaults?.data(forKey: "saved") as? NSData
+        
+        print(data?.length)
+        
+        
+        let fileManager = FileManager.default
+        
+        let newFileURL = URL(fileURLWithPath:  (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("saved.pdf"))
+        
+        fileManager.fileExists(atPath: newFileURL.absoluteString)
+        
+        fileManager.createFile(atPath: newFileURL.absoluteString, contents: data as Data?, attributes: nil)
+        
+        
+//        let url = sharedDefaults?.url(forKey: "saved")!
+        
+//        print(url)
+
+        
+//        print(fileManager.fileExists(atPath: (url?.absoluteString)!))
+        
+//        let newFileURL = URL(fileURLWithPath:  (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("saved.pdf"))
+//        
+//        let fileManager = FileManager.default
+//        
+//        print(fileManager.fileExists(atPath: newFileURL.absoluteString))
+//        print(fileManager.fileExists(atPath: newFileURL.relativeString))
+        
     }
     
     //viewDidLoad methods

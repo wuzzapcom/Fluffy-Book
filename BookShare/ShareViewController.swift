@@ -1,0 +1,71 @@
+//
+//  ShareViewController.swift
+//  BookShare
+//
+//  Created by Владимир Лапатин on 03.04.17.
+//  Copyright © 2017 wuzzapcom. All rights reserved.
+//
+
+import UIKit
+import Social
+import MobileCoreServices
+
+class ShareViewController : UIViewController {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        print("start extension")
+        
+        let fileItem = self.extensionContext!.inputItems.first as! NSExtensionItem
+        
+        let textItemProvider = fileItem.attachments!.first as! NSItemProvider
+        
+        let identifier = kUTTypePDF as String
+        
+        if textItemProvider.hasItemConformingToTypeIdentifier(identifier) {
+            
+            textItemProvider.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: handleCompletion)
+        }
+        
+        extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+        
+    }
+    
+    func handleCompletion(fileURL: NSSecureCoding?, error: Error!) {
+        
+        if let fileURL = fileURL as? URL {
+            
+            let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBook")
+
+            
+//            let newFileURL = URL(fileURLWithPath:  (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("saved.pdf"))
+//            
+//            print(newFileURL)
+            
+            
+//            sharedDefaults?.set(fileURL, forKey: "saved")
+            
+//            sharedDefaults.set
+
+//            let fileManager = FileManager.default
+            
+            
+            let data = NSData(contentsOf : fileURL)
+            
+            sharedDefaults?.set(data, forKey: "saved")
+            
+            print(data?.length)
+            
+//            do {
+//                try fileManager.copyItem(at: fileURL, to: newFileURL)
+//            }
+//            catch {
+//                print(error)
+//            }
+        }
+    }
+    
+    
+}

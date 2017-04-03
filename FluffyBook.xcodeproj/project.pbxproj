@@ -19,6 +19,9 @@
 		9E7C1F981E795FF0009A0A01 /* BooksTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */; };
 		9E80003B1E8D9A36006B9EE7 /* DatabaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */; };
 		9E80003F1E8D9F45006B9EE7 /* BookPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80003E1E8D9F45006B9EE7 /* BookPreviewModel.swift */; };
+		9E911F2C1E92DE690001CB6E /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E911F2B1E92DE690001CB6E /* ShareViewController.swift */; };
+		9E911F2F1E92DE690001CB6E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E911F2D1E92DE690001CB6E /* MainInterface.storyboard */; };
+		9E911F331E92DE690001CB6E /* BookShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9E911F291E92DE690001CB6E /* BookShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9E9619481E7432B9003A5DA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9619471E7432B9003A5DA1 /* AppDelegate.swift */; };
 		9E96194A1E7432B9003A5DA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9619491E7432B9003A5DA1 /* ViewController.swift */; };
 		9E96194D1E7432B9003A5DA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E96194B1E7432B9003A5DA1 /* Main.storyboard */; };
@@ -27,6 +30,30 @@
 		9E9BD5791E798F1600ACB6FD /* DictionaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9BD5781E798F1600ACB6FD /* DictionaryTableViewCell.swift */; };
 		E9AFD87A1E7D6EC400D18FC6 /* BookParserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9E911F311E92DE690001CB6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E96193C1E7432B8003A5DA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9E911F281E92DE690001CB6E;
+			remoteInfo = BookShare;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9E911F371E92DE690001CB6E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9E911F331E92DE690001CB6E /* BookShare.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		165110D3D817AD71CA03411E /* Pods-FluffyBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluffyBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FluffyBook/Pods-FluffyBook.debug.xcconfig"; sourceTree = "<group>"; };
@@ -43,6 +70,12 @@
 		9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksTableViewModel.swift; sourceTree = "<group>"; };
 		9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseModel.swift; sourceTree = "<group>"; };
 		9E80003E1E8D9F45006B9EE7 /* BookPreviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPreviewModel.swift; sourceTree = "<group>"; };
+		9E911F291E92DE690001CB6E /* BookShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BookShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E911F2B1E92DE690001CB6E /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		9E911F2E1E92DE690001CB6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		9E911F301E92DE690001CB6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E911F381E92E4260001CB6E /* FluffyBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FluffyBook.entitlements; sourceTree = "<group>"; };
+		9E911F391E92E4300001CB6E /* BookShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookShare.entitlements; sourceTree = "<group>"; };
 		9E9619441E7432B9003A5DA1 /* FluffyBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluffyBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9619471E7432B9003A5DA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9619491E7432B9003A5DA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +88,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9E911F261E92DE690001CB6E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E9619411E7432B8003A5DA1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,10 +206,22 @@
 			name = TableViewCells;
 			sourceTree = "<group>";
 		};
+		9E911F2A1E92DE690001CB6E /* BookShare */ = {
+			isa = PBXGroup;
+			children = (
+				9E911F391E92E4300001CB6E /* BookShare.entitlements */,
+				9E911F2B1E92DE690001CB6E /* ShareViewController.swift */,
+				9E911F2D1E92DE690001CB6E /* MainInterface.storyboard */,
+				9E911F301E92DE690001CB6E /* Info.plist */,
+			);
+			path = BookShare;
+			sourceTree = "<group>";
+		};
 		9E96193B1E7432B8003A5DA1 = {
 			isa = PBXGroup;
 			children = (
 				9E9619461E7432B9003A5DA1 /* FluffyBook */,
+				9E911F2A1E92DE690001CB6E /* BookShare */,
 				9E9619451E7432B9003A5DA1 /* Products */,
 				6E2B65DB28BE9CE4A9D70418 /* Pods */,
 				1EBFA0840BF9B9DE50FBC324 /* Frameworks */,
@@ -180,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				9E9619441E7432B9003A5DA1 /* FluffyBook.app */,
+				9E911F291E92DE690001CB6E /* BookShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,6 +240,7 @@
 		9E9619461E7432B9003A5DA1 /* FluffyBook */ = {
 			isa = PBXGroup;
 			children = (
+				9E911F381E92E4260001CB6E /* FluffyBook.entitlements */,
 				9E9619471E7432B9003A5DA1 /* AppDelegate.swift */,
 				9E9619491E7432B9003A5DA1 /* ViewController.swift */,
 				9E96194B1E7432B9003A5DA1 /* Main.storyboard */,
@@ -202,6 +256,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9E911F281E92DE690001CB6E /* BookShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E911F361E92DE690001CB6E /* Build configuration list for PBXNativeTarget "BookShare" */;
+			buildPhases = (
+				9E911F251E92DE690001CB6E /* Sources */,
+				9E911F261E92DE690001CB6E /* Frameworks */,
+				9E911F271E92DE690001CB6E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BookShare;
+			productName = BookShare;
+			productReference = 9E911F291E92DE690001CB6E /* BookShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		9E9619431E7432B8003A5DA1 /* FluffyBook */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E9619561E7432B9003A5DA1 /* Build configuration list for PBXNativeTarget "FluffyBook" */;
@@ -212,10 +283,12 @@
 				9E9619421E7432B8003A5DA1 /* Resources */,
 				1241ECC3C38FF634109FC754 /* [CP] Embed Pods Frameworks */,
 				99ACF9059E5F395CED9AE3F7 /* [CP] Copy Pods Resources */,
+				9E911F371E92DE690001CB6E /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9E911F321E92DE690001CB6E /* PBXTargetDependency */,
 			);
 			name = FluffyBook;
 			productName = FluffyBook;
@@ -232,10 +305,25 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = wuzzapcom;
 				TargetAttributes = {
+					9E911F281E92DE690001CB6E = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 2T6B33B74J;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					9E9619431E7432B8003A5DA1 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 2T6B33B74J;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -253,11 +341,20 @@
 			projectRoot = "";
 			targets = (
 				9E9619431E7432B8003A5DA1 /* FluffyBook */,
+				9E911F281E92DE690001CB6E /* BookShare */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9E911F271E92DE690001CB6E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E911F2F1E92DE690001CB6E /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E9619421E7432B8003A5DA1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -319,6 +416,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9E911F251E92DE690001CB6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E911F2C1E92DE690001CB6E /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E9619401E7432B8003A5DA1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,7 +448,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9E911F321E92DE690001CB6E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9E911F281E92DE690001CB6E /* BookShare */;
+			targetProxy = 9E911F311E92DE690001CB6E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		9E911F2D1E92DE690001CB6E /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9E911F2E1E92DE690001CB6E /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		9E96194B1E7432B9003A5DA1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -363,6 +484,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9E911F341E92DE690001CB6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BookShare/BookShare.entitlements;
+				DEVELOPMENT_TEAM = 2T6B33B74J;
+				INFOPLIST_FILE = BookShare/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = wuzzapcom.FluffyBook.BookShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		9E911F351E92DE690001CB6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BookShare/BookShare.entitlements;
+				DEVELOPMENT_TEAM = 2T6B33B74J;
+				INFOPLIST_FILE = BookShare/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = wuzzapcom.FluffyBook.BookShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		9E9619541E7432B9003A5DA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -460,7 +609,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 165110D3D817AD71CA03411E /* Pods-FluffyBook.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FluffyBook/FluffyBook.entitlements;
 				DEVELOPMENT_TEAM = 2T6B33B74J;
 				INFOPLIST_FILE = FluffyBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -474,7 +625,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1812FC5298EB3B2B00703043 /* Pods-FluffyBook.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FluffyBook/FluffyBook.entitlements;
 				DEVELOPMENT_TEAM = 2T6B33B74J;
 				INFOPLIST_FILE = FluffyBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -487,6 +640,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9E911F361E92DE690001CB6E /* Build configuration list for PBXNativeTarget "BookShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E911F341E92DE690001CB6E /* Debug */,
+				9E911F351E92DE690001CB6E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		9E96193F1E7432B8003A5DA1 /* Build configuration list for PBXProject "FluffyBook" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
