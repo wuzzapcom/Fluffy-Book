@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import WebKit
 
-class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
+class BookReaderViewController: UIViewController {
     
     
     var bookModel : BookModel?
@@ -17,7 +18,6 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
     override var prefersStatusBarHidden: Bool{
         return isStatusBarHidden
     }
-    
     
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var bookWebView: UIWebView!
@@ -36,11 +36,13 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
         
         bookWebView.paginationBreakingMode = UIWebPaginationBreakingMode.page //webView stuff
         bookWebView.paginationMode = UIWebPaginationMode.leftToRight
+        bookWebView.scrollView.bounces = false
 
     }
     
     //viewDidLoad methods
     func fillViewByModel() {
+        
         bookWebView.loadHTMLString(bookModel!.getTextFromCurrentPage(), baseURL: nil)
         
         progressSlider?.value = bookModel!.getCurrentProgressPercent()
@@ -73,56 +75,14 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    //handle 3D Touch
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        if event?.type == UIEventType.touches{
-            
-            if touches.first?.tapCount == 1 && !isDetectedGesture {
-                
-                
-                if !self.navigationController!.isNavigationBarHidden {
-                    
-                    hideNavigationBar()
-                    
-                } else {
-                    
-                    showNavigationBar()
-                    
-                }
-                
-            }
-        }
-        
-        isDetectedGesture = false
-    }
-
+    //Changing view bounds on tap
     func setNavigationBarToDefaults(){
         
         self.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = nil
         
-        
     }
-    
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
-        if touches.first!.force / touches.first!.maximumPossibleForce > 0.5 {
-            
-            print("FORCE TOUCH")
-            
-            isDetectedGesture = true
-            
-        }
-        
-    }
-    
-    //Changing view bounds on tap
+
     func showNavigationBar() {
         
         isStatusBarHidden = false

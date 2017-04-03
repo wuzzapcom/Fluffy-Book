@@ -19,11 +19,34 @@ class DictionaryTableViewModel{
     
     var database : DatabaseModel
     var words : [WordPreviewModel]
+    var searchedWords : [WordPreviewModel]
     
     init(databaseModel db : DatabaseModel) {
         
         database = db
+        
         words = database.loadWordsPreviews()
+        
+        searchedWords = []
+        
+    }
+    
+    //Search books
+    func searchWords(forWord w : String) {
+        
+        searchedWords.removeAll()
+        
+        for word in words {
+            
+            print(word)
+            
+            if word.word!.lowercased().contains(w.lowercased()){
+                
+                searchedWords.append(word)
+                
+            }
+            
+        }
         
     }
     
@@ -41,8 +64,6 @@ class DictionaryTableViewModel{
     
     func deleteElement(atRow indexPath : IndexPath) {
         
-//        words.remove(at: indexPath.row)
-        
         database.deleteModelObject(modelObject: words[indexPath.row])
         
         words = database.loadWordsPreviews()
@@ -54,6 +75,18 @@ class DictionaryTableViewModel{
     func getWord(indexPath : IndexPath) -> String {
 
         return words[indexPath.row].word!
+        
+    }
+    
+    func getSearchedWord(indexPath : IndexPath) -> WordPreviewModel {
+        
+        return searchedWords[indexPath.row]
+        
+    }
+    
+    func getNumberOfSearchedWords() -> Int {
+        
+        return searchedWords.count
         
     }
     

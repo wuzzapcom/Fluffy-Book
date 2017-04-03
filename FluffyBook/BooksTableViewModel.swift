@@ -18,6 +18,7 @@ class BooksTableViewModel{
      */
     
     var books : [BookPreviewModel]
+    var searchedBooks : [BookPreviewModel]
     var database : DatabaseModel
     
     init(database db : DatabaseModel) {
@@ -25,6 +26,25 @@ class BooksTableViewModel{
         database = db
         
         books = database.loadBookPreviews()
+        
+        searchedBooks = []
+        
+    }
+    
+    //Search books
+    func searchBooks(withTitle title : String) {
+        
+        searchedBooks.removeAll()
+        
+        for book in books {
+            
+            if book.bookTitle!.lowercased().contains(title.lowercased()) {
+                
+                searchedBooks.append(book)
+                
+            }
+            
+        }
         
     }
     
@@ -61,6 +81,18 @@ class BooksTableViewModel{
     func getSelectedBookModel(indexPath : IndexPath) -> BookModel {
         
         return try! database.getBookModel(withTitle: books[indexPath.row].bookTitle!)
+        
+    }
+    
+    func getSearchedBook(indexPath : IndexPath) -> BookPreviewModel {
+        
+        return searchedBooks[indexPath.row]
+        
+    }
+    
+    func getNumberOfSearchedBooks() -> Int {
+        
+        return searchedBooks.count
         
     }
 

@@ -8,10 +8,11 @@
 
 import UIKit
 
-class DictionaryTableViewController: UITableViewController {
+class DictionaryTableViewController: UITableViewController, UISearchResultsUpdating {
     
     var bookReaderModel : BookReaderModel?
     var dictionaryTableViewModel : DictionaryTableViewModel?
+    var searchController : UISearchController = UISearchController(searchResultsController: nil)
     
 
     override func viewDidLoad() {
@@ -26,6 +27,8 @@ class DictionaryTableViewController: UITableViewController {
         addEditButton()
         
         loadDefaultWordsToDB()
+        
+        addSearchController()
         
     }
     
@@ -66,6 +69,34 @@ class DictionaryTableViewController: UITableViewController {
         word2.word = "iPhone"
         word2.translation = "Айфон"
         dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word2)
+        let word3 = WordPreviewModel()
+        word3.word = "Mother"
+        word3.translation = "Мама"
+        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word3)
+    }
+    
+    func addSearchController(){
+        
+        searchController.searchResultsUpdater = self
+        
+        searchController.dimsBackgroundDuringPresentation = true
+        
+        searchController.definesPresentationContext = true
+        
+        searchController.searchBar.barTintColor = UIColor.white
+        
+        self.tableView!.tableHeaderView = searchController.searchBar
+        
+        self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.bounds.height)
+        
+    }
+    
+    //UISearchResultUpdating method
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        dictionaryTableViewModel?.searchWords(forWord: searchController.searchBar.text!)
+        
+        self.tableView.reloadData()
         
     }
     
@@ -78,6 +109,12 @@ class DictionaryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if searchController.isActive && searchController.searchBar.text != "" {
+            
+            return dictionaryTableViewModel!.getNumberOfSearchedWords()
+            
+        }
+        
         return dictionaryTableViewModel!.getNumberOfRows(section: section)
         
     }
@@ -87,8 +124,21 @@ class DictionaryTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "WordIdentifier", for: indexPath)
             as? DictionaryTableViewCell
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            
+            let word = dictionaryTableViewModel!.getSearchedWord(indexPath: indexPath)
+            
+            cell?.wordLabel?.text = word.word
+            
+            cell?.translationLabel?.text = word.translation
+            
+            return cell!
+            
+        }
 
         cell?.wordLabel?.text = dictionaryTableViewModel?.getWord(indexPath : indexPath)
+        
         cell?.translationLabel?.text = dictionaryTableViewModel?.getTranslation(indexPath : indexPath)
         
         return cell!

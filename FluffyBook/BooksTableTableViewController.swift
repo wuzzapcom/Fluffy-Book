@@ -8,10 +8,11 @@
 
 import UIKit
 
-class BooksTableTableViewController: UITableViewController, UIViewControllerPreviewingDelegate {
+class BooksTableTableViewController: UITableViewController, UIViewControllerPreviewingDelegate, UISearchResultsUpdating {
     
     var bookReaderModel : BookReaderModel?
     var booksTableViewModel : BooksTableViewModel?
+    var searchController : UISearchController = UISearchController(searchResultsController: nil)
     
 
     override func viewDidLoad() {
@@ -28,6 +29,8 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         addEditButton()
         
         loadDefaultBookToBD()
+        
+        addSearchController()
         
     }
     
@@ -66,6 +69,22 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
+    func addSearchController(){
+        
+        searchController.searchResultsUpdater = self
+        
+        searchController.dimsBackgroundDuringPresentation = true
+        
+        searchController.definesPresentationContext = true
+        
+        searchController.searchBar.barTintColor = UIColor.white
+        
+        self.tableView!.tableHeaderView = searchController.searchBar
+        
+        self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.bounds.height)
+    
+    }
+    
     func loadDefaultBookToBD(){
         //because i clean db
         
@@ -85,6 +104,15 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         self.tableView!.reloadData()
         
     }
+    
+    //UISearchResultUpdating method
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        booksTableViewModel?.searchBooks(withTitle: searchController.searchBar.text!)
+        
+        self.tableView.reloadData()
+        
+    }
 
     //tableView methods
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -95,6 +123,12 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if searchController.isActive && searchController.searchBar.text != "" {
+            
+            return booksTableViewModel!.getNumberOfSearchedBooks()
+            
+        }
+        
         return booksTableViewModel!.getNumberOfRows(section: section)
         
     }
@@ -103,10 +137,23 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCellIdentifier", for: indexPath) as? (BooksTableViewCell)
         
+        if searchController.isActive && searchController.searchBar.text != "" {
+            
+            let searchedModel = booksTableViewModel!.getSearchedBook(indexPath: indexPath)
+            
+            cell?.bookNameLabel!.text = searchedModel.bookTitle
+            cell?.bookAuthorLabel!.text = searchedModel.bookAuthor
+            cell?.tagsLabel!.text = searchedModel.bookTags
+            cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (searchedModel.bookImageName)!)
+            
+            return cell!
+            
+        }
+        
         cell?.bookNameLabel!.text = booksTableViewModel?.getBookTitle(indexPath : indexPath)
         cell?.bookAuthorLabel!.text = booksTableViewModel?.getAuthor(indexPath : indexPath)
         cell?.tagsLabel!.text = booksTableViewModel?.getTags(indexPath : indexPath)
-        cell?.bookPictureImageView?.image = UIImage(imageLiteralResourceName: (booksTableViewModel?.getImageName(indexPath : indexPath))!)
+        cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (booksTableViewModel?.getImageName(indexPath : indexPath))!)
 
         return cell!
         
