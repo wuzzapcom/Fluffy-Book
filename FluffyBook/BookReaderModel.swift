@@ -16,6 +16,45 @@ class BookReaderModel {
         
         database = try! DatabaseModel()
         
+        loadDataFromAppGroups()
+        
+    }
+    
+    func loadDataFromAppGroups() {
+        
+        let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBook")
+        
+        let data = sharedDefaults?.data(forKey: "saved")
+        
+        if data == nil {
+            
+            print("no new saved files")
+            return
+            
+        }
+        
+        sharedDefaults?.removeObject(forKey: "saved")
+
+        let fileManager = FileManager.default
+        
+        var documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        documentDirectory.appendPathComponent("saved.pdf")
+        
+        print(documentDirectory)
+        
+        if fileManager.fileExists(atPath: documentDirectory.path) {
+            
+            print("file exists")
+            
+        } else {
+            
+            fileManager.createFile(atPath: documentDirectory.path, contents: data, attributes: nil)
+            
+        }
+        
+        print(fileManager.fileExists(atPath: documentDirectory.path))
+        
     }
     
     

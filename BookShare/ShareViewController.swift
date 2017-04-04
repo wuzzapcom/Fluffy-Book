@@ -16,8 +16,6 @@ class ShareViewController : UIViewController {
         
         super.viewDidLoad()
         
-        print("start extension")
-        
         let fileItem = self.extensionContext!.inputItems.first as! NSExtensionItem
         
         let textItemProvider = fileItem.attachments!.first as! NSItemProvider
@@ -27,6 +25,7 @@ class ShareViewController : UIViewController {
         if textItemProvider.hasItemConformingToTypeIdentifier(identifier) {
             
             textItemProvider.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: handleCompletion)
+            
         }
         
         extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
@@ -38,32 +37,11 @@ class ShareViewController : UIViewController {
         if let fileURL = fileURL as? URL {
             
             let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBook")
-
-            
-//            let newFileURL = URL(fileURLWithPath:  (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("saved.pdf"))
-//            
-//            print(newFileURL)
-            
-            
-//            sharedDefaults?.set(fileURL, forKey: "saved")
-            
-//            sharedDefaults.set
-
-//            let fileManager = FileManager.default
-            
             
             let data = NSData(contentsOf : fileURL)
             
             sharedDefaults?.set(data, forKey: "saved")
             
-            print(data?.length)
-            
-//            do {
-//                try fileManager.copyItem(at: fileURL, to: newFileURL)
-//            }
-//            catch {
-//                print(error)
-//            }
         }
     }
     
