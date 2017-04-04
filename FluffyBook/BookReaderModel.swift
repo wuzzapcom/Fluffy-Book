@@ -18,43 +18,89 @@ class BookReaderModel {
         
         loadDataFromAppGroups()
         
+        deleteTempFiles()
+        
     }
     
     func loadDataFromAppGroups() {
         
         let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBook")
+        let dataArray = sharedDefaults?.array(forKey: "savedEPUBs") as? [Data]
+        let fileManager = FileManager.default
+        var documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         
-        let data = sharedDefaults?.data(forKey: "saved")
-        
-        if data == nil {
+        if dataArray == nil {
             
             print("no new saved files")
             return
             
         }
         
-        sharedDefaults?.removeObject(forKey: "saved")
-
-        let fileManager = FileManager.default
+        var i = 0
         
-        var documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        print(dataArray!.count)
         
-        documentDirectory.appendPathComponent("saved.pdf")
-        
-        print(documentDirectory)
-        
-        if fileManager.fileExists(atPath: documentDirectory.path) {
+        while i < dataArray!.count {
             
-            print("file exists")
+            print(i)
+        
+            documentDirectory.appendPathComponent("saved_\(i).epub")
             
-        } else {
+            print(documentDirectory.path)
+        
+            if fileManager.fileExists(atPath: documentDirectory.path) {
             
-            fileManager.createFile(atPath: documentDirectory.path, contents: data, attributes: nil)
+                print("file exists")
+            
+            } else {
+            
+                fileManager.createFile(atPath: documentDirectory.path, contents: dataArray?[i], attributes: nil)
+                
+                print("created file \(documentDirectory.path)")
+            
+            }
+            
+            documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            i += 1
             
         }
         
-        print(fileManager.fileExists(atPath: documentDirectory.path))
+        sharedDefaults?.removeObject(forKey: "savedEPUBs")
         
+    }
+    
+    func deleteTempFiles() {
+        
+        let fileManager = FileManager.default
+    
+        let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        var i = 0
+        
+        while true {
+            
+            print(i)
+            
+            if fileManager.fileExists(atPath: documentDirectory.path + "/saved_\(i).epub") {
+                
+                try! fileManager.removeItem(atPath: documentDirectory.path + "/saved_\(i).epub")
+                
+                print("file deleted")
+                
+            }else{
+                
+                print("break")
+                
+                break
+                
+            }
+            
+            i += 1
+            
+        }
+        
+        
+    
     }
     
     

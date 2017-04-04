@@ -18,13 +18,13 @@ class ShareViewController : UIViewController {
         
         let fileItem = self.extensionContext!.inputItems.first as! NSExtensionItem
         
-        let textItemProvider = fileItem.attachments!.first as! NSItemProvider
+        let itemProvider = fileItem.attachments!.first as! NSItemProvider
         
-        let identifier = kUTTypePDF as String
+        let identifier = kUTTypeElectronicPublication as String
         
-        if textItemProvider.hasItemConformingToTypeIdentifier(identifier) {
+        if itemProvider.hasItemConformingToTypeIdentifier(identifier) {
             
-            textItemProvider.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: handleCompletion)
+            itemProvider.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: handleCompletion)
             
         }
         
@@ -40,9 +40,42 @@ class ShareViewController : UIViewController {
             
             let data = NSData(contentsOf : fileURL)
             
-            sharedDefaults?.set(data, forKey: "saved")
+            var array = getContainedArray(sharedDefaults: sharedDefaults!, key: "savedEPUBs")
+            
+            array.append(data!)
+            
+            print(array.count)
+            
+            sharedDefaults?.set(array, forKey: "savedEPUBs")
+            
+            print("saved")
             
         }
+    }
+    
+    func getContainedArray(sharedDefaults : UserDefaults, key : String) -> [NSData] {
+        
+        
+        if let array = sharedDefaults.array(forKey: key) {
+            
+            print("exists")
+            
+            if array as? [NSData] != nil {
+                
+                print("is [NSData]")
+                
+                sharedDefaults.removeObject(forKey: key)
+                
+                return array as! [NSData]
+                
+            }
+            
+            print("array is not [NSData]")
+            
+        }
+        
+        return []
+        
     }
     
     
