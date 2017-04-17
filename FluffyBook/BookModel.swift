@@ -11,20 +11,27 @@ import RealmSwift
 
 class BookModel : Object{
     
-    dynamic var currentPercent : Float = 0
-    dynamic var urlToMetafiles : String?
-    dynamic var bookTitle : String?
+    var version: Double?
+    var uniqueId: String?
+    var resources = List<BookParserStructServiceFiles>()
+    var currentPercent = 0.0
+    var bookTitle: String?
+    var author: String!
+    var coverImage: String?
+    var opfFile: BookParserStructServiceFiles!
     
-//    init(url : URL, title : String) {
-//        
-//        urlToMetafiles = url
-//        bookTitle = title
-//        
-//    }
+    
+    func getSection(number: Int) -> String? {
+        return nil
+    }
+    func addResource(_ resource: BookParserStructServiceFiles) {
+//        self.resources[resource.href] = resource
+        self.resources.append(resource)
+    }
     
     func getCurrentProgressPercent() -> Float {
         
-        return currentPercent
+        return Float(currentPercent)
         
     }
     
