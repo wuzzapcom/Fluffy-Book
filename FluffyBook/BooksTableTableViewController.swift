@@ -14,7 +14,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     var booksTableViewModel : BooksTableViewModel?
     var searchController : UISearchController = UISearchController(searchResultsController: nil)
     
-    var parse = BookParserModel("3T.epub")
+    var parse = BookParserModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,19 +87,22 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     
     func loadDefaultBookToBD(){
         //because i clean db
+        parse.kostylInit("3T.epub")
         let parsBook = parse.parseBook()
         let bookPreview = BookPreviewModel()
         bookPreview.bookImageName = parsBook?.coverImage!
-        bookPreview.bookTitle = parsBook?.bookTitle
+        bookPreview.bookTitle = "Test"
         bookPreview.bookAuthor = parsBook?.author
-        bookPreview.bookTags = "18+"
+        bookPreview.bookTags = "#testtag"
         
-        let bookModel = BookModel()
-        bookModel.currentPercent = 33.0
-        bookModel.bookTitle = "Harry Potter and Philosopher's Stone"
+//        let bookModel = BookModel()
+//        bookModel.currentPercent = 33.0
+//        bookModel.bookTitle = parsBook?.bookTitle
+        
         
         booksTableViewModel?.addBookPreviewToDatabase(bookPreview: bookPreview)
-        booksTableViewModel?.addBookModelToDatabase(bookModel: bookModel)
+        booksTableViewModel?.addBookModelToDatabase(bookModel: parsBook!)
+        
         
         self.tableView!.reloadData()
         

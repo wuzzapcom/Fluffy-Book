@@ -11,6 +11,7 @@ import FolioReaderKit
 import SSZipArchive
 import Zip
 import AEXML
+import RealmSwift
 
 /* TODO:
  * Create class for media types (js, jpg, etc...)
@@ -19,14 +20,19 @@ import AEXML
  * Rewrite all system func
  */
 
-class BookParserModel {
+class BookParserModel : Object {
     fileprivate var book: BookModel?
     fileprivate let fileManager = FileManager.default
     fileprivate var bookPath: String!
     fileprivate var servicePath: String!
     fileprivate var bookName: String!
+    fileprivate var tocUrl: String!
     
-    init(_ _bookName: String) {
+//    init(_ _bookName: String) {
+//        bookName = _bookName
+//    }
+    
+    func kostylInit(_ _bookName: String) {
         bookName = _bookName
     }
     
@@ -36,22 +42,8 @@ class BookParserModel {
         unzipBook(bookName)
         readContainer()
         readOpf()
+        parseTocFile()
         return book
-    }
-    
-    /// Return cover of book in UIImage? format
-    fileprivate func parseImage() -> String? {
-        return book?.coverImage
-    }
-    
-    /// Don't call. This method not working yet =)
-    fileprivate func parseTitle() -> String? {
-        return nil
-    }
-    
-    /// Don't call. This method not working yet =)
-    fileprivate func parseAuthorName() -> String? {
-        return nil
     }
     
     /// Return reference to selected section
@@ -106,21 +98,11 @@ class BookParserModel {
         do {
             let url = NSURL(string: unzipPath)
             let dir_contents = try fileManager.contentsOfDirectory(at: url! as URL, includingPropertiesForKeys: nil, options: [])
-//            print(dir_contents)
         } catch {
             print("Error...\n")
             return
         }
         
-//        var items: [String]
-//        do {
-//            items = try fileManager.contentsOfDirectory(atPath: unzipPath)
-//            for item in items {
-//                print(item)
-//            }
-//        } catch {
-//            return
-//        }
         
     }
     
@@ -175,9 +157,9 @@ class BookParserModel {
             if let pck = xmlDoc.children.first {
                 id = pck.attributes["unique-identifier"]
                 
-                if let version = pck.attributes["version"] {
-                    book?.version = Double(version)
-                }
+//                if let version = pck.attributes["version"] {
+//                    book?.version = Double(version)
+//                }
             }
             
             // Parse each item in manifest...
@@ -193,16 +175,26 @@ class BookParserModel {
                 book?.addResource(servInfo)
                 //book?.coverImage = getResourceByKey(key: "images/cover.jpg")?.fullHref
             }
+            
             let metadata = readMetadata(xmlDoc.root["metadata"].children)
             let coverImageInf = getCoverImg(metadata: metadata)
             book?.coverImage = getResourceById(id: coverImageInf!)?.fullHref
             book?.bookTitle = metadata.titles.first
             book?.author = metadata.creators.first?.name
+            
+            // Parse TOC file
+            // !!! May be not only "ncx"
+            tocUrl = getResourceById(id: "ncx")?.fullHref
+            
         } catch {
-            print("Can't open OPF file")
+            print("Can not open OPF file")
             return
         }
     }
+    
+//    fileprivate func findTocFile(_ mediaType: String!) -> String? {
+//        return "213";
+//    }
     
     fileprivate func getCoverImg(metadata: BookParserMetaInfoService) -> String? {
         for meta in metadata.metaAttributes {
@@ -213,6 +205,49 @@ class BookParserModel {
             }
         }
         return nil
+    }
+    
+    fileprivate func parseTocFile() {
+        var listOfContent = List<BookParserContentInfo>()
+        var tocItems: [AEXMLElement]?
+        
+        do {
+            let ncxData = try Data(contentsOf: URL(fileURLWithPath: tocUrl), options: .alwaysMapped)
+            let xmlDoc = try AEXMLDocument(xml: ncxData)
+            if let itemList = xmlDoc.root["navMap"]["navPoint"].all {
+                tocItems = itemList
+            }
+        } catch {
+            print("Can not create")
+        }
+        //let items = tocItems
+        for item in tocItems! {
+            listOfContent.append(readTocItemStruct(item: item))
+        }
+        book?.contentInfo = listOfContent
+    }
+    
+    fileprivate func readTocItemStruct(item: AEXMLElement) -> BookParserContentInfo {
+        var label = ""
+        
+        if let labelText = item["navLabel"]["text"].value {
+            label = labelText
+        }
+        let reference = item["content"].attributes["src"]
+        let hrefSplit = reference?.characters.split{$0 == "#"}.map{ String($0) }
+        let fragmentID = (hrefSplit?.count)! > 1 ? hrefSplit?[1] : ""
+        let href = hrefSplit?[0]
+        
+        let resource = getResourceByKey(key: href!)
+        let toc = BookParserContentInfo()
+        toc.initializeVar(title: label, resource: resource, fragmentID: fragmentID!)
+        
+        if let child_items = item["navPoint"].all {
+            for child_item in child_items {
+                toc.children.append(readTocItemStruct(item: child_item))
+            }
+        }
+        return toc
     }
     
     fileprivate func readMetadata(_ items: [AEXMLElement]) -> BookParserMetaInfoService {

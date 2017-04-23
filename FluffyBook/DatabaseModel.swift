@@ -104,6 +104,7 @@ class DatabaseModel{
     func getBookModel(withTitle ident : String) throws -> BookModel{
         
         let results = db.objects(BookModel.self).filter("bookTitle == \"\(ident)\"")
+        print("Results = \(results)")
         
         if results.count != 1 {
             
