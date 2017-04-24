@@ -87,11 +87,11 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     
     func loadDefaultBookToBD(){
         //because i clean db
-        parse.kostylInit("3T.epub")
+        parse.kostylInit("TheW.epub")
         let parsBook = parse.parseBook()
         let bookPreview = BookPreviewModel()
         bookPreview.bookImageName = parsBook?.coverImage!
-        bookPreview.bookTitle = "Test"
+        bookPreview.bookTitle = "TheW.epub"
         bookPreview.bookAuthor = parsBook?.author
         bookPreview.bookTags = "#testtag"
         

@@ -51,9 +51,9 @@ class BookModel : Object {
         return text
     }
     
-    func getBookTitle() -> String {
+    func getBookTitle() -> String? {
         
-        return "Test"
+        return bookTitle
         
     }
     

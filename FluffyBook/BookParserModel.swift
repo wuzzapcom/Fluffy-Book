@@ -9,7 +9,7 @@
 import Foundation
 import FolioReaderKit
 import SSZipArchive
-import Zip
+//import Zip
 import AEXML
 import RealmSwift
 
@@ -43,6 +43,7 @@ class BookParserModel : Object {
         readContainer()
         readOpf()
         parseTocFile()
+        book?.bookTitle = bookName
         return book
     }
     
