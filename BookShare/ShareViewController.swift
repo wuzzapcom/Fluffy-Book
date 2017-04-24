@@ -36,7 +36,7 @@ class ShareViewController : UIViewController {
         
         if let fileURL = fileURL as? URL {
             
-            let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBook")
+            let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBookShare")
             
             let data = NSData(contentsOf : fileURL)
             

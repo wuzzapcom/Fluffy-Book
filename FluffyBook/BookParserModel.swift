@@ -43,7 +43,6 @@ class BookParserModel : Object {
         readContainer()
         readOpf()
         parseTocFile()
-        book?.bookTitle = bookName
         return book
     }
     
@@ -108,7 +107,7 @@ class BookParserModel : Object {
     }
     
     fileprivate func tempUnzipPath() -> String? {
-        var path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+        var path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         path += "/\(UUID().uuidString)"
         let url = URL(fileURLWithPath: path)
         do {
@@ -122,9 +121,15 @@ class BookParserModel : Object {
     }
     
     fileprivate func tempZipPath(_ bookName: String) -> String? {
-//        var path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+        var path : String
+        if (bookName != "TheW.epub"){
+            path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            path += "/" + bookName
+        }
+        else {
 //        path += "/\(UUID().uuidString).zip"
-        let path = Bundle.main.path(forResource: bookName, ofType: nil)
+            path = Bundle.main.path(forResource: bookName, ofType: nil)!
+        }
         return path
     }
     

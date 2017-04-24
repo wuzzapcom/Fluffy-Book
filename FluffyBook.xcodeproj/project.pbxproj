@@ -320,7 +320,7 @@
 				TargetAttributes = {
 					9E911F281E92DE690001CB6E = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 2T6B33B74J;
+						DevelopmentTeam = EFC3BLK6FZ;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -330,7 +330,7 @@
 					};
 					9E9619431E7432B8003A5DA1 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 2T6B33B74J;
+						DevelopmentTeam = EFC3BLK6FZ;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -410,7 +410,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		99ACF9059E5F395CED9AE3F7 /* [CP] Copy Pods Resources */ = {
@@ -506,10 +506,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BookShare/BookShare.entitlements;
-				DEVELOPMENT_TEAM = 2T6B33B74J;
+				DEVELOPMENT_TEAM = EFC3BLK6FZ;
 				INFOPLIST_FILE = BookShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wuzzapcom.FluffyBook.BookShare;
+				PRODUCT_BUNDLE_IDENTIFIER = fluffybook.FluffyBook.BookShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -520,10 +520,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = BookShare/BookShare.entitlements;
-				DEVELOPMENT_TEAM = 2T6B33B74J;
+				DEVELOPMENT_TEAM = EFC3BLK6FZ;
 				INFOPLIST_FILE = BookShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wuzzapcom.FluffyBook.BookShare;
+				PRODUCT_BUNDLE_IDENTIFIER = fluffybook.FluffyBook.BookShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -630,11 +630,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FluffyBook/FluffyBook.entitlements;
-				DEVELOPMENT_TEAM = 2T6B33B74J;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = EFC3BLK6FZ;
 				INFOPLIST_FILE = FluffyBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wuzzapcom.FluffyBook;
+				PRODUCT_BUNDLE_IDENTIFIER = fluffybook.FluffyBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -646,11 +648,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FluffyBook/FluffyBook.entitlements;
-				DEVELOPMENT_TEAM = 2T6B33B74J;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = EFC3BLK6FZ;
 				INFOPLIST_FILE = FluffyBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wuzzapcom.FluffyBook;
+				PRODUCT_BUNDLE_IDENTIFIER = fluffybook.FluffyBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
