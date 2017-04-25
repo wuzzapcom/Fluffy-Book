@@ -19,12 +19,13 @@ class BookReaderModel {
         loadDataFromAppGroups()
         
         deleteTempFiles()
+    
         
     }
     
     func loadDataFromAppGroups() {
         
-        var parser = BookParserModel()
+        let parser = BookParserModel()
         
         let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBookShare")
         let dataArray = sharedDefaults?.array(forKey: "savedEPUBs") as? [Data]
@@ -135,6 +136,12 @@ class BookReaderModel {
     func getDictionaryTableViewModel() -> DictionaryTableViewModel{
         
         return DictionaryTableViewModel(databaseModel : database)
+        
+    }
+    
+    func getWebDictionaryModel() -> WebDictionaryModel {
+        
+        return WebDictionaryModel(database: database)
         
     }
     

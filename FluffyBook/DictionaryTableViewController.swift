@@ -10,9 +10,10 @@ import UIKit
 
 class DictionaryTableViewController: UITableViewController, UISearchResultsUpdating {
     
-    var bookReaderModel : BookReaderModel?
-    var dictionaryTableViewModel : DictionaryTableViewModel?
-    var searchController : UISearchController = UISearchController(searchResultsController: nil)
+    fileprivate var bookReaderModel : BookReaderModel?
+    fileprivate var dictionaryTableViewModel : DictionaryTableViewModel?
+    fileprivate var searchController : UISearchController = UISearchController(searchResultsController: nil)
+    fileprivate var webDictionaryModel : WebDictionaryModel?
     
 
     override func viewDidLoad() {
@@ -21,14 +22,23 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         //Just one instanse of BookReaderModel, initialization in AppDelegate
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
         dictionaryTableViewModel = bookReaderModel?.getDictionaryTableViewModel()
+        webDictionaryModel = bookReaderModel?.getWebDictionaryModel()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNotification(notification:)),
+                                               name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER),
+                                               object: nil)
         
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
         addEditButton()
         
-        loadDefaultWordsToDB()
+//        loadDefaultWordsToDB()
         
         addSearchController()
+        
+        sendQueryToServer(word: "fa")
+        
         
     }
     
@@ -59,20 +69,35 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         
     }
     
-    func loadDefaultWordsToDB() {
+    func sendQueryToServer(word : String) {
         
-        let word1 = WordPreviewModel()
-        word1.word = "Home"
-        word1.translation = "Дом"
-        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word1)
-        let word2 = WordPreviewModel()
-        word2.word = "iPhone"
-        word2.translation = "Айфон"
-        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word2)
-        let word3 = WordPreviewModel()
-        word3.word = "Mother"
-        word3.translation = "Мама"
-        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word3)
+        do{
+            
+            try webDictionaryModel?.asyncQuery(forWord: word)
+            
+        } catch let exc as WebDictionaryException {
+            
+            print(exc.localizedDescription)
+            
+        } catch {
+            
+            print("non catched error")
+            
+        }
+        
+        
+//        let word1 = WordPreviewModel()
+//        word1.word = "Home"
+//        word1.translation = "Дом"
+//        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word1)
+//        let word2 = WordPreviewModel()
+//        word2.word = "iPhone"
+//        word2.translation = "Айфон"
+//        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word2)
+//        let word3 = WordPreviewModel()
+//        word3.word = "Mother"
+//        word3.translation = "Мама"
+//        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word3)
     }
     
     func addSearchController(){
@@ -154,6 +179,14 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
             self.tableView.reloadData()
             
         }
+        
+    }
+    
+    func handleNotification(notification : Notification){
+        
+        dictionaryTableViewModel?.loadWords()
+        
+        self.tableView.reloadData()
         
     }
     

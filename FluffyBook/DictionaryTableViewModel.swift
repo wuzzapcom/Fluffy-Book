@@ -40,7 +40,7 @@ class DictionaryTableViewModel{
             
             print(word)
             
-            if word.word!.lowercased().contains(w.lowercased()){
+            if word.word.lowercased().contains(w.lowercased()){
                 
                 searchedWords.append(word)
                 
@@ -60,6 +60,12 @@ class DictionaryTableViewModel{
         
     }
     
+    func loadWords(){
+    
+        words = database.loadWordsPreviews()
+    
+    }
+    
     //Remove elements
     
     func deleteElement(atRow indexPath : IndexPath) {
@@ -74,7 +80,7 @@ class DictionaryTableViewModel{
     
     func getWord(indexPath : IndexPath) -> String {
 
-        return words[indexPath.row].word!
+        return words[indexPath.row].word
         
     }
     
@@ -92,7 +98,7 @@ class DictionaryTableViewModel{
     
     func getTranslation(indexPath : IndexPath) -> String {
 
-        return words[indexPath.row].translation!
+        return words[indexPath.row].translation
         
     }
     

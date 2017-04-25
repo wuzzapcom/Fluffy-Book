@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		25D9CDBBA4B7C63330125A08 /* Pods_FluffyBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F46A1AAF81391C243871AA /* Pods_FluffyBook.framework */; };
+		9E02E1F01EAFDF470091A1DD /* WebDictionaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02E1EF1EAFDF470091A1DD /* WebDictionaryModel.swift */; };
+		9E02E1F21EAFE8C30091A1DD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02E1F11EAFE8C30091A1DD /* Constants.swift */; };
 		9E31428E1E8F8FF3000FD292 /* WordPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31428D1E8F8FF3000FD292 /* WordPreviewModel.swift */; };
 		9E4D9ADD1EAE1A1E002B13DA /* BookParserMetaInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D9ADB1EAE1A1E002B13DA /* BookParserMetaInfoService.swift */; };
 		9E4D9ADE1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D9ADC1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift */; };
@@ -64,6 +66,8 @@
 		165110D3D817AD71CA03411E /* Pods-FluffyBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluffyBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FluffyBook/Pods-FluffyBook.debug.xcconfig"; sourceTree = "<group>"; };
 		1812FC5298EB3B2B00703043 /* Pods-FluffyBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluffyBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-FluffyBook/Pods-FluffyBook.release.xcconfig"; sourceTree = "<group>"; };
 		24F46A1AAF81391C243871AA /* Pods_FluffyBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FluffyBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E02E1EF1EAFDF470091A1DD /* WebDictionaryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebDictionaryModel.swift; sourceTree = "<group>"; };
+		9E02E1F11EAFE8C30091A1DD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9E31428D1E8F8FF3000FD292 /* WordPreviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordPreviewModel.swift; sourceTree = "<group>"; };
 		9E4D9ADB1EAE1A1E002B13DA /* BookParserMetaInfoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookParserMetaInfoService.swift; sourceTree = "<group>"; };
 		9E4D9ADC1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookParserStructServiceFiles.swift; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 				9E4D9ADC1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift */,
 				9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */,
 				E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */,
+				9E02E1EF1EAFDF470091A1DD /* WebDictionaryModel.swift */,
 			);
 			name = LogicModel;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 				9E9619531E7432B9003A5DA1 /* Info.plist */,
 				9E677BD61E744F4E00113D6B /* Controllers */,
 				9E677BD71E744F5A00113D6B /* Model */,
+				9E02E1F11EAFE8C30091A1DD /* Constants.swift */,
 			);
 			path = FluffyBook;
 			sourceTree = "<group>";
@@ -454,9 +460,11 @@
 				E9AFD87A1E7D6EC400D18FC6 /* BookParserModel.swift in Sources */,
 				9E677BD51E744F3200113D6B /* BookReaderModel.swift in Sources */,
 				9E4D9ADE1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift in Sources */,
+				9E02E1F01EAFDF470091A1DD /* WebDictionaryModel.swift in Sources */,
 				9E80003F1E8D9F45006B9EE7 /* BookPreviewModel.swift in Sources */,
 				9E31428E1E8F8FF3000FD292 /* WordPreviewModel.swift in Sources */,
 				9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */,
+				9E02E1F21EAFE8C30091A1DD /* Constants.swift in Sources */,
 				9E677BCD1E7441D600113D6B /* BooksTableTableViewController.swift in Sources */,
 				9E9619481E7432B9003A5DA1 /* AppDelegate.swift in Sources */,
 				9E677BD91E7453A600113D6B /* BookModel.swift in Sources */,

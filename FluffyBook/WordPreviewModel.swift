@@ -11,8 +11,15 @@ import RealmSwift
 
 class WordPreviewModel : Object{
     
-    dynamic var word : String?
-    dynamic var translation : String?
-    dynamic var transcription : String?
+    dynamic var word : String = ""
+    dynamic var translation : String = ""
+    dynamic var transcription : String = ""
+    
+    public func setFields(word w : String, translation tr : String) {
+        
+        word = w
+        translation = tr
+        
+    }
     
 }
