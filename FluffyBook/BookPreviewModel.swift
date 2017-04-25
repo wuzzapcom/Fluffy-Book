@@ -11,9 +11,9 @@ import RealmSwift
 
 class BookPreviewModel : Object{
     
-    dynamic var bookImageName : String?
-    dynamic var bookTitle : String?
-    dynamic var bookAuthor : String?
-    dynamic var bookTags : String?
+    dynamic var bookImageName : String = ""
+    dynamic var bookTitle : String = ""
+    dynamic var bookAuthor : String = ""
+    dynamic var bookTags : String = ""
     
 }

@@ -38,13 +38,23 @@ class BooksTableViewModel{
         
         for book in books {
             
-            if book.bookTitle!.lowercased().contains(title.lowercased()) {
+            if book.bookTitle
+                .lowercased().contains(title.lowercased()) {
                 
                 searchedBooks.append(book)
                 
             }
             
         }
+        
+    }
+    
+    func loadBookPreviewsFromDatabase(){
+        
+        books = database.loadBookPreviews()
+        
+        print("books inside booksTableViewModel")
+        print(books)
         
     }
     
@@ -80,7 +90,7 @@ class BooksTableViewModel{
     
     func getSelectedBookModel(indexPath : IndexPath) -> BookModel {
         
-        return try! database.getBookModel(withTitle: books[indexPath.row].bookTitle!)
+        return try! database.getBookModel(withTitle: books[indexPath.row].bookTitle)
         
     }
     
@@ -98,25 +108,25 @@ class BooksTableViewModel{
 
     func getBookTitle(indexPath : IndexPath) -> String {
         
-        return books[indexPath.row].bookTitle!
+        return books[indexPath.row].bookTitle
         
     }
     
     func getAuthor(indexPath : IndexPath) -> String {
         
-        return books[indexPath.row].bookAuthor!
+        return books[indexPath.row].bookAuthor
         
     }
     
     func getTags(indexPath : IndexPath) -> String {
         
-        return books[indexPath.row].bookTags!
+        return books[indexPath.row].bookTags
         
     }
     
     func getImageName(indexPath : IndexPath) -> String {
         
-        return books[indexPath.row].bookImageName!
+        return books[indexPath.row].bookImageName
         
     }
     

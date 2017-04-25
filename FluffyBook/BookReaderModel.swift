@@ -65,9 +65,9 @@ class BookReaderModel {
                 let book = parser.parseBook()
                 
                 let preview = BookPreviewModel()
-                preview.bookAuthor = book?.author
-                preview.bookTitle = book?.bookTitle
-                preview.bookImageName = book?.coverImage
+                preview.bookAuthor = (book?.author)!
+                preview.bookTitle = (book?.bookTitle)!
+                preview.bookImageName = (book?.coverImage)!
                 preview.bookTags = "tag"
                 
                 database.addBookModel(bookModel: book!)

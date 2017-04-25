@@ -15,10 +15,11 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     var searchController : UISearchController = UISearchController(searchResultsController: nil)
     
     var parse = BookParserModel()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         //Just one instanse of BookReaderModel, initialization in AppDelegate
         bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
         booksTableViewModel = bookReaderModel?.getBooksTableViewModel()
@@ -86,24 +87,25 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     }
     
     func loadDefaultBookToBD(){
-        //because i clean db
-        print("return")
+        
+//        booksTableViewModel!.loadBookPreviewsFromDatabase()
+        
+        if (booksTableViewModel?.books.count != 0){
+            return
+        }
+       
         parse.kostylInit("TheW.epub")
         let parsBook = parse.parseBook()
         let bookPreview = BookPreviewModel()
-        bookPreview.bookImageName = parsBook?.coverImage!
-        bookPreview.bookTitle = parsBook?.bookTitle//"TheW.epub"
-        bookPreview.bookAuthor = parsBook?.author
+        bookPreview.bookImageName = (parsBook?.coverImage!)!
+        bookPreview.bookTitle = (parsBook?.bookTitle)!//"TheW.epub"
+        bookPreview.bookAuthor = (parsBook?.author)!
         bookPreview.bookTags = "#testtag"
-        
-//        let bookModel = BookModel()
-//        bookModel.currentPercent = 33.0
-//        bookModel.bookTitle = parsBook?.bookTitle
         
         
         booksTableViewModel?.addBookPreviewToDatabase(bookPreview: bookPreview)
         booksTableViewModel?.addBookModelToDatabase(bookModel: parsBook!)
-        
+//
         
         self.tableView!.reloadData()
         
@@ -148,7 +150,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
             cell?.bookNameLabel!.text = searchedModel.bookTitle
             cell?.bookAuthorLabel!.text = searchedModel.bookAuthor
             cell?.tagsLabel!.text = searchedModel.bookTags
-            cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (searchedModel.bookImageName)!)
+            cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (searchedModel.bookImageName))
             
             return cell!
             

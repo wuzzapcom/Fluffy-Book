@@ -32,12 +32,13 @@ class DatabaseModel{
         
         db = try! Realm()
         
-        try! db.write {
-            db.deleteAll()
-        }
+//        try! db.write {
+//            db.deleteAll()
+//        }
         
         
     }
+    
     
     //Adding data to database
     func addWordPreviewModel(wordPreview : WordPreviewModel) {
@@ -56,6 +57,8 @@ class DatabaseModel{
             
             db.add(bookPreview)
             
+            try! db.commitWrite()
+            
         }
         
     }
@@ -65,6 +68,8 @@ class DatabaseModel{
         try! db.write {
             
             db.add(bookModel)
+            
+            try! db.commitWrite()
             
         }
         
@@ -76,6 +81,16 @@ class DatabaseModel{
         let books = db.objects(BookPreviewModel.self)
         var result : [BookPreviewModel] = []
         
+        print(books)
+        
+        
+        if books.count != 0 && !checkForFilesExist(path: books[0].bookImageName){
+            
+            deleteAllObjects(objects: books)
+            return result
+            
+        }
+        
         for book in books{
             
             result.append(book)
@@ -83,6 +98,32 @@ class DatabaseModel{
         }
         
         return result
+    
+    }
+    
+    func checkForFilesExist(path : String) -> Bool{
+        
+        return FileManager.default.fileExists(atPath:path)
+        
+    }
+    
+    func deleteAllObjects(objects : Results<BookPreviewModel>){
+        
+        print("Deleting all objects")
+        
+        for object in objects{
+            
+            deleteModelObject(modelObject: object)
+            
+        }
+        
+        let books = db.objects(BookModel.self)
+        
+        for book in books{
+            
+            deleteModelObject(modelObject: book)
+            
+        }
     
     }
     
