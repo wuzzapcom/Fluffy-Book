@@ -43,6 +43,14 @@ class DatabaseModel{
     //Adding data to database
     func addWordPreviewModel(wordPreview : WordPreviewModel) {
         
+        let words = loadWordsPreviews()
+        
+        if words.contains(wordPreview){
+            
+            return
+            
+        }
+        
         try! db.write {
             
             db.add(wordPreview)

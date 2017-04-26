@@ -37,9 +37,6 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         
         addSearchController()
         
-        sendQueryToServer(word: "fa")
-        
-        
     }
     
     //viewDidLoad methods
@@ -85,19 +82,6 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
             
         }
         
-        
-//        let word1 = WordPreviewModel()
-//        word1.word = "Home"
-//        word1.translation = "Дом"
-//        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word1)
-//        let word2 = WordPreviewModel()
-//        word2.word = "iPhone"
-//        word2.translation = "Айфон"
-//        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word2)
-//        let word3 = WordPreviewModel()
-//        word3.word = "Mother"
-//        word3.translation = "Мама"
-//        dictionaryTableViewModel?.addWordPreviewToDatabase(wordPreview: word3)
     }
     
     func addSearchController(){
@@ -119,9 +103,28 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
     //UISearchResultUpdating method
     func updateSearchResults(for searchController: UISearchController) {
         
-        dictionaryTableViewModel?.searchWords(forWord: searchController.searchBar.text!)
+        guard let text = searchController.searchBar.text else{
+            
+            return
+            
+        }
         
-        self.tableView.reloadData()
+        guard dictionaryTableViewModel != nil else {
+            return
+        }
+        
+        if dictionaryTableViewModel!.searchWords(forWord: text){
+        
+            self.tableView.reloadData()
+            
+            sendQueryToServer(word: text)
+            
+        }else{
+            
+            sendQueryToServer(word: text)
+            
+        }
+  
         
     }
     
@@ -187,6 +190,14 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         dictionaryTableViewModel?.loadWords()
         
         self.tableView.reloadData()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER),
+                                                  object: nil)
         
     }
     

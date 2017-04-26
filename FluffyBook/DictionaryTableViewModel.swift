@@ -32,7 +32,7 @@ class DictionaryTableViewModel{
     }
     
     //Search books
-    func searchWords(forWord w : String) {
+    func searchWords(forWord w : String) -> Bool {
         
         searchedWords.removeAll()
         
@@ -47,6 +47,8 @@ class DictionaryTableViewModel{
             }
             
         }
+        
+        return searchedWords.count == 0
         
     }
     
