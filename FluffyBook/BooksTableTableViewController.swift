@@ -97,7 +97,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         parse.kostylInit("TheW.epub")
         let parsBook = parse.parseBook()
         let bookPreview = BookPreviewModel()
-        bookPreview.bookImageName = (parsBook?.coverImage!)!
+        bookPreview.bookImageName = (parsBook?.coverImage)!
         bookPreview.bookTitle = (parsBook?.bookTitle)!//"TheW.epub"
         bookPreview.bookAuthor = (parsBook?.author)!
         bookPreview.bookTags = "#testtag"
@@ -233,6 +233,8 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         if let seg = segue.destination as? BookReaderViewController {
             
             setModelToDestinationViewController(vc: seg, indexPath : nil)
+            
+            seg.database = bookReaderModel?.getDatabase()
             
         }
 

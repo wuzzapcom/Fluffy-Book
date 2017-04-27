@@ -184,9 +184,9 @@ class BookParserModel : Object {
             
             let metadata = readMetadata(xmlDoc.root["metadata"].children)
             let coverImageInf = getCoverImg(metadata: metadata)
-            book?.coverImage = getResourceById(id: coverImageInf!)?.fullHref
-            book?.bookTitle = metadata.titles.first
-            book?.author = metadata.creators.first?.name
+            book?.coverImage = (getResourceById(id: coverImageInf!)?.fullHref)!
+            book?.bookTitle = metadata.titles.first!
+            book?.author = (metadata.creators.first?.name)!
             
             // Parse TOC file
             // !!! May be not only "ncx"

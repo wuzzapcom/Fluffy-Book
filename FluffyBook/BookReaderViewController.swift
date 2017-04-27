@@ -9,12 +9,14 @@
 import UIKit
 import WebKit
 
-class BookReaderViewController: UIViewController {
+class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate {
     
     
     var bookModel : BookModel?
     var isStatusBarHidden: Bool = false
     var isDetectedGesture: Bool = false
+    var database : DatabaseModel?
+    
     override var prefersStatusBarHidden: Bool{
         return isStatusBarHidden
     }
@@ -22,6 +24,7 @@ class BookReaderViewController: UIViewController {
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var bookWebView: UIWebView!
     
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -37,8 +40,73 @@ class BookReaderViewController: UIViewController {
         bookWebView.paginationBreakingMode = UIWebPaginationBreakingMode.page //webView stuff
         bookWebView.paginationMode = UIWebPaginationMode.leftToRight
         bookWebView.scrollView.bounces = false
+        bookWebView.scrollView.isScrollEnabled = false
+        
+        bookWebView.delegate = self
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        gestureRecognizer.delegate = self
+        bookWebView.addGestureRecognizer(gestureRecognizer)
 
     }
+    
+    @IBAction func handleUserChangedSlider(_ sender: Any) {
+        
+        print("update progress slider")
+        
+        let newOffset = bookModel?.getNewOffsetInContent(bySliderValue: progressSlider.value)
+        
+        moveContent(toOffset: CGFloat(newOffset!))
+        
+    }
+    func handleTap(sender : UITapGestureRecognizer){
+        
+        var screenWidth = UIScreen.main.bounds.width
+        
+        if sender.location(in: bookWebView).x < screenWidth / 3 {
+            screenWidth *= -1
+        }
+        else if sender.location(in: bookWebView).x < screenWidth * 2 / 3 {
+            
+            changeInterfaceHiddency()
+            return
+            
+        }
+        
+        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
+            return
+        }
+        
+        moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
+
+    
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        bookWebView.scrollView.setContentOffset(CGPoint(x:bookModel!.getCurrentOffsetInContent(), y:0), animated: true)
+        database?.updateContentSizesList(forModel: bookModel!, contentSize: Int(bookWebView.scrollView.contentSize.width))
+    }
+    
+    func  gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func moveContent(toOffset offset : CGFloat){
+        
+        DispatchQueue.main.async {
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                self.bookWebView.scrollView.contentOffset.x = offset
+            }, completion: nil)
+        }
+        
+        database?.updateCurrentContentOffset(forModel: bookModel!, withOffset: Int(self.bookWebView.scrollView.contentOffset.x))
+        
+        progressSlider?.value = bookModel!.getCurrentProgressPercent()
+        print(progressSlider?.value)
+        
+    }
+    
     
     //viewDidLoad methods
     func fillViewByModel() {
@@ -82,10 +150,21 @@ class BookReaderViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = nil
         
     }
-
-    func showNavigationBar() {
+    
+    func changeInterfaceHiddency(){
         
-        isStatusBarHidden = false
+        if isStatusBarHidden {
+            showInterface()
+        }
+        else {
+            hideInterface()
+        }
+        
+        isStatusBarHidden = !isStatusBarHidden
+        
+    }
+
+    func showInterface() {
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -100,9 +179,7 @@ class BookReaderViewController: UIViewController {
     }
     
     
-    func hideNavigationBar() {
-        
-        isStatusBarHidden = true
+    func hideInterface() {
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
