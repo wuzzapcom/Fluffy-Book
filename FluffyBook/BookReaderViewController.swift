@@ -46,11 +46,43 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         gestureRecognizer.delegate = self
+        gestureRecognizer.numberOfTapsRequired = 2
         bookWebView.addGestureRecognizer(gestureRecognizer)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
+        leftSwipe.direction = .left
+        bookWebView.addGestureRecognizer(leftSwipe)
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
+        rightSwipe.direction = .right
+        bookWebView.addGestureRecognizer(rightSwipe)
+
         
         let translateMenuItem = UIMenuItem(title: "Translation", action: #selector(translation))
         UIMenuController.shared.menuItems = [translateMenuItem]
 
+    }
+    
+    func handleSwipe(sender : UISwipeGestureRecognizer){
+        
+        if sender.direction == .up || sender.direction == .down{
+            return
+        }
+        
+        var screenWidth = UIScreen.main.bounds.width
+        
+        if sender.direction == .right {
+            
+            screenWidth *= -1
+            
+        }
+        
+        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
+            return
+        }
+        
+        moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
+        
     }
     
     func translation(){
@@ -112,23 +144,25 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     func handleTap(sender : UITapGestureRecognizer){
         
-        var screenWidth = UIScreen.main.bounds.width
+        changeInterfaceHiddency()
         
-        if sender.location(in: bookWebView).x < screenWidth / 3 {
-            screenWidth *= -1
-        }
-        else if sender.location(in: bookWebView).x < screenWidth * 2 / 3 {
-            
-            changeInterfaceHiddency()
-            return
-            
-        }
-        
-        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
-            return
-        }
-        
-        moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
+//        var screenWidth = UIScreen.main.bounds.width
+//        
+//        if sender.location(in: bookWebView).x < screenWidth / 3 {
+//            screenWidth *= -1
+//        }
+//        else if sender.location(in: bookWebView).x < screenWidth * 2 / 3 {
+//            
+//            changeInterfaceHiddency()
+//            return
+//            
+//        }
+//        
+//        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
+//            return
+//        }
+//        
+//        moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
 
     
     }
