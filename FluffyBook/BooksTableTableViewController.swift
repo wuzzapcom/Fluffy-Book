@@ -161,7 +161,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
             cell?.bookAuthorLabel!.text = self.booksTableViewModel?.getAuthor(indexPath : indexPath)
             cell?.tagsLabel!.text = self.booksTableViewModel?.getTags(indexPath : indexPath)
 
-            cell?.bookPictureImageView!.image //UIImage(imageLiteralResourceName: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!)
+            cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!)
         
         print("Filling cell : \(indexPath.row), size : \(FileManager.default.contents(atPath: (booksTableViewModel?.getImageName(indexPath: indexPath))!)?.count)")
     
