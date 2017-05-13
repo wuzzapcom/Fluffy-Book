@@ -32,7 +32,7 @@ class WebDictionaryModel{
             
             throw WebDictionaryException.RuntimeError("request url string cant be converted to url")
             
-        }
+        }  
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

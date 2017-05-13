@@ -13,6 +13,8 @@ class TranslationPresentationViewController: UIViewController {
     public var translation : String?
     fileprivate var indication : UIActivityIndicatorView?
     fileprivate var translationLabel : UILabel?
+    var prevViewBlur : UIVisualEffectView?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +24,26 @@ class TranslationPresentationViewController: UIViewController {
                                                name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER),
                                                object: nil)
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        view.addGestureRecognizer(tapGesture)
+        
+        view.backgroundColor = UIColor.clear
+        view.isOpaque = false
         indication = UIActivityIndicatorView()
         indication?.color = UIColor.black
-        self.view.backgroundColor = UIColor.white
         indication?.startAnimating()
         
         addView(subView: indication!)
+        
+    }
+    
+    func handleTap(sender : UITapGestureRecognizer){
+        
+        print("exit view")
+        
+        prevViewBlur?.removeFromSuperview()
+        
+        dismiss(animated: true, completion: nil)
         
     }
     
@@ -38,7 +54,7 @@ class TranslationPresentationViewController: UIViewController {
         let centerX = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
         let centerY = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0)
         let height = NSLayoutConstraint(item: subView
-            , attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 22)
+            , attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 25)
         subView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addConstraints([centerX, centerY, height])
         
@@ -52,6 +68,7 @@ class TranslationPresentationViewController: UIViewController {
         
         translationLabel = UILabel()
         translationLabel?.text = notification.object as? String
+        translationLabel?.font = translationLabel?.font.withSize(27)
         
         addView(subView: translationLabel!)
     

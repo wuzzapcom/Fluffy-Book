@@ -74,11 +74,28 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         print("Selected text is \(copiedText)")
         
-        if isStatusBarHidden{
-            changeInterfaceHiddency()
-        }
+//        if isStatusBarHidden{
+//            changeInterfaceHiddency()
+//        }
+//        self.navigationController?.pushViewController(TranslationPresentationViewController(), animated: true)
         
-        self.navigationController?.pushViewController(TranslationPresentationViewController(), animated: true)
+        openTranslationView()
+        
+    }
+    
+    func openTranslationView(){
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = 0.9
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        
+        let translationView = TranslationPresentationViewController()
+        translationView.prevViewBlur = blurEffectView
+        translationView.modalPresentationStyle = .overCurrentContext
+        present(translationView, animated: true, completion: nil)
         
     }
     
@@ -91,6 +108,8 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         moveContent(toOffset: CGFloat(newOffset!))
         
     }
+
+    
     func handleTap(sender : UITapGestureRecognizer){
         
         var screenWidth = UIScreen.main.bounds.width
