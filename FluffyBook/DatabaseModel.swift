@@ -170,8 +170,8 @@ class DatabaseModel{
         let words = loadWordsPreviews()
         
         for word in words {
-            
-            if word.translation == forWord {
+//            print(word.word)
+            if word.word == forWord {
                 return word.translation
             }
             

@@ -163,6 +163,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
 
             cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!)
         
+        
         print("Filling cell : \(indexPath.row), size : \(FileManager.default.contents(atPath: (booksTableViewModel?.getImageName(indexPath: indexPath))!)?.count)")
     
         return cell!

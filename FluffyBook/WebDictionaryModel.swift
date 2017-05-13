@@ -24,6 +24,19 @@ class WebDictionaryModel{
     
     public func asyncQuery(forWord w : String) throws {
         
+        let translation = db.getTranslation(forWord: w)
+        
+        if translation != nil {
+            
+            print("Word already in db")
+            DispatchQueue.main.async {
+//                sleep(1000)
+                NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER), object: translation)
+            }
+            return
+            
+        }
+        
         let requestURL = requestURLStart + w + requestURLEnd
         
         let optionalURL = URL(string: requestURL)
