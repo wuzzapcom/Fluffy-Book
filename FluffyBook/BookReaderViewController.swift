@@ -80,21 +80,6 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         self.navigationController?.pushViewController(TranslationPresentationViewController(), animated: true)
         
-        
-//        let presentationViewController = TranslationPresentationViewController()
-//        
-//        presentationViewController.modalPresentationStyle = .popover
-//        
-//        presentationViewController.preferredContentSize = CGSize(width:100, height:100)
-//        
-//        present(presentationViewController, animated: true, completion: nil)
-//        
-//        let popoverPresentationController = presentationViewController.popoverPresentationController
-//        
-//        popoverPresentationController?.sourceView = progressSlider
-//        
-//        popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: 100, height: 100)
-        
     }
     
     @IBAction func handleUserChangedSlider(_ sender: Any) {

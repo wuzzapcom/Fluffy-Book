@@ -39,6 +39,8 @@ class WebDictionaryModel{
  
         let session = URLSession(configuration: URLSessionConfiguration.default)
         
+        let localDB = self.db
+        
         session.dataTask(with: request) { [weak self] data, result, error in
             
             guard let data = data, error == nil else {
@@ -69,9 +71,13 @@ class WebDictionaryModel{
                     let wordPreview = WordPreviewModel()
                     wordPreview.setFields(word : w, translation : firstTranslation)
                     
+                    
                     DispatchQueue.main.async {
+                        let wordPreview = WordPreviewModel()
+                        wordPreview.setFields(word : w, translation : firstTranslation)
                         
-                        self?.db.addWordPreviewModel(wordPreview: wordPreview)
+                        localDB.addWordPreviewModel(wordPreview: wordPreview)
+                        
                         NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER), object: firstTranslation)
                         
                     }

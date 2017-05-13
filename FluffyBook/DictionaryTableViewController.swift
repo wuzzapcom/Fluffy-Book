@@ -33,9 +33,13 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         
         addEditButton()
         
-//        loadDefaultWordsToDB()
-        
         addSearchController()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        updateTable()
         
     }
     
@@ -186,6 +190,16 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
     }
     
     func handleNotification(notification : Notification){
+        
+        print("table notification")
+        
+        updateTable()
+        
+    }
+    
+    func updateTable(){
+        
+        print("update table")
         
         dictionaryTableViewModel?.loadWords()
         
