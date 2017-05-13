@@ -82,7 +82,7 @@ class BookReaderModel {
             
         }
         
-        sharedDefaults?.removeObject(forKey: "savedEPUBs")
+//        sharedDefaults?.removeObject(forKey: "savedEPUBs")
         
     }
     

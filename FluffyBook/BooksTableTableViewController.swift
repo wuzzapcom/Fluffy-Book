@@ -88,11 +88,12 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     
     func loadDefaultBookToBD(){
         
-//        booksTableViewModel!.loadBookPreviewsFromDatabase()
+        booksTableViewModel!.loadBookPreviewsFromDatabase()
         
-        if (booksTableViewModel?.books.count != 0){
-            return
-        }
+//        if (booksTableViewModel?.books.count != 0){
+//            return
+//        }
+        
        
         parse.kostylInit("TheW.epub")
         let parsBook = parse.parseBook()
@@ -155,12 +156,15 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
             return cell!
             
         }
-        
-        cell?.bookNameLabel!.text = booksTableViewModel?.getBookTitle(indexPath : indexPath)
-        cell?.bookAuthorLabel!.text = booksTableViewModel?.getAuthor(indexPath : indexPath)
-        cell?.tagsLabel!.text = booksTableViewModel?.getTags(indexPath : indexPath)
-        cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (booksTableViewModel?.getImageName(indexPath : indexPath))!)
 
+            cell?.bookNameLabel!.text = self.booksTableViewModel?.getBookTitle(indexPath : indexPath)
+            cell?.bookAuthorLabel!.text = self.booksTableViewModel?.getAuthor(indexPath : indexPath)
+            cell?.tagsLabel!.text = self.booksTableViewModel?.getTags(indexPath : indexPath)
+
+            cell?.bookPictureImageView!.image //UIImage(imageLiteralResourceName: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!)
+        
+        print("Filling cell : \(indexPath.row), size : \(FileManager.default.contents(atPath: (booksTableViewModel?.getImageName(indexPath: indexPath))!)?.count)")
+    
         return cell!
         
     }

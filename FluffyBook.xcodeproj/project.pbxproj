@@ -26,6 +26,7 @@
 		9E7C1F981E795FF0009A0A01 /* BooksTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */; };
 		9E80003B1E8D9A36006B9EE7 /* DatabaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */; };
 		9E80003F1E8D9F45006B9EE7 /* BookPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80003E1E8D9F45006B9EE7 /* BookPreviewModel.swift */; };
+		9E8CF95A1EC72378005B78E0 /* TranslationPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */; };
 		9E911F2C1E92DE690001CB6E /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E911F2B1E92DE690001CB6E /* ShareViewController.swift */; };
 		9E911F2F1E92DE690001CB6E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E911F2D1E92DE690001CB6E /* MainInterface.storyboard */; };
 		9E911F331E92DE690001CB6E /* BookShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9E911F291E92DE690001CB6E /* BookShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -83,6 +84,7 @@
 		9E7C1F971E795FF0009A0A01 /* BooksTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksTableViewModel.swift; sourceTree = "<group>"; };
 		9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseModel.swift; sourceTree = "<group>"; };
 		9E80003E1E8D9F45006B9EE7 /* BookPreviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPreviewModel.swift; sourceTree = "<group>"; };
+		9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationPresentationViewController.swift; sourceTree = "<group>"; };
 		9E911F291E92DE690001CB6E /* BookShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BookShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E911F2B1E92DE690001CB6E /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		9E911F2E1E92DE690001CB6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */,
 				E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */,
 				9E02E1EF1EAFDF470091A1DD /* WebDictionaryModel.swift */,
+				9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */,
 			);
 			name = LogicModel;
 			sourceTree = "<group>";
@@ -322,7 +325,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = wuzzapcom;
+				ORGANIZATIONNAME = FluffyBook;
 				TargetAttributes = {
 					9E911F281E92DE690001CB6E = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -463,6 +466,7 @@
 				9E02E1F01EAFDF470091A1DD /* WebDictionaryModel.swift in Sources */,
 				9E80003F1E8D9F45006B9EE7 /* BookPreviewModel.swift in Sources */,
 				9E31428E1E8F8FF3000FD292 /* WordPreviewModel.swift in Sources */,
+				9E8CF95A1EC72378005B78E0 /* TranslationPresentationViewController.swift in Sources */,
 				9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */,
 				9E02E1F21EAFE8C30091A1DD /* Constants.swift in Sources */,
 				9E677BCD1E7441D600113D6B /* BooksTableTableViewController.swift in Sources */,

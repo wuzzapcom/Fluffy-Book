@@ -32,9 +32,9 @@ class DatabaseModel{
         
         db = try! Realm()
         
-//        try! db.write {
-//            db.deleteAll()
-//        }
+        try! db.write {
+            db.deleteAll()
+        }
         
         
     }
@@ -107,15 +107,14 @@ class DatabaseModel{
         
         print(books)
         
-        
-        if books.count != 0 && !checkForFilesExist(path: books[0].bookImageName){
-            
-            deleteAllObjects(objects: books)
-            return result
-            
-        }
-        
         for book in books{
+            
+            if !FileManager.default.fileExists(atPath: book.bookImageName){
+                
+                try! deleteModelObject(modelObject: getBookModel(withTitle: book.bookTitle))
+                deleteModelObject(modelObject: book)
+                
+            }
             
             result.append(book)
             
@@ -131,25 +130,25 @@ class DatabaseModel{
         
     }
     
-    func deleteAllObjects(objects : Results<BookPreviewModel>){
-        
-        print("Deleting all objects")
-        
-        for object in objects{
-            
-            deleteModelObject(modelObject: object)
-            
-        }
-        
-        let books = db.objects(BookModel.self)
-        
-        for book in books{
-            
-            deleteModelObject(modelObject: book)
-            
-        }
-    
-    }
+//    func deleteAllObjects(){
+//        
+//        print("Deleting all objects")
+//        
+//        for object in objects{
+//            
+//            deleteModelObject(modelObject: object)
+//            
+//        }
+//        
+//        let books = db.objects(BookModel.self)
+//        
+//        for book in books{
+//            
+//            deleteModelObject(modelObject: book)
+//            
+//        }
+//    
+//    }
     
     func loadWordsPreviews() -> [WordPreviewModel] {
         
@@ -166,12 +165,28 @@ class DatabaseModel{
         
     }
     
+    func getTranslation(forWord : String) -> String?{
+        
+        let words = loadWordsPreviews()
+        
+        for word in words {
+            
+            if word.translation == forWord {
+                return word.translation
+            }
+            
+        }
+        
+        return nil
+        
+    }
+    
     func getBookModel(withTitle ident : String) throws -> BookModel{
         
         let results = db.objects(BookModel.self).filter("bookTitle == \"\(ident)\"")
         print("Results = \(results)")
         
-        if results.count != 1 {
+        if results.count == 0 {
             
             throw DatabaseInstansesException.RuntimeError("There is no books with this title or there are few of them.")
             

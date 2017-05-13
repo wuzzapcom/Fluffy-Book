@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate {
+class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate{
     
     
     var bookModel : BookModel?
@@ -47,7 +47,54 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         gestureRecognizer.delegate = self
         bookWebView.addGestureRecognizer(gestureRecognizer)
+        
+        let translateMenuItem = UIMenuItem(title: "Translation", action: #selector(translation))
+        UIMenuController.shared.menuItems = [translateMenuItem]
 
+    }
+    
+    func translation(){
+        
+        UIApplication.shared.sendAction(#selector(copy(_:)), to: nil, from: self, for: nil)
+        
+        let copied = UIPasteboard.general.string
+        
+        guard let copiedText = copied, copied != nil else {
+            return
+        }
+        
+        let webDict = WebDictionaryModel(database: database!)
+        
+        guard (try? webDict.asyncQuery(forWord: copiedText)) != nil else{
+            
+            print("Async Query error")
+            return
+            
+        }
+        
+        print("Selected text is \(copiedText)")
+        
+        if isStatusBarHidden{
+            changeInterfaceHiddency()
+        }
+        
+        self.navigationController?.pushViewController(TranslationPresentationViewController(), animated: true)
+        
+        
+//        let presentationViewController = TranslationPresentationViewController()
+//        
+//        presentationViewController.modalPresentationStyle = .popover
+//        
+//        presentationViewController.preferredContentSize = CGSize(width:100, height:100)
+//        
+//        present(presentationViewController, animated: true, completion: nil)
+//        
+//        let popoverPresentationController = presentationViewController.popoverPresentationController
+//        
+//        popoverPresentationController?.sourceView = progressSlider
+//        
+//        popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: 100, height: 100)
+        
     }
     
     @IBAction func handleUserChangedSlider(_ sender: Any) {
@@ -226,5 +273,6 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         setNavigationBarToDefaults()
         
     }
+    
 
 }

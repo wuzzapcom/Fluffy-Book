@@ -12,4 +12,6 @@ class Constants{
     
     public static let NOTIFICATION_IDENTIFIER = "NotificationIdentifier"
     
+    public static let SEGUE_TO_TRANSLATION_SCREEN = "SegueToTranslationScreen"
+    
 }

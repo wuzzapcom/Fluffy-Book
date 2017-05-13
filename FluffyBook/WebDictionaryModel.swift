@@ -72,7 +72,7 @@ class WebDictionaryModel{
                     DispatchQueue.main.async {
                         
                         self?.db.addWordPreviewModel(wordPreview: wordPreview)
-                        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER), object: nil)
+                        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER), object: firstTranslation)
                         
                     }
                     
