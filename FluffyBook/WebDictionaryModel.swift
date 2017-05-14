@@ -15,9 +15,9 @@ class WebDictionaryModel{
 
     fileprivate let db : DatabaseModel
     
-    init(database : DatabaseModel) {
+    init() {
         
-        db = database
+        db = DatabaseModel()
         
     }
     
@@ -52,10 +52,8 @@ class WebDictionaryModel{
         request.httpMethod = "POST"
  
         let session = URLSession(configuration: URLSessionConfiguration.default)
-        
-        let localDB = self.db
-        
-        session.dataTask(with: request) { [weak self] data, result, error in
+    
+        session.dataTask(with: request) { data, result, error in
             
             guard let data = data, error == nil else {
                 
@@ -87,9 +85,11 @@ class WebDictionaryModel{
                     
                     
                     DispatchQueue.main.async {
+                        
                         let wordPreview = WordPreviewModel()
                         wordPreview.setFields(word : w, translation : firstTranslation)
                         
+                        let localDB = DatabaseModel()
                         localDB.addWordPreviewModel(wordPreview: wordPreview)
                         
                         WebDictionaryModel.sendNotifications(withWord: firstTranslation)
@@ -104,7 +104,6 @@ class WebDictionaryModel{
             
         }.resume()
             
-        
     }
     
     fileprivate static func sendNotifications(withWord translation : String){

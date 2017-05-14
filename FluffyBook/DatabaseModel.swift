@@ -11,31 +11,11 @@ import RealmSwift
 
 class DatabaseModel{
     
-    //Singleton class.
-    //Or something like this, i guess.
-    // IMPORTANT 
-    
     var db : Realm
     
-    private static var instanses : Int = 0
-    
-    init() throws {
-        
-        if DatabaseModel.instanses == 0 {
-            DatabaseModel.instanses = 1
-        }
-        else {
-            
-            throw DatabaseInstansesException.RuntimeError("More than one instanse of this class")
-            
-        }
+    init(){
         
         db = try! Realm()
-        
-        try! db.write {
-            db.deleteAll()
-        }
-        
         
     }
     
@@ -55,6 +35,13 @@ class DatabaseModel{
             
             db.add(wordPreview)
             
+        }
+        
+    }
+    
+    func clearDatabase(){
+        try! db.write {
+            db.deleteAll()
         }
         
     }

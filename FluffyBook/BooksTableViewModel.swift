@@ -21,10 +21,11 @@ class BooksTableViewModel{
     var searchedBooks : [BookPreviewModel]
     var database : DatabaseModel
     
-    init(database db : DatabaseModel) {
-        
-        database = db
-        
+    init() {
+
+        database = DatabaseModel()
+//        database.clearDatabase()
+
         books = database.loadBookPreviews()
         
         searchedBooks = []

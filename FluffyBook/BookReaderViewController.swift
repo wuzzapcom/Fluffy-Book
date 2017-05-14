@@ -29,6 +29,8 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         super.viewDidLoad()
         
+        database = DatabaseModel()
+        
         fillViewByModel()  //Modifying view controller
         
         customizeProgressSlider()
@@ -95,7 +97,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
             return
         }
         
-        let webDict = WebDictionaryModel(database: database!)
+        let webDict = WebDictionaryModel()
         
         guard (try? webDict.asyncQuery(forWord: copiedText)) != nil else{
             

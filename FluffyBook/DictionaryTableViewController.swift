@@ -19,10 +19,10 @@ class DictionaryTableViewController: UITableViewController, UISearchBarDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //Just one instanse of BookReaderModel, initialization in AppDelegate
-        bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
-        dictionaryTableViewModel = bookReaderModel?.getDictionaryTableViewModel()
-        webDictionaryModel = bookReaderModel?.getWebDictionaryModel()
+        dictionaryTableViewModel = DictionaryTableViewModel()
+        webDictionaryModel = WebDictionaryModel()
+        
+        refreshControl?.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotification(notification:)),
@@ -34,6 +34,13 @@ class DictionaryTableViewController: UITableViewController, UISearchBarDelegate 
         addEditButton()
         
         addSearchController()
+        
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl){
+    
+        updateTable()
+        refreshControl.endRefreshing()
         
     }
     
@@ -71,7 +78,7 @@ class DictionaryTableViewController: UITableViewController, UISearchBarDelegate 
         
     }
     
-    //viewDidLoad methods
+
     func addEditButton() {
         
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTableAndChangeButton))
@@ -118,8 +125,6 @@ class DictionaryTableViewController: UITableViewController, UISearchBarDelegate 
     
     func addSearchController(){
         
-//        searchController.searchResultsUpdater = self
-        
         searchController.dimsBackgroundDuringPresentation = true
         
         searchController.definesPresentationContext = true
@@ -134,34 +139,7 @@ class DictionaryTableViewController: UITableViewController, UISearchBarDelegate 
         
     }
     
-//    func updateSearchResults(for searchController: UISearchController) {
-//        
-//        guard let text = searchController.searchBar.text else{
-//            
-//            return
-//            
-//        }
-//        
-//        guard dictionaryTableViewModel != nil else {
-//            return
-//        }
-//        
-//        if dictionaryTableViewModel!.searchWords(forWord: text){
-//        
-//            self.tableView.reloadData()
-//            
-//            sendQueryToServer(word: text)
-//            
-//        }else{
-//            
-//            sendQueryToServer(word: text)
-//            
-//        }
-//  
-//        
-//    }
-    
-    //tableView methods
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return dictionaryTableViewModel!.getNumberOfSections()

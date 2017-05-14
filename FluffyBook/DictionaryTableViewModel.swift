@@ -21,9 +21,9 @@ class DictionaryTableViewModel{
     var words : [WordPreviewModel]
     var searchedWords : [WordPreviewModel]
     
-    init(databaseModel db : DatabaseModel) {
+    init() {
         
-        database = db
+        database = DatabaseModel()
         
         words = database.loadWordsPreviews()
         

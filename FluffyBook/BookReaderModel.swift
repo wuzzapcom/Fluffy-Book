@@ -14,7 +14,7 @@ class BookReaderModel {
     
     init() {
         
-        database = try! DatabaseModel()
+        database = DatabaseModel()
         
         loadDataFromAppGroups()
         
@@ -82,7 +82,7 @@ class BookReaderModel {
             
         }
         
-//        sharedDefaults?.removeObject(forKey: "savedEPUBs")
+        sharedDefaults?.removeObject(forKey: "savedEPUBs")
         
     }
     
@@ -121,29 +121,29 @@ class BookReaderModel {
     }
     
     
-    func getDatabase() -> DatabaseModel {
-        
-        return database
-        
-    }
-    
-    func getBooksTableViewModel() -> BooksTableViewModel {
-        
-        return BooksTableViewModel(database: database)
-        
-    }
-    
-    func getDictionaryTableViewModel() -> DictionaryTableViewModel{
-        
-        return DictionaryTableViewModel(databaseModel : database)
-        
-    }
-    
-    func getWebDictionaryModel() -> WebDictionaryModel {
-        
-        return WebDictionaryModel(database: database)
-        
-    }
+//    func getDatabase() -> DatabaseModel {
+//        
+//        return database
+//        
+//    }
+//    
+//    func getBooksTableViewModel() -> BooksTableViewModel {
+//        
+//        return BooksTableViewModel(database: database)
+//        
+//    }
+//    
+//    func getDictionaryTableViewModel() -> DictionaryTableViewModel{
+//        
+//        return DictionaryTableViewModel(databaseModel : database)
+//        
+//    }
+//    
+//    func getWebDictionaryModel() -> WebDictionaryModel {
+//        
+//        return WebDictionaryModel(database: database)
+//        
+//    }
     
     
 }
