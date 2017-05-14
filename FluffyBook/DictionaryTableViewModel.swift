@@ -40,7 +40,7 @@ class DictionaryTableViewModel{
             
             print(word)
             
-            if word.word.lowercased().contains(w.lowercased()){
+            if word.word.contains(w){
                 
                 searchedWords.append(word)
                 

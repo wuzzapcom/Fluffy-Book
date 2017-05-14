@@ -21,7 +21,7 @@ class TranslationPresentationViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotification(notification:)),
-                                               name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER),
+                                               name: Notification.Name(Constants.NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER),
                                                object: nil)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
@@ -74,8 +74,10 @@ class TranslationPresentationViewController: UIViewController {
     
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: Notification.Name(Constants.NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER),
+                                                  object: nil)
     }
 
 

@@ -30,8 +30,8 @@ class WebDictionaryModel{
             
             print("Word already in db")
             DispatchQueue.main.async {
-//                sleep(1000)
-                NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER), object: translation)
+                NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW), object: translation)
+                NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER), object: translation)
             }
             return
             
@@ -91,7 +91,8 @@ class WebDictionaryModel{
                         
                         localDB.addWordPreviewModel(wordPreview: wordPreview)
                         
-                        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER), object: firstTranslation)
+                        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW), object: firstTranslation)
+                        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER), object: firstTranslation)
                         
                     }
                     

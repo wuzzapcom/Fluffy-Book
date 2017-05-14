@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DictionaryTableViewController: UITableViewController, UISearchResultsUpdating {
+class DictionaryTableViewController: UITableViewController, UISearchBarDelegate {
     
     fileprivate var bookReaderModel : BookReaderModel?
     fileprivate var dictionaryTableViewModel : DictionaryTableViewModel?
@@ -26,7 +26,7 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotification(notification:)),
-                                               name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER),
+                                               name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW),
                                                object: nil)
         
         self.navigationController?.navigationBar.tintColor = UIColor.black
@@ -34,6 +34,34 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         addEditButton()
         
         addSearchController()
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let text = searchBar.text else{
+        
+            return
+        
+        }
+        
+        guard dictionaryTableViewModel != nil else {
+            return
+        }
+        
+        if dictionaryTableViewModel!.searchWords(forWord: text){
+        
+            sendQueryToServer(word: text)
+        
+        }else{
+            
+            updateTable()
+            
+        }
+        
+        searchBar.text = ""
+        searchBar.endEditing(true)
+        searchController.isActive = false
         
     }
     
@@ -90,7 +118,7 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
     
     func addSearchController(){
         
-        searchController.searchResultsUpdater = self
+//        searchController.searchResultsUpdater = self
         
         searchController.dimsBackgroundDuringPresentation = true
         
@@ -102,35 +130,36 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         
         self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.bounds.height)
         
+        searchController.searchBar.delegate = self
+        
     }
     
-    //UISearchResultUpdating method
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        guard let text = searchController.searchBar.text else{
-            
-            return
-            
-        }
-        
-        guard dictionaryTableViewModel != nil else {
-            return
-        }
-        
-        if dictionaryTableViewModel!.searchWords(forWord: text){
-        
-            self.tableView.reloadData()
-            
-            sendQueryToServer(word: text)
-            
-        }else{
-            
-            sendQueryToServer(word: text)
-            
-        }
-  
-        
-    }
+//    func updateSearchResults(for searchController: UISearchController) {
+//        
+//        guard let text = searchController.searchBar.text else{
+//            
+//            return
+//            
+//        }
+//        
+//        guard dictionaryTableViewModel != nil else {
+//            return
+//        }
+//        
+//        if dictionaryTableViewModel!.searchWords(forWord: text){
+//        
+//            self.tableView.reloadData()
+//            
+//            sendQueryToServer(word: text)
+//            
+//        }else{
+//            
+//            sendQueryToServer(word: text)
+//            
+//        }
+//  
+//        
+//    }
     
     //tableView methods
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -210,7 +239,7 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
     override func viewDidDisappear(_ animated: Bool) {
         
         NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER),
+                                                  name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW),
                                                   object: nil)
         
     }
