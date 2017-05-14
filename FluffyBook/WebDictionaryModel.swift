@@ -22,7 +22,9 @@ class WebDictionaryModel{
     }
     
     
-    public func asyncQuery(forWord w : String) throws {
+    public func asyncQuery(forWord word : String) throws {
+        
+        let w = word.lowercased()
         
         let translation = db.getTranslation(forWord: w)
         
@@ -30,8 +32,7 @@ class WebDictionaryModel{
             
             print("Word already in db")
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW), object: translation)
-                NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER), object: translation)
+                WebDictionaryModel.sendNotifications(withWord: translation!)
             }
             return
             
@@ -91,8 +92,7 @@ class WebDictionaryModel{
                         
                         localDB.addWordPreviewModel(wordPreview: wordPreview)
                         
-                        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW), object: firstTranslation)
-                        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER), object: firstTranslation)
+                        WebDictionaryModel.sendNotifications(withWord: firstTranslation)
                         
                     }
                     
@@ -105,6 +105,13 @@ class WebDictionaryModel{
         }.resume()
             
         
+    }
+    
+    fileprivate static func sendNotifications(withWord translation : String){
+    
+        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW), object: translation)
+        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER), object: translation)
+    
     }
     
     
