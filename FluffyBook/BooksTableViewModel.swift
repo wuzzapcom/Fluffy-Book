@@ -87,6 +87,12 @@ class BooksTableViewModel{
         
     }
     
+    func setLastOpenDate(toBookWithIndexPath indexPath : IndexPath) {
+        
+        database.setLastOpenDate(toBook: books[indexPath.row])
+        
+    }
+    
     //Getting data
     
     func getSelectedBookModel(indexPath : IndexPath) -> BookModel {

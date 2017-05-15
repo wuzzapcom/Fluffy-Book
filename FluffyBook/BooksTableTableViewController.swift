@@ -165,8 +165,6 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
 
             cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!)
         
-        
-        print("Filling cell : \(indexPath.row), size : \(FileManager.default.contents(atPath: (booksTableViewModel?.getImageName(indexPath: indexPath))!)?.count)")
     
         return cell!
         
@@ -188,6 +186,10 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
         let indexPath = self.tableView?.indexPathForRow(at: location)
+        
+        guard indexPath != nil else{
+            return nil
+        }
         
         let cell = self.tableView?.cellForRow(at: indexPath!)
         
@@ -216,11 +218,13 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         if ip == nil{
         
             vc.bookModel = booksTableViewModel?.getSelectedBookModel(indexPath : self.tableView.indexPathForSelectedRow!)
+            booksTableViewModel?.setLastOpenDate(toBookWithIndexPath: self.tableView.indexPathForSelectedRow!)
         
         }
         else {
             
             vc.bookModel = booksTableViewModel?.getSelectedBookModel(indexPath : ip!)
+            booksTableViewModel?.setLastOpenDate(toBookWithIndexPath: ip!)
             
         }
         

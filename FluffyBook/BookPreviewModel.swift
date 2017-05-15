@@ -15,5 +15,6 @@ class BookPreviewModel : Object{
     dynamic var bookTitle : String = ""
     dynamic var bookAuthor : String = ""
     dynamic var bookTags : String = ""
+    dynamic var lastOpenDate : String = ""
     
 }

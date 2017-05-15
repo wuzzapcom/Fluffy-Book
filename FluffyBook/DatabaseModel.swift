@@ -103,6 +103,8 @@ class DatabaseModel{
                 
             }
             
+            print("LoadBookPreviews : last open date \(book.lastOpenDate)")
+            
             result.append(book)
             
         }
@@ -114,6 +116,26 @@ class DatabaseModel{
     func checkForFilesExist(path : String) -> Bool{
         
         return FileManager.default.fileExists(atPath:path)
+        
+    }
+    
+    func setLastOpenDate(toBook book : BookPreviewModel){
+        
+        let date = Date()
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm:ss"
+        
+        let currentDate = dateFormatter.string(from: date)
+        
+        print("setLastOpenDate : \(currentDate)")
+        
+        try! db.write {
+            
+            book.lastOpenDate = currentDate
+            
+        }
         
     }
     
