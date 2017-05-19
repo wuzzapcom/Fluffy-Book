@@ -11,31 +11,11 @@ import RealmSwift
 
 class DatabaseModel{
     
-    //Singleton class.
-    //Or something like this, i guess.
-    // IMPORTANT 
-    
     var db : Realm
     
-    private static var instanses : Int = 0
-    
-    init() throws {
-        
-        if DatabaseModel.instanses == 0 {
-            DatabaseModel.instanses = 1
-        }
-        else {
-            
-            throw DatabaseInstansesException.RuntimeError("More than one instanse of this class")
-            
-        }
+    init(){
         
         db = try! Realm()
-        
-//        try! db.write {
-//            db.deleteAll()
-//        }
-        
         
     }
     
@@ -55,6 +35,13 @@ class DatabaseModel{
             
             db.add(wordPreview)
             
+        }
+        
+    }
+    
+    func clearDatabase(){
+        try! db.write {
+            db.deleteAll()
         }
         
     }
@@ -107,15 +94,16 @@ class DatabaseModel{
         
         print(books)
         
-        
-        if books.count != 0 && !checkForFilesExist(path: books[0].bookImageName){
-            
-            deleteAllObjects(objects: books)
-            return result
-            
-        }
-        
         for book in books{
+            
+            if !FileManager.default.fileExists(atPath: book.bookImageName){
+                
+                try! deleteModelObject(modelObject: getBookModel(withTitle: book.bookTitle))
+                deleteModelObject(modelObject: book)
+                
+            }
+            
+            print("LoadBookPreviews : last open date \(book.lastOpenDate)")
             
             result.append(book)
             
@@ -131,25 +119,45 @@ class DatabaseModel{
         
     }
     
-    func deleteAllObjects(objects : Results<BookPreviewModel>){
+    func setLastOpenDate(toBook book : BookPreviewModel){
         
-        print("Deleting all objects")
+        let date = Date()
         
-        for object in objects{
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm:ss"
+        
+        let currentDate = dateFormatter.string(from: date)
+        
+        print("setLastOpenDate : \(currentDate)")
+        
+        try! db.write {
             
-            deleteModelObject(modelObject: object)
+            book.lastOpenDate = currentDate
             
         }
         
-        let books = db.objects(BookModel.self)
-        
-        for book in books{
-            
-            deleteModelObject(modelObject: book)
-            
-        }
-    
     }
+    
+//    func deleteAllObjects(){
+//        
+//        print("Deleting all objects")
+//        
+//        for object in objects{
+//            
+//            deleteModelObject(modelObject: object)
+//            
+//        }
+//        
+//        let books = db.objects(BookModel.self)
+//        
+//        for book in books{
+//            
+//            deleteModelObject(modelObject: book)
+//            
+//        }
+//    
+//    }
     
     func loadWordsPreviews() -> [WordPreviewModel] {
         
@@ -166,12 +174,28 @@ class DatabaseModel{
         
     }
     
+    func getTranslation(forWord : String) -> String?{
+        
+        let words = loadWordsPreviews()
+        
+        for word in words {
+//            print(word.word)
+            if word.word == forWord {
+                return word.translation
+            }
+            
+        }
+        
+        return nil
+        
+    }
+    
     func getBookModel(withTitle ident : String) throws -> BookModel{
         
         let results = db.objects(BookModel.self).filter("bookTitle == \"\(ident)\"")
         print("Results = \(results)")
         
-        if results.count != 1 {
+        if results.count == 0 {
             
             throw DatabaseInstansesException.RuntimeError("There is no books with this title or there are few of them.")
             

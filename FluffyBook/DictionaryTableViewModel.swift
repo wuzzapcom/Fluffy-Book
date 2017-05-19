@@ -21,9 +21,9 @@ class DictionaryTableViewModel{
     var words : [WordPreviewModel]
     var searchedWords : [WordPreviewModel]
     
-    init(databaseModel db : DatabaseModel) {
+    init() {
         
-        database = db
+        database = DatabaseModel()
         
         words = database.loadWordsPreviews()
         
@@ -40,7 +40,7 @@ class DictionaryTableViewModel{
             
             print(word)
             
-            if word.word.lowercased().contains(w.lowercased()){
+            if word.word.contains(w){
                 
                 searchedWords.append(word)
                 

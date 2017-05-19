@@ -21,10 +21,11 @@ class BooksTableViewModel{
     var searchedBooks : [BookPreviewModel]
     var database : DatabaseModel
     
-    init(database db : DatabaseModel) {
-        
-        database = db
-        
+    init() {
+
+        database = DatabaseModel()
+//        database.clearDatabase()
+
         books = database.loadBookPreviews()
         
         searchedBooks = []
@@ -86,6 +87,12 @@ class BooksTableViewModel{
         
     }
     
+    func setLastOpenDate(toBookWithIndexPath indexPath : IndexPath) {
+        
+        database.setLastOpenDate(toBook: books[indexPath.row])
+        
+    }
+    
     //Getting data
     
     func getSelectedBookModel(indexPath : IndexPath) -> BookModel {
@@ -125,6 +132,9 @@ class BooksTableViewModel{
     }
     
     func getImageName(indexPath : IndexPath) -> String {
+        
+        print("getImageName \(indexPath.row)")
+        print(books)
         
         return books[indexPath.row].bookImageName
         

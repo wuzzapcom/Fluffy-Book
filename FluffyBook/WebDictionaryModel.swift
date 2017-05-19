@@ -15,14 +15,28 @@ class WebDictionaryModel{
 
     fileprivate let db : DatabaseModel
     
-    init(database : DatabaseModel) {
+    init() {
         
-        db = database
+        db = DatabaseModel()
         
     }
     
     
-    public func asyncQuery(forWord w : String) throws {
+    public func asyncQuery(forWord word : String) throws {
+        
+        let w = word.lowercased()
+        
+        let translation = db.getTranslation(forWord: w)
+        
+        if translation != nil {
+            
+            print("Word already in db")
+            DispatchQueue.main.async {
+                WebDictionaryModel.sendNotifications(withWord: translation!)
+            }
+            return
+            
+        }
         
         let requestURL = requestURLStart + w + requestURLEnd
         
@@ -32,14 +46,14 @@ class WebDictionaryModel{
             
             throw WebDictionaryException.RuntimeError("request url string cant be converted to url")
             
-        }
+        }  
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
  
         let session = URLSession(configuration: URLSessionConfiguration.default)
-        
-        session.dataTask(with: request) { [weak self] data, result, error in
+    
+        session.dataTask(with: request) { data, result, error in
             
             guard let data = data, error == nil else {
                 
@@ -69,10 +83,16 @@ class WebDictionaryModel{
                     let wordPreview = WordPreviewModel()
                     wordPreview.setFields(word : w, translation : firstTranslation)
                     
+                    
                     DispatchQueue.main.async {
                         
-                        self?.db.addWordPreviewModel(wordPreview: wordPreview)
-                        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER), object: nil)
+                        let wordPreview = WordPreviewModel()
+                        wordPreview.setFields(word : w, translation : firstTranslation)
+                        
+                        let localDB = DatabaseModel()
+                        localDB.addWordPreviewModel(wordPreview: wordPreview)
+                        
+                        WebDictionaryModel.sendNotifications(withWord: firstTranslation)
                         
                     }
                     
@@ -84,7 +104,13 @@ class WebDictionaryModel{
             
         }.resume()
             
-        
+    }
+    
+    fileprivate static func sendNotifications(withWord translation : String){
+    
+        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW), object: translation)
+        NotificationCenter.default.post(name: Notification.Name(Constants.NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER), object: translation)
+    
     }
     
     

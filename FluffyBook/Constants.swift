@@ -10,6 +10,10 @@ import Foundation
 
 class Constants{
     
-    public static let NOTIFICATION_IDENTIFIER = "NotificationIdentifier"
+    public static let NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW = "NotificationForDictionaryTableView"
+    
+    public static let NOTIFICATION_FOR_BOOK_READER_VIEW_CONTROLLER = "NotificationForBookReaderViewController"
+    
+    public static let SEGUE_TO_TRANSLATION_SCREEN = "SegueToTranslationScreen"
     
 }

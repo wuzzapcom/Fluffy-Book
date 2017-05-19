@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate {
+class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate{
     
     
     var bookModel : BookModel?
@@ -29,6 +29,8 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         super.viewDidLoad()
         
+        database = DatabaseModel()
+        
         fillViewByModel()  //Modifying view controller
         
         customizeProgressSlider()
@@ -46,8 +48,89 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         gestureRecognizer.delegate = self
+        gestureRecognizer.numberOfTapsRequired = 2
         bookWebView.addGestureRecognizer(gestureRecognizer)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
+        leftSwipe.direction = .left
+        bookWebView.addGestureRecognizer(leftSwipe)
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
+        rightSwipe.direction = .right
+        bookWebView.addGestureRecognizer(rightSwipe)
 
+        
+        let translateMenuItem = UIMenuItem(title: "Translation", action: #selector(translation))
+        UIMenuController.shared.menuItems = [translateMenuItem]
+
+    }
+    
+    func handleSwipe(sender : UISwipeGestureRecognizer){
+        
+        if sender.direction == .up || sender.direction == .down{
+            return
+        }
+        
+        var screenWidth = UIScreen.main.bounds.width
+        
+        if sender.direction == .right {
+            
+            screenWidth *= -1
+            
+        }
+        
+        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
+            return
+        }
+        
+        moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
+        
+    }
+    
+    func translation(){
+        
+        UIApplication.shared.sendAction(#selector(copy(_:)), to: nil, from: self, for: nil)
+        
+        let copied = UIPasteboard.general.string
+        
+        guard let copiedText = copied, copied != nil else {
+            return
+        }
+        
+        let webDict = WebDictionaryModel()
+        
+        guard (try? webDict.asyncQuery(forWord: copiedText)) != nil else{
+            
+            print("Async Query error")
+            return
+            
+        }
+        
+        print("Selected text is \(copiedText)")
+        
+//        if isStatusBarHidden{
+//            changeInterfaceHiddency()
+//        }
+//        self.navigationController?.pushViewController(TranslationPresentationViewController(), animated: true)
+        
+        openTranslationView()
+        
+    }
+    
+    func openTranslationView(){
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = 0.9
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        
+        let translationView = TranslationPresentationViewController()
+        translationView.prevViewBlur = blurEffectView
+        translationView.modalPresentationStyle = .overCurrentContext
+        present(translationView, animated: true, completion: nil)
+        
     }
     
     @IBAction func handleUserChangedSlider(_ sender: Any) {
@@ -59,25 +142,29 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         moveContent(toOffset: CGFloat(newOffset!))
         
     }
+
+    
     func handleTap(sender : UITapGestureRecognizer){
         
-        var screenWidth = UIScreen.main.bounds.width
+        changeInterfaceHiddency()
         
-        if sender.location(in: bookWebView).x < screenWidth / 3 {
-            screenWidth *= -1
-        }
-        else if sender.location(in: bookWebView).x < screenWidth * 2 / 3 {
-            
-            changeInterfaceHiddency()
-            return
-            
-        }
-        
-        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
-            return
-        }
-        
-        moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
+//        var screenWidth = UIScreen.main.bounds.width
+//        
+//        if sender.location(in: bookWebView).x < screenWidth / 3 {
+//            screenWidth *= -1
+//        }
+//        else if sender.location(in: bookWebView).x < screenWidth * 2 / 3 {
+//            
+//            changeInterfaceHiddency()
+//            return
+//            
+//        }
+//        
+//        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
+//            return
+//        }
+//        
+//        moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
 
     
     }
@@ -226,5 +313,6 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         setNavigationBarToDefaults()
         
     }
+    
 
 }

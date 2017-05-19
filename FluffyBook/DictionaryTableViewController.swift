@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DictionaryTableViewController: UITableViewController, UISearchResultsUpdating {
+class DictionaryTableViewController: UITableViewController, UISearchBarDelegate {
     
     fileprivate var bookReaderModel : BookReaderModel?
     fileprivate var dictionaryTableViewModel : DictionaryTableViewModel?
@@ -19,27 +19,66 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //Just one instanse of BookReaderModel, initialization in AppDelegate
-        bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
-        dictionaryTableViewModel = bookReaderModel?.getDictionaryTableViewModel()
-        webDictionaryModel = bookReaderModel?.getWebDictionaryModel()
+        dictionaryTableViewModel = DictionaryTableViewModel()
+        webDictionaryModel = WebDictionaryModel()
+        
+        refreshControl?.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotification(notification:)),
-                                               name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER),
+                                               name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW),
                                                object: nil)
         
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
         addEditButton()
         
-//        loadDefaultWordsToDB()
-        
         addSearchController()
         
     }
     
-    //viewDidLoad methods
+    func handleRefresh(refreshControl: UIRefreshControl){
+    
+        updateTable()
+        refreshControl.endRefreshing()
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let text = searchBar.text else{
+        
+            return
+        
+        }
+        
+        guard dictionaryTableViewModel != nil else {
+            return
+        }
+        
+        if dictionaryTableViewModel!.searchWords(forWord: text){
+        
+            sendQueryToServer(word: text)
+        
+        }else{
+            
+            updateTable()
+            
+        }
+        
+        searchBar.text = ""
+        searchBar.endEditing(true)
+        searchController.isActive = false
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        updateTable()
+        
+    }
+    
+
     func addEditButton() {
         
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTableAndChangeButton))
@@ -86,8 +125,6 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
     
     func addSearchController(){
         
-        searchController.searchResultsUpdater = self
-        
         searchController.dimsBackgroundDuringPresentation = true
         
         searchController.definesPresentationContext = true
@@ -98,37 +135,11 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
         
         self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.bounds.height)
         
-    }
-    
-    //UISearchResultUpdating method
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        guard let text = searchController.searchBar.text else{
-            
-            return
-            
-        }
-        
-        guard dictionaryTableViewModel != nil else {
-            return
-        }
-        
-        if dictionaryTableViewModel!.searchWords(forWord: text){
-        
-            self.tableView.reloadData()
-            
-            sendQueryToServer(word: text)
-            
-        }else{
-            
-            sendQueryToServer(word: text)
-            
-        }
-  
+        searchController.searchBar.delegate = self
         
     }
     
-    //tableView methods
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return dictionaryTableViewModel!.getNumberOfSections()
@@ -187,6 +198,16 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
     
     func handleNotification(notification : Notification){
         
+        print("table notification")
+        
+        updateTable()
+        
+    }
+    
+    func updateTable(){
+        
+        print("update table")
+        
         dictionaryTableViewModel?.loadWords()
         
         self.tableView.reloadData()
@@ -196,7 +217,7 @@ class DictionaryTableViewController: UITableViewController, UISearchResultsUpdat
     override func viewDidDisappear(_ animated: Bool) {
         
         NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name(Constants.NOTIFICATION_IDENTIFIER),
+                                                  name: Notification.Name(Constants.NOTIFICATION_FOR_DICTIONARY_TABLE_VIEW),
                                                   object: nil)
         
     }

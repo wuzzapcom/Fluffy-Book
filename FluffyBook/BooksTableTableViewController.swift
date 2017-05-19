@@ -9,20 +9,16 @@
 import UIKit
 
 class BooksTableTableViewController: UITableViewController, UIViewControllerPreviewingDelegate, UISearchResultsUpdating {
-    
-    var bookReaderModel : BookReaderModel?
+ 
     var booksTableViewModel : BooksTableViewModel?
     var searchController : UISearchController = UISearchController(searchResultsController: nil)
     
     var parse = BookParserModel()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        //Just one instanse of BookReaderModel, initialization in AppDelegate
-        bookReaderModel = (UIApplication.shared.delegate as! AppDelegate).bookReaderModel
-        booksTableViewModel = bookReaderModel?.getBooksTableViewModel()
+        booksTableViewModel = BooksTableViewModel()
         
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
@@ -33,6 +29,16 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         loadDefaultBookToBD()
         
         addSearchController()
+        
+        refreshControl?.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl){
+        
+        booksTableViewModel?.loadBookPreviewsFromDatabase()
+        tableView.reloadData()
+        refreshControl.endRefreshing()
+        
     }
     
     //viewDidLoad methods
@@ -88,11 +94,8 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     
     func loadDefaultBookToBD(){
         
-//        booksTableViewModel!.loadBookPreviewsFromDatabase()
+        booksTableViewModel!.loadBookPreviewsFromDatabase()
         
-        if (booksTableViewModel?.books.count != 0){
-            return
-        }
        
         parse.kostylInit("TheW.epub")
         let parsBook = parse.parseBook()
@@ -155,12 +158,14 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
             return cell!
             
         }
-        
-        cell?.bookNameLabel!.text = booksTableViewModel?.getBookTitle(indexPath : indexPath)
-        cell?.bookAuthorLabel!.text = booksTableViewModel?.getAuthor(indexPath : indexPath)
-        cell?.tagsLabel!.text = booksTableViewModel?.getTags(indexPath : indexPath)
-        cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (booksTableViewModel?.getImageName(indexPath : indexPath))!)
 
+            cell?.bookNameLabel!.text = self.booksTableViewModel?.getBookTitle(indexPath : indexPath)
+            cell?.bookAuthorLabel!.text = self.booksTableViewModel?.getAuthor(indexPath : indexPath)
+            cell?.tagsLabel!.text = self.booksTableViewModel?.getTags(indexPath : indexPath)
+
+            cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!)
+        
+    
         return cell!
         
     }
@@ -181,6 +186,10 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         
         let indexPath = self.tableView?.indexPathForRow(at: location)
+        
+        guard indexPath != nil else{
+            return nil
+        }
         
         let cell = self.tableView?.cellForRow(at: indexPath!)
         
@@ -204,19 +213,18 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
     }
     
-    
-    //Segue
-    
     func setModelToDestinationViewController(vc : BookReaderViewController, indexPath ip : IndexPath?){
         
         if ip == nil{
         
             vc.bookModel = booksTableViewModel?.getSelectedBookModel(indexPath : self.tableView.indexPathForSelectedRow!)
+            booksTableViewModel?.setLastOpenDate(toBookWithIndexPath: self.tableView.indexPathForSelectedRow!)
         
         }
         else {
             
             vc.bookModel = booksTableViewModel?.getSelectedBookModel(indexPath : ip!)
+            booksTableViewModel?.setLastOpenDate(toBookWithIndexPath: ip!)
             
         }
         
@@ -233,8 +241,6 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         if let seg = segue.destination as? BookReaderViewController {
             
             setModelToDestinationViewController(vc: seg, indexPath : nil)
-            
-            seg.database = bookReaderModel?.getDatabase()
             
         }
 
