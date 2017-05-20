@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate{
+class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate, TransferDataProtocol {
     
     
     var bookModel : BookModel?
@@ -147,25 +147,6 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     func handleTap(sender : UITapGestureRecognizer){
         
         changeInterfaceHiddency()
-        
-//        var screenWidth = UIScreen.main.bounds.width
-//        
-//        if sender.location(in: bookWebView).x < screenWidth / 3 {
-//            screenWidth *= -1
-//        }
-//        else if sender.location(in: bookWebView).x < screenWidth * 2 / 3 {
-//            
-//            changeInterfaceHiddency()
-//            return
-//            
-//        }
-//        
-//        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
-//            return
-//        }
-//        
-//        moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
-
     
     }
     
@@ -216,10 +197,26 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         let markButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: nil)
         
-        let contentsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: UIBarButtonItemStyle.plain, target: self, action: nil)
+        let contentsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleContentsButton(sender:)))
         
         self.navigationItem.rightBarButtonItems = [markButton, contentsButton]
         
+    }
+    
+    func handleContentsButton(sender : UIBarButtonItem){
+        
+        let contentTableViewController = storyboard?.instantiateViewController(withIdentifier: Constants.CONTENT_TABLE_VIEW_IDENTIFIER) as! ContentsTableViewController
+        
+        contentTableViewController.currentBookModel = bookModel!
+        
+        contentTableViewController.delegate = self
+        
+        navigationController?.pushViewController(contentTableViewController, animated: true)
+        
+    }
+    
+    func setSelectedRow(number: Int?) {
+        print(number)
     }
     
     func customizeNavigationBar(){
@@ -237,6 +234,8 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         self.navigationController?.navigationBar.shadowImage = nil
         
     }
+    
+
     
     func changeInterfaceHiddency(){
         
