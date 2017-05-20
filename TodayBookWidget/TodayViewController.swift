@@ -14,6 +14,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
+        print("312")
     }
     
     @IBOutlet weak var bookName: UILabel!
@@ -36,10 +37,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         completionHandler(NCUpdateResult.newData)
         bookImg.image = UIImage(named: "cover.jpg")
+         getBookInfo()
+        
     }
     
     func getBookInfo() {
+        print("123")
+        let db = DatabaseModel()
+        var books = db.loadBookPreviews()
         
+        for book in books {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm:ss"
+            let dataObj = dateFormatter.date(from: book.lastOpenDate)
+            dateFormatter.dateFormat = "MM-dd-yyyy"
+            print("Dateobj: \(dateFormatter.string(from: dataObj!))")
+            
+        }
     }
+    
     
 }
