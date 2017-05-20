@@ -39,6 +39,7 @@
 		9E9619521E7432B9003A5DA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9619501E7432B9003A5DA1 /* LaunchScreen.storyboard */; };
 		9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9BD5761E798E6200ACB6FD /* DictionaryTableViewModel.swift */; };
 		9E9BD5791E798F1600ACB6FD /* DictionaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9BD5781E798F1600ACB6FD /* DictionaryTableViewCell.swift */; };
+		E94DD61C1ED0584D00D8E155 /* BookMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94DD61B1ED0584D00D8E155 /* BookMark.swift */; };
 		E9AFD87A1E7D6EC400D18FC6 /* BookParserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		9E9619531E7432B9003A5DA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E9BD5761E798E6200ACB6FD /* DictionaryTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryTableViewModel.swift; sourceTree = "<group>"; };
 		9E9BD5781E798F1600ACB6FD /* DictionaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryTableViewCell.swift; sourceTree = "<group>"; };
+		E94DD61B1ED0584D00D8E155 /* BookMark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMark.swift; sourceTree = "<group>"; };
 		E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookParserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -487,6 +489,7 @@
 				9E31428E1E8F8FF3000FD292 /* WordPreviewModel.swift in Sources */,
 				9E8CF95A1EC72378005B78E0 /* TranslationPresentationViewController.swift in Sources */,
 				9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */,
+				E94DD61C1ED0584D00D8E155 /* BookMark.swift in Sources */,
 				9E02E1F21EAFE8C30091A1DD /* Constants.swift in Sources */,
 				9E677BCD1E7441D600113D6B /* BooksTableTableViewController.swift in Sources */,
 				9E9619481E7432B9003A5DA1 /* AppDelegate.swift in Sources */,

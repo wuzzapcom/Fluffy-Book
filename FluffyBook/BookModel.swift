@@ -114,23 +114,24 @@ class BookModel : Object {
         
     }
     
-    // Crutch, 'cause realm is sucker
-    // Return title, and counts of title
-    func getTitles() -> [String] {
+    func getTitles() -> ([String], [String]) {
         var titles = [String]()
+        var fullPaths = [String]()
         for res in contentInfo {
-            //let path = URL(fileURLWithPath: (res.resource?.fullHref)!)
             var title = "null"
+            var fullPath = "null"
             do {
                 title = try res.title
+                fullPath = (res.resource?.fullHref)!
                 
             } catch {
-                print("Error\n")
-                return []
+                print("Get titles error\n")
+                return ([], [])
             }
             titles.append(title)
+            fullPaths.append(fullPath)
         }
-        return titles
+        return (titles, fullPaths)
     }
     
 }
