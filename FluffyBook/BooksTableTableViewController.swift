@@ -143,7 +143,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCellIdentifier", for: indexPath) as? (BooksTableViewCell)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCellIdentifier", for: indexPath) as? BooksTableViewCell
         
         if searchController.isActive && searchController.searchBar.text != "" {
             
@@ -162,7 +162,10 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
             cell?.bookAuthorLabel!.text = self.booksTableViewModel?.getAuthor(indexPath : indexPath)
             cell?.tagsLabel!.text = self.booksTableViewModel?.getTags(indexPath : indexPath)
 
-            cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!)
+        let data = try! Data(contentsOf: URL(fileURLWithPath: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!))
+        let image = UIImage(data: data)
+            
+        cell?.bookPictureImageView!.image = image
         
     
         return cell!
@@ -219,6 +222,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
             vc.bookModel = booksTableViewModel?.getSelectedBookModel(indexPath : self.tableView.indexPathForSelectedRow!)
             booksTableViewModel?.setLastOpenDate(toBookWithIndexPath: self.tableView.indexPathForSelectedRow!)
         
+            putBookToAddGroups()
         }
         else {
             
@@ -240,9 +244,27 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         if let seg = segue.destination as? BookReaderViewController {
             
             setModelToDestinationViewController(vc: seg, indexPath : nil)
-            
         }
-
+        
+    }
+    
+    func putBookToAddGroups() {
+        let book = booksTableViewModel?.getSelectedBookModel(indexPath: self.tableView.indexPathForSelectedRow!)
+        let data = try! Data(contentsOf: URL(fileURLWithPath: (book?.coverImage)!))
+        let img = UIImage(data: data)
+        let commonBookName = book?.bookTitle
+        let commonBookAuthor = book?.author
+        
+        let sharedDefaults = UserDefaults.init(suiteName: "group.FluffyBooktodayWidget")
+        
+        sharedDefaults?.removeObject(forKey: "bookImgKey")
+        sharedDefaults?.removeObject(forKey: "bookNameKey")
+        sharedDefaults?.removeObject(forKey: "bookAuthorKey")
+        
+        sharedDefaults?.set(data, forKey: "bookImgKey")
+        sharedDefaults?.set(commonBookName, forKey: "bookNameKey")
+        sharedDefaults?.set(commonBookAuthor, forKey: "bookAuthorKey")
+        NSLog("Success")
     }
 
 
