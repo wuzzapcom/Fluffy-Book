@@ -105,6 +105,8 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         bookPreview.bookAuthor = (parsBook?.author)!
         bookPreview.bookTags = "#testtag"
         
+        parsBook?.getTitles()
+        
         booksTableViewModel?.addBookPreviewToDatabase(bookPreview: bookPreview)
         booksTableViewModel?.addBookModelToDatabase(bookModel: parsBook!)
 //

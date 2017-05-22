@@ -250,6 +250,7 @@
 				E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */,
 				9E02E1EF1EAFDF470091A1DD /* WebDictionaryModel.swift */,
 				9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */,
+				E94DD61B1ED0584D00D8E155 /* BookMark.swift */,
 			);
 			name = LogicModel;
 			sourceTree = "<group>";
@@ -603,6 +604,7 @@
 				9E31428E1E8F8FF3000FD292 /* WordPreviewModel.swift in Sources */,
 				9E8CF95A1EC72378005B78E0 /* TranslationPresentationViewController.swift in Sources */,
 				9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */,
+				E94DD61C1ED0584D00D8E155 /* BookMark.swift in Sources */,
 				9E02E1F21EAFE8C30091A1DD /* Constants.swift in Sources */,
 				9E677BCD1E7441D600113D6B /* BooksTableTableViewController.swift in Sources */,
 				9E9619481E7432B9003A5DA1 /* AppDelegate.swift in Sources */,
