@@ -7,12 +7,22 @@
 		<key>BookShare.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>1</integer>
 		</dict>
 		<key>FluffyBook.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>TodayBookWidget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
+		<key>todayWidget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -23,6 +33,16 @@
 			<true/>
 		</dict>
 		<key>9E9619431E7432B8003A5DA1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E91B0B491ECA355D00826342</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E9851E311ED0714A001C68B9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
