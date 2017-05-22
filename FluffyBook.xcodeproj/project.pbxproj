@@ -45,6 +45,7 @@
 		E9A8C2041ED073DF00A41689 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9851E371ED0714A001C68B9 /* MainInterface.storyboard */; };
 		E9A8C2081ED0773A00A41689 /* cover1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9851E1F1ED06AC1001C68B9 /* cover1.jpg */; };
 		E9AFD87A1E7D6EC400D18FC6 /* BookParserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */; };
+		E9D6E1DF1ED338E000BC340A /* BookMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D6E1DE1ED338E000BC340A /* BookMark.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		E9851E381ED0714A001C68B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		E9851E3A1ED0714A001C68B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookParserModel.swift; sourceTree = "<group>"; };
+		E9D6E1DE1ED338E000BC340A /* BookMark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMark.swift; sourceTree = "<group>"; };
 		E9F138671ED1C6E700D43965 /* todayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = todayWidget.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -246,11 +248,11 @@
 				9E4D9ADF1EAE1A3C002B13DA /* BookParserContentInfo.swift */,
 				9E4D9ADB1EAE1A1E002B13DA /* BookParserMetaInfoService.swift */,
 				9E4D9ADC1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift */,
+				E9D6E1DE1ED338E000BC340A /* BookMark.swift */,
 				9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */,
 				E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */,
 				9E02E1EF1EAFDF470091A1DD /* WebDictionaryModel.swift */,
 				9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */,
-				E94DD61B1ED0584D00D8E155 /* BookMark.swift */,
 			);
 			name = LogicModel;
 			sourceTree = "<group>";
@@ -604,8 +606,8 @@
 				9E31428E1E8F8FF3000FD292 /* WordPreviewModel.swift in Sources */,
 				9E8CF95A1EC72378005B78E0 /* TranslationPresentationViewController.swift in Sources */,
 				9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */,
-				E94DD61C1ED0584D00D8E155 /* BookMark.swift in Sources */,
 				9E02E1F21EAFE8C30091A1DD /* Constants.swift in Sources */,
+				E9D6E1DF1ED338E000BC340A /* BookMark.swift in Sources */,
 				9E677BCD1E7441D600113D6B /* BooksTableTableViewController.swift in Sources */,
 				9E9619481E7432B9003A5DA1 /* AppDelegate.swift in Sources */,
 				9E677BD91E7453A600113D6B /* BookModel.swift in Sources */,
