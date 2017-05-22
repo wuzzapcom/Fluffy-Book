@@ -73,7 +73,7 @@ class DatabaseModel{
     func updateCurrentContentOffset(forModel model : BookModel, withOffset offset : Int){
         
         try! db.write {
-            model.setCurrentOffsetInContent(currentOffsetInContent: offset)
+            model.setCurrentOffsetInChapter(currentOffsetInChapter: offset)
         }
         
     }
@@ -84,6 +84,14 @@ class DatabaseModel{
             model.setContentSizesListForCurrentPage(contentSize: contentSize)
         }
         
+    }
+    
+    func updateCurrentChapter(forModel model : BookModel, currentChapter : Int){
+    
+        try! db.write{
+            model.setCurrentChapter(currentChapter: currentChapter)
+        }
+    
     }
     
     //Getting data from database

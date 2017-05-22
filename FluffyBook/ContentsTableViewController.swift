@@ -23,7 +23,9 @@ class ContentsTableViewController: UITableViewController {
             return
         }
         
-        contentsTableViewModel = ContentsTableViewModel(withContent: ["Chapter1", "Chapter2"])
+        var pair = currentBookModel!.getTitles()
+        
+        contentsTableViewModel = ContentsTableViewModel(withContent: pair.0)
 
     }
 

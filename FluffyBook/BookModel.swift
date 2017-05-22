@@ -19,8 +19,8 @@ class BookModel : Object {
     dynamic var coverImage: String = ""
     dynamic var opfFile: BookParserStructServiceFiles!
     var contentInfo = List<BookParserContentInfo>()
-    fileprivate dynamic var currentContentPage : Int = 0
-    fileprivate dynamic var currentOffsetInContent : Int = 0
+    fileprivate dynamic var currentChapter : Int = 0
+    fileprivate dynamic var currentOffsetInChapter : Int = 0
     fileprivate var contentSizesList = List<IntObject>()
     
     
@@ -35,21 +35,21 @@ class BookModel : Object {
     func getCurrentProgressPercent() -> Float {
         
         print(contentSizesList.endIndex)
-        if contentSizesList.endIndex <= currentContentPage {
+        if contentSizesList.endIndex <= currentChapter {
             return 0.0
         }
         
-        if contentSizesList[currentContentPage].int == 0{
+        if contentSizesList[currentChapter].int == 0{
             return 0.0
         }
         
-        return Float(currentOffsetInContent) / Float(contentSizesList[currentContentPage].int) * 100
+        return Float(currentOffsetInChapter) / Float(contentSizesList[currentChapter].int) * 100
         
     }
     
     func getNewOffsetInContent(bySliderValue value : Float) -> Int{
         
-        var newOffset = Int(value * Float(contentSizesList[currentContentPage].int) / 100)
+        var newOffset = Int(value * Float(contentSizesList[currentChapter].int) / 100)
         
         while newOffset % Int(UIScreen.main.bounds.width) != 0 {
             
@@ -61,50 +61,104 @@ class BookModel : Object {
         
     }
     
-    func getTextFromCurrentPage() -> String {
-        var text = ""
-        for content in contentInfo {
-            let path = URL(fileURLWithPath: (content.resource?.fullHref)!)
-            do {
-                text += try String(contentsOf: path, encoding: String.Encoding.utf8)
-            } catch {
-                print("Error\n")
-                return ""
-            }
-            //return text
+//    func getTextFromCurrentPage() -> String {
+//        var text = ""
+//        for content in contentInfo {
+//            let path = URL(fileURLWithPath: (content.resource?.fullHref)!)
+//            do {
+//                text += try String(contentsOf: path, encoding: String.Encoding.utf8)
+//            } catch {
+//                print("Error\n")
+//                return ""
+//            }
+//            //return text
+//        }
+//        return text
+//    }
+    
+    func getTextFromChapter(path : String) -> String{
+        let _path = URL(fileURLWithPath: path)
+        do {
+            return try String(contentsOf: _path, encoding: String.Encoding.utf8)
+            
+        } catch {
+            print("Error")
+            return ""
         }
-        return text
+        
     }
     
-    func setCurrentContentPage(currentContentPage page : Int){
-        currentContentPage = page
+    func openNextChapter() -> String? {
+        
+        let pair = getTitles()
+        
+        guard currentChapter != pair.0.count - 1 else {
+            return nil
+        }
+        
+        let db = DatabaseModel()
+        
+        db.updateCurrentChapter(forModel: self, currentChapter: currentChapter + 1)
+        
+        db.updateCurrentContentOffset(forModel: self, withOffset: 0)
+        
+        return getTextFromChapter(path: pair.1[currentChapter])
+        
+    }
+    
+    func openCurrentChapter() -> String{
+        
+        return getTextFromChapter(path: getTitles().1[currentChapter])
+        
+    }
+    
+    func openPrevChapter() -> String? {
+        
+        guard currentChapter != 0 else {
+            return nil
+        }
+        
+        let db = DatabaseModel()
+        
+        db.updateCurrentChapter(forModel: self, currentChapter: currentChapter - 1)
+        
+        db.updateCurrentContentOffset(forModel: self, withOffset: contentSizesList[currentChapter].int)
+        
+        
+        return getTextFromChapter(path: getTitles().1[currentChapter])
+        
+    }
+    
+    
+    func setCurrentChapter(currentChapter page : Int){
+        currentChapter = page
     }
     
     func setContentSizesListForCurrentPage(contentSize : Int){
 //        print(contentSizesList.count)
-        while contentSizesList.count <= currentContentPage {
+        while contentSizesList.count <= currentChapter {
             let int = IntObject()
             int.int = 0
             contentSizesList.append(int)
         }
-        contentSizesList[currentContentPage].int = contentSize
+        contentSizesList[currentChapter].int = contentSize
         
-        print(contentSizesList[currentContentPage].int)
-        
-    }
-    
-    func getCurrentContentPage() -> Int {
-        return currentContentPage
-    }
-    
-    func setCurrentOffsetInContent(currentOffsetInContent offset : Int){
-        
-        currentOffsetInContent = offset
+        print(contentSizesList[currentChapter].int)
         
     }
     
-    func getCurrentOffsetInContent() -> Int {
-        return currentOffsetInContent
+    func getCurrentChapter() -> Int {
+        return currentChapter
+    }
+    
+    func setCurrentOffsetInChapter(currentOffsetInChapter offset : Int){
+        
+        currentOffsetInChapter = offset
+        
+    }
+    
+    func getCurrentOffsetInChapter() -> Int {
+        return currentOffsetInChapter
     }
     
     

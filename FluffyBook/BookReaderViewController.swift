@@ -79,9 +79,35 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
             
         }
         
-        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
-            return
+//        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
+//            return
+//        }
+        
+        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 {
+            
+            let text = bookModel?.openPrevChapter()
+            
+            guard text != nil else {
+                return
+            }
+            
+            openHTMLInWebView(text: text!)
+            progressSlider.value = bookModel!.getCurrentProgressPercent()
+            
         }
+        
+        if bookWebView.scrollView.contentOffset.x - 3 * screenWidth >= bookWebView.scrollView.contentSize.width {
+            
+            let text = bookModel?.openNextChapter()
+            
+            guard text != nil else {
+                return
+            }
+            
+            openHTMLInWebView(text: text!)
+            
+        }
+        
         
         moveContent(toOffset: bookWebView.scrollView.contentOffset.x + screenWidth)
         
@@ -151,7 +177,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        bookWebView.scrollView.setContentOffset(CGPoint(x:bookModel!.getCurrentOffsetInContent(), y:0), animated: true)
+        bookWebView.scrollView.setContentOffset(CGPoint(x:bookModel!.getCurrentOffsetInChapter(), y:0), animated: true)
         database?.updateContentSizesList(forModel: bookModel!, contentSize: Int(bookWebView.scrollView.contentSize.width))
     }
     
@@ -179,11 +205,17 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     //viewDidLoad methods
     func fillViewByModel() {
         
-        bookWebView.loadHTMLString(bookModel!.getTextFromCurrentPage(), baseURL: nil)
+        openHTMLInWebView(text: bookModel!.openCurrentChapter())
         
         progressSlider?.value = bookModel!.getCurrentProgressPercent()
         
         self.title = bookModel!.getBookTitle()
+        
+    }
+    
+    func openHTMLInWebView(text : String){
+        
+        bookWebView.loadHTMLString(text, baseURL: nil)
         
     }
     
@@ -215,8 +247,15 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
     }
     
-    func setSelectedRow(number: Int?) {
-        print(number)
+    func setSelectedRow(number n: Int?) {
+        print(n)
+        
+        guard let number = n, n != nil else {
+            return
+        }
+        
+        var pathsToFiles = bookModel!.getTitles().1
+        
     }
     
     func customizeNavigationBar(){
