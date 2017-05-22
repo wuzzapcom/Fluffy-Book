@@ -133,8 +133,8 @@ class BooksTableViewModel{
     
     func getImageName(indexPath : IndexPath) -> String {
         
-        print("getImageName \(indexPath.row)")
-        print(books)
+        NSLog("getImageName \(indexPath.row)")
+        NSLog("\(books)")
         
         return books[indexPath.row].bookImageName
         
