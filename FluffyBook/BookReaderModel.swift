@@ -10,20 +10,7 @@ import Foundation
 
 class BookReaderModel {
     
-    var database : DatabaseModel
-    
-    init() {
-        
-        database = DatabaseModel()
-        
-        loadDataFromAppGroups()
-        
-        deleteTempFiles()
-    
-        
-    }
-    
-    func loadDataFromAppGroups() {
+    static func loadDataFromAppGroups() -> Bool {
         
         let parser = BookParserModel()
         
@@ -35,7 +22,7 @@ class BookReaderModel {
         if dataArray == nil {
             
             print("no new saved files")
-            return
+            return false
             
         }
         
@@ -71,6 +58,8 @@ class BookReaderModel {
                 preview.bookImageName = (book?.coverImage)!
                 preview.bookTags = "tag"
                 
+                let database = DatabaseModel()
+                
                 database.addBookModel(bookModel: book!)
                 database.addBookPreview(bookPreview: preview)
                 print(database.loadBookPreviews())
@@ -84,9 +73,13 @@ class BookReaderModel {
         
         sharedDefaults?.removeObject(forKey: "savedEPUBs")
         
+        deleteTempFiles()
+        
+        return true
+        
     }
     
-    func deleteTempFiles() {
+    fileprivate static func deleteTempFiles() {
         
         let fileManager = FileManager.default
     

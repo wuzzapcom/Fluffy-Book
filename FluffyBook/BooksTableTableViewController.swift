@@ -31,14 +31,36 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         addSearchController()
         
         refreshControl?.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleReopening(notification:)),
+                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
+                                               object: nil)
+        
+        BookReaderModel.loadDataFromAppGroups()
+        
+    }
+    
+    func handleReopening(notification : Notification){
+    
+        NSLog("App reopened")
+
+        if BookReaderModel.loadDataFromAppGroups() {
+            reloadData()
+        }
+    
     }
     
     func handleRefresh(refreshControl: UIRefreshControl){
         
-        booksTableViewModel?.loadBookPreviewsFromDatabase()
-        tableView.reloadData()
+        reloadData()
         refreshControl.endRefreshing()
         
+    }
+    
+    func reloadData(){
+        booksTableViewModel?.loadBookPreviewsFromDatabase()
+        tableView.reloadData()
     }
     
     //viewDidLoad methods
@@ -96,6 +118,9 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         booksTableViewModel!.loadBookPreviewsFromDatabase()
         
+        guard booksTableViewModel!.books.count == 0 else {
+            return
+        }
        
         parse.kostylInit("TheW.epub")
         let parsBook = parse.parseBook()

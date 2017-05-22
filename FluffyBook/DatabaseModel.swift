@@ -16,7 +16,7 @@ class DatabaseModel{
     init(){
         
         db = try! Realm()
-        
+
     }
     
     

@@ -57,6 +57,10 @@ class BookModel : Object {
             
         }
         
+        if newOffset == contentSizesList[currentChapter].int{
+            return newOffset - Int(UIScreen.main.bounds.width)
+        }
+        
         return newOffset
         
     }
@@ -122,7 +126,9 @@ class BookModel : Object {
         
         db.updateCurrentChapter(forModel: self, currentChapter: currentChapter - 1)
         
-        db.updateCurrentContentOffset(forModel: self, withOffset: contentSizesList[currentChapter].int)
+        let x = Int(UIScreen.main.bounds.width)
+        
+        db.updateCurrentContentOffset(forModel: self, withOffset: contentSizesList[currentChapter].int - x)
         
         
         return getTextFromChapter(path: getTitles().1[currentChapter])

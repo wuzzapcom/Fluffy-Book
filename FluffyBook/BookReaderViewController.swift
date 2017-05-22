@@ -93,10 +93,11 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
             
             openHTMLInWebView(text: text!)
             progressSlider.value = bookModel!.getCurrentProgressPercent()
+            return
             
         }
         
-        if bookWebView.scrollView.contentOffset.x - 3 * screenWidth >= bookWebView.scrollView.contentSize.width {
+        else if bookWebView.scrollView.contentOffset.x + screenWidth >= bookWebView.scrollView.contentSize.width {
             
             let text = bookModel?.openNextChapter()
             
@@ -105,6 +106,8 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
             }
             
             openHTMLInWebView(text: text!)
+            progressSlider.value = bookModel!.getCurrentProgressPercent()
+            return
             
         }
         
