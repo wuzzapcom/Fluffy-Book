@@ -259,6 +259,14 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         var pathsToFiles = bookModel!.getTitles().1
         
+        print(pathsToFiles[number])
+        
+        database?.updateCurrentChapter(forModel: bookModel!, currentChapter: number)
+  
+//        bookModel?.setCurrentChapter(currentChapter: number)
+        
+        openHTMLInWebView(text: bookModel!.openCurrentChapter())
+        
     }
     
     func customizeNavigationBar(){
