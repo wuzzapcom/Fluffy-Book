@@ -22,13 +22,13 @@ class BookModel : Object {
     fileprivate dynamic var currentChapter : Int = 0
     fileprivate dynamic var currentOffsetInChapter : Int = 0
     fileprivate var contentSizesList = List<IntObject>()
+    fileprivate var bookMarkList = List<BookMark>()
     
     
     func getSection(number: Int) -> String? {
         return nil
     }
     func addResource(_ resource: BookParserStructServiceFiles) {
-//        self.resources[resource.href] = resource
         self.resources.append(resource)
     }
     
@@ -65,20 +65,28 @@ class BookModel : Object {
         
     }
     
-//    func getTextFromCurrentPage() -> String {
-//        var text = ""
-//        for content in contentInfo {
-//            let path = URL(fileURLWithPath: (content.resource?.fullHref)!)
-//            do {
-//                text += try String(contentsOf: path, encoding: String.Encoding.utf8)
-//            } catch {
-//                print("Error\n")
-//                return ""
-//            }
-//            //return text
-//        }
-//        return text
-//    }
+    func addBookMark(){
+        
+        let bookMark = BookMark()
+        bookMark.setValues(chapterNum: currentChapter, offset: currentOffsetInChapter)
+        
+        bookMarkList.append(bookMark)
+        
+    }
+    
+    func getBookMarks() -> [BookMark] {
+        
+        var result: [BookMark] = []
+        
+        for bookMark in bookMarkList {
+            
+            result.append(bookMark)
+            
+        }
+        
+        return result
+        
+    }
     
     func getTextFromChapter(path : String) -> String{
         let _path = URL(fileURLWithPath: path)

@@ -58,6 +58,14 @@ class DatabaseModel{
         
     }
     
+    func addBookMark(forModel model : BookModel){
+        
+        try! db.write {
+            model.addBookMark()
+        }
+        
+    }
+    
     func addBookModel(bookModel : BookModel) {
         
         try! db.write {

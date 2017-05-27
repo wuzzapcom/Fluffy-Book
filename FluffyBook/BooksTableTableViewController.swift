@@ -39,6 +39,7 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         
         BookReaderModel.loadDataFromAppGroups()
         
+        
     }
     
     func handleReopening(notification : Notification){

@@ -39,6 +39,8 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         setGestures()
 
         setTranslateMenu()
+        
+        print(bookModel?.getBookMarks())
 
     }
     
@@ -63,7 +65,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     func addButtonsToNavigationController(){
         
-        let markButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: nil)
+        let markButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: #selector(handleBookMarkButton(sender:)))
         
         let contentsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleContentsButton(sender:)))
         
@@ -106,7 +108,12 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
     }
     
-    
+    func handleBookMarkButton(sender:UIBarButtonItem){
+        
+        let db = DatabaseModel()
+        db.addBookMark(forModel: bookModel!)
+        
+    }
     
     func handleSwipe(sender : UISwipeGestureRecognizer){
         

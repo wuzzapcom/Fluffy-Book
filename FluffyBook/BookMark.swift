@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct BookMark {
-    fileprivate var chapterNum : Int
-    fileprivate var offset : Int
+class BookMark : Object {
+    
+    dynamic fileprivate var chapterNum : Int = 0
+    dynamic fileprivate var offset : Int = 0
     
     public var chapter : Int {
         get{
@@ -23,19 +25,11 @@ struct BookMark {
         }
     }
     
-    init(_chapterNum : Int, _offset : Int) {
+    func setValues(chapterNum chapter : Int, offset off : Int) {
         
-        chapterNum = _chapterNum
-        offset = _offset
+        chapterNum = chapter
+        offset = off
         
     }
-    
-//    func getChapterNum() -> Int {
-//        return chapterNum
-//    }
-//    
-//    func getOffset() -> Int {
-//        return offset
-//    }
     
 }
