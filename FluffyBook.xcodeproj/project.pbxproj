@@ -205,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				9E677BD01E744B9100113D6B /* BookReaderViewController.swift */,
-				9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

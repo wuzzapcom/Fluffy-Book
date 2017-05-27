@@ -251,19 +251,21 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     }
     
     func setSelectedRow(number n: Int?) {
-        print(n)
         
         guard let number = n, n != nil else {
+            NSLog("number of chapter is nil")
             return
         }
+        
+        NSLog("Number of chapter is \(number)")
         
         var pathsToFiles = bookModel!.getTitles().1
         
         print(pathsToFiles[number])
         
         database?.updateCurrentChapter(forModel: bookModel!, currentChapter: number)
-  
-//        bookModel?.setCurrentChapter(currentChapter: number)
+        
+        database?.updateCurrentContentOffset(forModel: bookModel!, withOffset: 0)
         
         openHTMLInWebView(text: bookModel!.openCurrentChapter())
         
