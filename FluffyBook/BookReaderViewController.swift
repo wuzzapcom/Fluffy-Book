@@ -16,10 +16,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     var isStatusBarHidden: Bool = false
     var isDetectedGesture: Bool = false
     var database : DatabaseModel?
-    
-    override var prefersStatusBarHidden: Bool{
-        return isStatusBarHidden
-    }
+
     
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var bookWebView: UIWebView!
@@ -31,20 +28,61 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         database = DatabaseModel()
         
-        fillViewByModel()  //Modifying view controller
+        fillViewByModel()
         
         customizeProgressSlider()
         
         addButtonsToNavigationController()
         
-        customizeNavigationBar()
+        setWebViewAppearance()
         
-        bookWebView.paginationBreakingMode = UIWebPaginationBreakingMode.page //webView stuff
+        setGestures()
+
+        setTranslateMenu()
+
+    }
+    
+    //SET VIEW APPEARANCE
+    func fillViewByModel() {
+        
+        openHTMLInWebView(text: bookModel!.openCurrentChapter())
+        
+        progressSlider?.value = bookModel!.getCurrentProgressPercent()
+        
+        self.title = bookModel!.getBookTitle()
+        
+    }
+    
+    func customizeProgressSlider() {
+        
+        progressSlider.backgroundColor = UIColor.white
+        
+        progressSlider.setThumbImage(#imageLiteral(resourceName: "Bookmark"), for: UIControlState.normal)
+        
+    }
+    
+    func addButtonsToNavigationController(){
+        
+        let markButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: nil)
+        
+        let contentsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleContentsButton(sender:)))
+        
+        self.navigationItem.rightBarButtonItems = [markButton, contentsButton]
+        
+    }
+    
+    func setWebViewAppearance() {
+        
+        bookWebView.paginationBreakingMode = UIWebPaginationBreakingMode.page
         bookWebView.paginationMode = UIWebPaginationMode.leftToRight
         bookWebView.scrollView.bounces = false
         bookWebView.scrollView.isScrollEnabled = false
         
         bookWebView.delegate = self
+        
+    }
+    
+    func setGestures(){
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         gestureRecognizer.delegate = self
@@ -58,12 +96,17 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
         rightSwipe.direction = .right
         bookWebView.addGestureRecognizer(rightSwipe)
-
+        
+    }
+    
+    func setTranslateMenu() {
         
         let translateMenuItem = UIMenuItem(title: "Translation", action: #selector(translation))
         UIMenuController.shared.menuItems = [translateMenuItem]
-
+        
     }
+    
+    
     
     func handleSwipe(sender : UISwipeGestureRecognizer){
         
@@ -78,10 +121,6 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
             screenWidth *= -1
             
         }
-        
-//        if bookWebView.scrollView.contentOffset.x + screenWidth < 0 || bookWebView.scrollView.contentOffset.x - screenWidth >= bookWebView.scrollView.contentSize.width{
-//            return
-//        }
         
         if bookWebView.scrollView.contentOffset.x + screenWidth < 0 {
             
@@ -130,17 +169,12 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         guard (try? webDict.asyncQuery(forWord: copiedText)) != nil else{
             
-            print("Async Query error")
+            NSLog("Async Query error")
             return
             
         }
         
-        print("Selected text is \(copiedText)")
-        
-//        if isStatusBarHidden{
-//            changeInterfaceHiddency()
-//        }
-//        self.navigationController?.pushViewController(TranslationPresentationViewController(), animated: true)
+        NSLog("Selected text is \(copiedText)")
         
         openTranslationView()
         
@@ -164,7 +198,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     @IBAction func handleUserChangedSlider(_ sender: Any) {
         
-        print("update progress slider")
+        NSLog("update progress slider")
         
         let newOffset = bookModel?.getNewOffsetInContent(bySliderValue: progressSlider.value)
         
@@ -200,41 +234,12 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         database?.updateCurrentContentOffset(forModel: bookModel!, withOffset: Int(self.bookWebView.scrollView.contentOffset.x))
         
         progressSlider?.value = bookModel!.getCurrentProgressPercent()
-        print(progressSlider?.value)
-        
-    }
-    
-    
-    //viewDidLoad methods
-    func fillViewByModel() {
-        
-        openHTMLInWebView(text: bookModel!.openCurrentChapter())
-        
-        progressSlider?.value = bookModel!.getCurrentProgressPercent()
-        
-        self.title = bookModel!.getBookTitle()
         
     }
     
     func openHTMLInWebView(text : String){
         
         bookWebView.loadHTMLString(text, baseURL: nil)
-        
-    }
-    
-    func customizeProgressSlider() {
-        
-        progressSlider.setThumbImage(#imageLiteral(resourceName: "Bookmark"), for: UIControlState.normal)
-        
-    }
-    
-    func addButtonsToNavigationController(){
-        
-        let markButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: nil)
-        
-        let contentsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "List"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleContentsButton(sender:)))
-        
-        self.navigationItem.rightBarButtonItems = [markButton, contentsButton]
         
     }
     
@@ -261,21 +266,13 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         var pathsToFiles = bookModel!.getTitles().1
         
-        print(pathsToFiles[number])
+        NSLog(pathsToFiles[number])
         
         database?.updateCurrentChapter(forModel: bookModel!, currentChapter: number)
         
         database?.updateCurrentContentOffset(forModel: bookModel!, withOffset: 0)
         
         openHTMLInWebView(text: bookModel!.openCurrentChapter())
-        
-    }
-    
-    func customizeNavigationBar(){
-        
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
         
     }
     
@@ -306,13 +303,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
-        let heightOffset = self.navigationController?.navigationBar.frame.height
-        
-        changeBookWebViewSize(offset: -heightOffset!)
-        
-        bookWebView.frame = bookWebView.frame.offsetBy(dx: 0, dy: heightOffset!)
-        
-        showSlider()
+        progressSlider.isHidden = false
         
     }
     
@@ -321,42 +312,8 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        let heightOffset = self.navigationController?.navigationBar.frame.height
-
-        changeBookWebViewSize(offset: heightOffset!)
-
-        bookWebView.frame = bookWebView.frame.offsetBy(dx: 0, dy: -heightOffset!)
-        
-        hideSlider()
-        
-    }
-    
-    func hideSlider(){
-        
-        let heightOffset = progressSlider.frame.height
-        
-        changeBookWebViewSize(offset: heightOffset)
-        
         progressSlider.isHidden = true
-    
-    }
-    
-    func showSlider(){
         
-        let heightOffset = progressSlider.frame.height
-        
-        changeBookWebViewSize(offset: -heightOffset)
-        
-        progressSlider.isHidden = false
-
-    
-    }
-
-    
-    func changeBookWebViewSize(offset : CGFloat){
-        
-        bookWebView.frame.size.height += offset
-    
     }
     
     override func viewWillDisappear(_ animated: Bool) {
