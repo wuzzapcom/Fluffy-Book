@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, TransferDataProtocol {
+class BookReaderViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDelegate, TransferDataProtocol {
     
     
     var bookModel : BookModel?
@@ -81,7 +81,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, T
         bookWebView.scrollView.isScrollEnabled = false
         bookWebView.bookReaderViewController = self
         
-//        bookWebView.delegate = self
+        bookWebView.delegate = self
         
     }
     
