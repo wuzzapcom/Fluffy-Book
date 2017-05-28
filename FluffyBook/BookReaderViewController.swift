@@ -49,7 +49,7 @@ class BookReaderViewController: UIViewController, UIWebViewDelegate, UIGestureRe
         
         openHTMLInWebView(text: bookModel!.openCurrentChapter())
         
-        progressSlider?.value = bookModel!.getCurrentProgressPercent()
+        updateSliderValue()
         
         self.title = bookModel!.getBookTitle()
         
@@ -139,7 +139,7 @@ class BookReaderViewController: UIViewController, UIWebViewDelegate, UIGestureRe
             }
             
             openHTMLInWebView(text: text!)
-            progressSlider.value = bookModel!.getCurrentProgressPercent()
+            updateSliderValue()
             return
             
         }
@@ -153,7 +153,7 @@ class BookReaderViewController: UIViewController, UIWebViewDelegate, UIGestureRe
             }
             
             openHTMLInWebView(text: text!)
-            progressSlider.value = bookModel!.getCurrentProgressPercent()
+            updateSliderValue()
             return
             
         }
@@ -240,7 +240,7 @@ class BookReaderViewController: UIViewController, UIWebViewDelegate, UIGestureRe
         
         database?.updateCurrentContentOffset(forModel: bookModel!, withOffset: Int(self.bookWebView.scrollView.contentOffset.x))
         
-        progressSlider?.value = bookModel!.getCurrentProgressPercent()
+        updateSliderValue()
         
     }
     
@@ -280,6 +280,14 @@ class BookReaderViewController: UIViewController, UIWebViewDelegate, UIGestureRe
         database?.updateCurrentContentOffset(forModel: bookModel!, withOffset: 0)
         
         openHTMLInWebView(text: bookModel!.openCurrentChapter())
+        
+        updateSliderValue()
+        
+    }
+    
+    func updateSliderValue(){
+        
+        progressSlider?.value = bookModel!.getCurrentProgressPercent()
         
     }
     
