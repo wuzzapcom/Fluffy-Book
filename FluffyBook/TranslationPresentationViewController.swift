@@ -10,9 +10,9 @@ import UIKit
 
 class TranslationPresentationViewController: UIViewController {
     
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var label: UILabel!
     public var translation : String?
-    fileprivate var indication : UIActivityIndicatorView?
-    fileprivate var translationLabel : UILabel?
     var prevViewBlur : UIVisualEffectView?
     
 
@@ -29,11 +29,10 @@ class TranslationPresentationViewController: UIViewController {
         
         view.backgroundColor = UIColor.clear
         view.isOpaque = false
-        indication = UIActivityIndicatorView()
-        indication?.color = UIColor.black
-        indication?.startAnimating()
         
-        addView(subView: indication!)
+        label?.alpha = 0.0
+        indicator?.color = UIColor.black
+        indicator?.startAnimating()
         
     }
     
@@ -64,13 +63,22 @@ class TranslationPresentationViewController: UIViewController {
         
         print("notification")
         
-        indication?.removeFromSuperview()
+        label?.text = notification.object as? String
+        label?.font = UIFont(name: "Arial", size: 27.0)
         
-        translationLabel = UILabel()
-        translationLabel?.text = notification.object as? String
-        translationLabel?.font = translationLabel?.font.withSize(27)
+        self.indicator?.alpha = 0.0
+        UIView.animate(withDuration: 0.7, animations: {
+            self.label?.alpha = 1.0
+        })
         
-        addView(subView: translationLabel!)
+//        indication?.removeFromSuperview()
+//        
+//        translationLabel = UILabel()
+//        translationLabel?.text = notification.object as? String
+////        translationLabel?.font = translationLabel?.font.withSize(27)
+//        translationLabel?.font = UIFont(name: "Arial", size: 27.0)
+//
+//        addView(subView: translationLabel!)
     
     }
 

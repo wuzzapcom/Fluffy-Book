@@ -20,4 +20,6 @@ class Constants{
     
     public static let CONTENT_TABLE_VIEW_IDENTIFIER = "ChapterTableViewIdentifier"
     
+    public static let TRANSLATION_PRESENTATION_ID = "TranslationPresentation"
+    
 }

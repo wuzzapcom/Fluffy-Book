@@ -205,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				9E677BD01E744B9100113D6B /* BookReaderViewController.swift */,
+				9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -260,7 +261,6 @@
 				9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */,
 				E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */,
 				9E02E1EF1EAFDF470091A1DD /* WebDictionaryModel.swift */,
-				9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */,
 			);
 			name = LogicModel;
 			sourceTree = "<group>";

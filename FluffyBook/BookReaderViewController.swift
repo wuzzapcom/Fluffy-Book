@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate, TransferDataProtocol {
+class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, TransferDataProtocol {
     
     
     var bookModel : BookModel?
@@ -19,7 +19,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
 
     
     @IBOutlet weak var progressSlider: UISlider!
-    @IBOutlet weak var bookWebView: UIWebView!
+    @IBOutlet weak var bookWebView: CustomWebView!
     
 
     override func viewDidLoad() {
@@ -79,8 +79,9 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         bookWebView.paginationMode = UIWebPaginationMode.leftToRight
         bookWebView.scrollView.bounces = false
         bookWebView.scrollView.isScrollEnabled = false
+        bookWebView.bookReaderViewController = self
         
-        bookWebView.delegate = self
+//        bookWebView.delegate = self
         
     }
     
@@ -103,7 +104,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     func setTranslateMenu() {
         
-        let translateMenuItem = UIMenuItem(title: "Translation", action: #selector(translation))
+        let translateMenuItem = UIMenuItem(title: "Translate", action: #selector(translation))
         UIMenuController.shared.menuItems = [translateMenuItem]
         
     }
@@ -164,10 +165,10 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     func translation(){
         
-        UIApplication.shared.sendAction(#selector(copy(_:)), to: nil, from: self, for: nil)
+        let copied = bookWebView.stringByEvaluatingJavaScript(from: "window.getSelection().toString()")
         
-        let copied = UIPasteboard.general.string
-        
+        bookWebView.stringByEvaluatingJavaScript(from: "window.getSelection().removeAllRanges()")
+
         guard let copiedText = copied, copied != nil else {
             return
         }
@@ -196,7 +197,7 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
         
-        let translationView = TranslationPresentationViewController()
+        let translationView = storyboard!.instantiateViewController(withIdentifier: Constants.TRANSLATION_PRESENTATION_ID) as! TranslationPresentationViewController //TranslationPresentationViewController()
         translationView.prevViewBlur = blurEffectView
         translationView.modalPresentationStyle = .overCurrentContext
         present(translationView, animated: true, completion: nil)
@@ -212,7 +213,6 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         moveContent(toOffset: CGFloat(newOffset!))
         
     }
-
     
     func handleTap(sender : UITapGestureRecognizer){
         
@@ -329,5 +329,32 @@ class BookReaderViewController: UIViewController, UIGestureRecognizerDelegate, U
         
     }
     
+
+}
+
+class CustomWebView: UIWebView{
+    
+    var bookReaderViewController : BookReaderViewController?
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        if action == #selector(BookReaderViewController.translation) {
+            return true
+        }
+        
+        return false
+        
+    }
+    
+    func translation(){
+        
+        guard bookReaderViewController != nil else{
+            NSLog("Set bookReaderViewController!")
+            return
+        }
+        
+        bookReaderViewController?.translation()
+        
+    }
 
 }

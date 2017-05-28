@@ -214,7 +214,7 @@ class BookParserModel : Object {
     }
     
     fileprivate func parseTocFile() {
-        var listOfContent = List<BookParserContentInfo>()
+        let listOfContent = List<BookParserContentInfo>()
         var tocItems: [AEXMLElement]?
         
         do {
@@ -257,7 +257,7 @@ class BookParserModel : Object {
     }
     
     fileprivate func readMetadata(_ items: [AEXMLElement]) -> BookParserMetaInfoService {
-        var metadata = BookParserMetaInfoService()
+        let metadata = BookParserMetaInfoService()
         
         for item in items {
             
