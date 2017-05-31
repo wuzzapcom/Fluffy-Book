@@ -36,13 +36,6 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="oKx-x1-nwn">
-                                            <rect key="frame" x="113" y="115" width="243" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="ccg-OY-pwO">
                                             <rect key="frame" x="113" y="78" width="243" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -56,7 +49,6 @@
                                     <outlet property="bookAuthorLabel" destination="ccg-OY-pwO" id="eSk-Vt-Xv4"/>
                                     <outlet property="bookNameLabel" destination="AGe-Wt-3OQ" id="Fc4-fz-dky"/>
                                     <outlet property="bookPictureImageView" destination="OpW-5A-cg7" id="ONK-F1-Vke"/>
-                                    <outlet property="tagsLabel" destination="oKx-x1-nwn" id="T8b-s1-3hc"/>
                                     <segue destination="hBK-1h-dWE" kind="show" id="6UD-Em-iK4"/>
                                 </connections>
                             </tableViewCell>
@@ -85,7 +77,7 @@
                         <viewControllerLayoutGuide type="top" id="9LO-Tf-F4S"/>
                         <viewControllerLayoutGuide type="bottom" id="c8L-ft-0Z1"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="lOl-Kq-M33">
+                    <view key="view" contentMode="scaleToFill" id="lOl-Kq-M33">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -120,7 +112,7 @@
             <objects>
                 <navigationController title="Books" id="JSp-CT-asS" userLabel="Books" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Books" image="Book" selectedImage="Book" id="H02-cP-cIK"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="63b-Xp-E4O">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="63b-Xp-E4O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -191,7 +183,7 @@
             <objects>
                 <navigationController title="Dictionary" id="WtC-8f-iSy" userLabel="Dictionary" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Words" image="Download" selectedImage="Download" id="06D-vH-sP7"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="11T-re-9OW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="11T-re-9OW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

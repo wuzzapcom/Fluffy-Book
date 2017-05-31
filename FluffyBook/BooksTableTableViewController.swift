@@ -179,16 +179,14 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
             
             cell?.bookNameLabel!.text = searchedModel.bookTitle
             cell?.bookAuthorLabel!.text = searchedModel.bookAuthor
-            cell?.tagsLabel!.text = searchedModel.bookTags
             cell?.bookPictureImageView!.image = UIImage(imageLiteralResourceName: (searchedModel.bookImageName))
             
             return cell!
             
         }
 
-            cell?.bookNameLabel!.text = self.booksTableViewModel?.getBookTitle(indexPath : indexPath)
-            cell?.bookAuthorLabel!.text = self.booksTableViewModel?.getAuthor(indexPath : indexPath)
-            cell?.tagsLabel!.text = self.booksTableViewModel?.getTags(indexPath : indexPath)
+        cell?.bookNameLabel!.text = self.booksTableViewModel?.getBookTitle(indexPath : indexPath)
+        cell?.bookAuthorLabel!.text = self.booksTableViewModel?.getAuthor(indexPath : indexPath)
 
         let data = try! Data(contentsOf: URL(fileURLWithPath: (self.booksTableViewModel?.getImageName(indexPath : indexPath))!))
         let image = UIImage(data: data)

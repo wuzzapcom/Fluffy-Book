@@ -66,9 +66,15 @@ class DictionaryTableViewController: UITableViewController, UISearchBarDelegate 
             
         }
         
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
         searchBar.text = ""
         searchBar.endEditing(true)
         searchController.isActive = false
+        
+        updateTable()
         
     }
     
@@ -199,6 +205,12 @@ class DictionaryTableViewController: UITableViewController, UISearchBarDelegate 
     func handleNotification(notification : Notification){
         
         print("table notification")
+        
+        if searchController.isActive {
+            
+            searchBarSearchButtonClicked(searchController.searchBar)
+            
+        }
         
         updateTable()
         
