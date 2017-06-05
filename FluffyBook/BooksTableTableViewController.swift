@@ -17,6 +17,8 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DatabaseModel().clearDatabase()
     
         booksTableViewModel = BooksTableViewModel()
         
@@ -270,6 +272,11 @@ class BooksTableTableViewController: UITableViewController, UIViewControllerPrev
         if let seg = segue.destination as? BookReaderViewController {
             
             setModelToDestinationViewController(vc: seg, indexPath : nil)
+        }
+        else if let seg = segue.destination as? PageViewController {
+            
+            seg.bookModel = booksTableViewModel?.getSelectedBookModel(indexPath : self.tableView.indexPathForSelectedRow!)
+            
         }
         
     }

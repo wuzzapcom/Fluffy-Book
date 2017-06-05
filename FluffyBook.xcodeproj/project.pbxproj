@@ -29,6 +29,10 @@
 		9E81E01F1ED02C2900A7C7DD /* ContentsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81E01E1ED02C2900A7C7DD /* ContentsTableViewModel.swift */; };
 		9E81E0231ED0360D00A7C7DD /* TransferDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81E0221ED0360D00A7C7DD /* TransferDataProtocol.swift */; };
 		9E8CF95A1EC72378005B78E0 /* TranslationPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */; };
+		9E8F44B51EE5AB12000D2E0E /* TextPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F44B41EE5AB12000D2E0E /* TextPresenterView.swift */; };
+		9E8F44B81EE5AB27000D2E0E /* ParsedPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F44B61EE5AB27000D2E0E /* ParsedPageModel.swift */; };
+		9E8F44B91EE5AB27000D2E0E /* ParsingTextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F44B71EE5AB27000D2E0E /* ParsingTextModel.swift */; };
+		9E8F44BB1EE5AC08000D2E0E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F44BA1EE5AC08000D2E0E /* PageViewController.swift */; };
 		9E911F2C1E92DE690001CB6E /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E911F2B1E92DE690001CB6E /* ShareViewController.swift */; };
 		9E911F2F1E92DE690001CB6E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E911F2D1E92DE690001CB6E /* MainInterface.storyboard */; };
 		9E911F331E92DE690001CB6E /* BookShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9E911F291E92DE690001CB6E /* BookShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -108,6 +112,10 @@
 		9E81E01E1ED02C2900A7C7DD /* ContentsTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsTableViewModel.swift; sourceTree = "<group>"; };
 		9E81E0221ED0360D00A7C7DD /* TransferDataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferDataProtocol.swift; sourceTree = "<group>"; };
 		9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslationPresentationViewController.swift; sourceTree = "<group>"; };
+		9E8F44B41EE5AB12000D2E0E /* TextPresenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextPresenterView.swift; sourceTree = "<group>"; };
+		9E8F44B61EE5AB27000D2E0E /* ParsedPageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsedPageModel.swift; sourceTree = "<group>"; };
+		9E8F44B71EE5AB27000D2E0E /* ParsingTextModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsingTextModel.swift; sourceTree = "<group>"; };
+		9E8F44BA1EE5AC08000D2E0E /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		9E911F291E92DE690001CB6E /* BookShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BookShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E911F2B1E92DE690001CB6E /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		9E911F2E1E92DE690001CB6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -206,6 +214,8 @@
 			children = (
 				9E677BD01E744B9100113D6B /* BookReaderViewController.swift */,
 				9E8CF9591EC72378005B78E0 /* TranslationPresentationViewController.swift */,
+				9E8F44BA1EE5AC08000D2E0E /* PageViewController.swift */,
+				9E9619491E7432B9003A5DA1 /* ViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -254,10 +264,10 @@
 		9E75F4871E8FE2930061E022 /* LogicModel */ = {
 			isa = PBXGroup;
 			children = (
-				9E4D9ADF1EAE1A3C002B13DA /* BookParserContentInfo.swift */,
-				9E4D9ADB1EAE1A1E002B13DA /* BookParserMetaInfoService.swift */,
-				9E4D9ADC1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift */,
+				9E8F44B21EE5A9BA000D2E0E /* EpubParser */,
 				E9D6E1DE1ED338E000BC340A /* BookMark.swift */,
+				9E8F44B61EE5AB27000D2E0E /* ParsedPageModel.swift */,
+				9E8F44B71EE5AB27000D2E0E /* ParsingTextModel.swift */,
 				9E80003A1E8D9A36006B9EE7 /* DatabaseModel.swift */,
 				E9AFD8791E7D6EC400D18FC6 /* BookParserModel.swift */,
 				9E02E1EF1EAFDF470091A1DD /* WebDictionaryModel.swift */,
@@ -288,6 +298,24 @@
 				9E81E0221ED0360D00A7C7DD /* TransferDataProtocol.swift */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		9E8F44B21EE5A9BA000D2E0E /* EpubParser */ = {
+			isa = PBXGroup;
+			children = (
+				9E4D9ADF1EAE1A3C002B13DA /* BookParserContentInfo.swift */,
+				9E4D9ADB1EAE1A1E002B13DA /* BookParserMetaInfoService.swift */,
+				9E4D9ADC1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift */,
+			);
+			name = EpubParser;
+			sourceTree = "<group>";
+		};
+		9E8F44B31EE5AAF3000D2E0E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9E8F44B41EE5AB12000D2E0E /* TextPresenterView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		9E911F2A1E92DE690001CB6E /* BookShare */ = {
@@ -329,13 +357,13 @@
 			children = (
 				9E911F381E92E4260001CB6E /* FluffyBook.entitlements */,
 				9E9619471E7432B9003A5DA1 /* AppDelegate.swift */,
-				9E9619491E7432B9003A5DA1 /* ViewController.swift */,
 				9E96194B1E7432B9003A5DA1 /* Main.storyboard */,
 				9E9619501E7432B9003A5DA1 /* LaunchScreen.storyboard */,
 				E9851E1F1ED06AC1001C68B9 /* cover1.jpg */,
 				9E56D1801E80584300A99F2C /* Assets.xcassets */,
 				9E4D9AE21EAE1C31002B13DA /* TheW.epub */,
 				9E9619531E7432B9003A5DA1 /* Info.plist */,
+				9E8F44B31EE5AAF3000D2E0E /* Views */,
 				9E81E0241ED0361400A7C7DD /* Protocols */,
 				9E677BD61E744F4E00113D6B /* Controllers */,
 				9E677BD71E744F5A00113D6B /* Model */,
@@ -609,6 +637,7 @@
 			files = (
 				9E4D9AE01EAE1A3C002B13DA /* BookParserContentInfo.swift in Sources */,
 				9E7C1F951E795CD9009A0A01 /* BooksTableViewCell.swift in Sources */,
+				9E8F44B81EE5AB27000D2E0E /* ParsedPageModel.swift in Sources */,
 				9E96194A1E7432B9003A5DA1 /* ViewController.swift in Sources */,
 				9E677BD11E744B9100113D6B /* BookReaderViewController.swift in Sources */,
 				9E7C1F981E795FF0009A0A01 /* BooksTableViewModel.swift in Sources */,
@@ -617,6 +646,8 @@
 				9E81E01D1ED02BE000A7C7DD /* ContentsTableViewController.swift in Sources */,
 				9E4D9ADD1EAE1A1E002B13DA /* BookParserMetaInfoService.swift in Sources */,
 				E9AFD87A1E7D6EC400D18FC6 /* BookParserModel.swift in Sources */,
+				9E8F44B91EE5AB27000D2E0E /* ParsingTextModel.swift in Sources */,
+				9E8F44B51EE5AB12000D2E0E /* TextPresenterView.swift in Sources */,
 				9E677BD51E744F3200113D6B /* BookReaderModel.swift in Sources */,
 				9E4D9ADE1EAE1A1E002B13DA /* BookParserStructServiceFiles.swift in Sources */,
 				9E02E1F01EAFDF470091A1DD /* WebDictionaryModel.swift in Sources */,
@@ -626,6 +657,7 @@
 				9E8CF95A1EC72378005B78E0 /* TranslationPresentationViewController.swift in Sources */,
 				9E9BD5771E798E6200ACB6FD /* DictionaryTableViewModel.swift in Sources */,
 				9E02E1F21EAFE8C30091A1DD /* Constants.swift in Sources */,
+				9E8F44BB1EE5AC08000D2E0E /* PageViewController.swift in Sources */,
 				E9D6E1DF1ED338E000BC340A /* BookMark.swift in Sources */,
 				9E677BCD1E7441D600113D6B /* BooksTableTableViewController.swift in Sources */,
 				9E9619481E7432B9003A5DA1 /* AppDelegate.swift in Sources */,

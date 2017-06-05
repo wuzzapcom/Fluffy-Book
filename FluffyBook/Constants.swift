@@ -22,4 +22,6 @@ class Constants{
     
     public static let TRANSLATION_PRESENTATION_ID = "TranslationPresentation"
     
+    public static let TEXT_PRESENTER_VIEW_CONTROLLER = "TextPresenterViewController"
+    
 }
