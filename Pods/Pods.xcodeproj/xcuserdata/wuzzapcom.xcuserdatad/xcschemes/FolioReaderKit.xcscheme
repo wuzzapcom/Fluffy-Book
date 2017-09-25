@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '248C1F3C83D773C3F2CAFADEAC69D00B'
+               BlueprintIdentifier = 'AD09CD06A215135381AC72BB413D6CAB'
                BlueprintName = 'FolioReaderKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'FolioReaderKit.framework'>
